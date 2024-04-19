@@ -2,3 +2,54 @@
     border-radius: 20px; /* Adjust the value to change the roundness */
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0);
 }
+
+/* Landing Page Styles */
+.landing-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Navigation Buttons Styles */
+  .nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .nav-buttons > * {
+    margin-left: 10px;
+  }
+
+  /* About Us and What We Do Section Styles */
+  .about-us, .what-we-do {
+    margin-bottom: 40px;
+  }
+
+  /* Heading Styles */
+  .about-us h1, .what-we-do h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+
+.landing-page {
+  padding: 20px;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+.bg-light-orange {
+  background-color: #FFEFD5; /* Light orange background color */
+}
+
+.nav-buttons {
+    margin-bottom: 20px;
+  }
+
+  .custom-rounded-card {
+    border-radius: 15px; /* Customize border radius as needed */
+    background-color: #FFEFD5;
+  }

@@ -1,55 +1,41 @@
 <template>
-    <div class="landing-page">
-      <!-- Navigation Buttons -->
-      <div class="nav-buttons">
-        <router-link to="/signin">Sign In</router-link>
-        <router-link to="/register">Register</router-link>
-      </div>
+    <v-main>
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+              <router-link to="/signin" class="btn btn-primary">Sign In</router-link>
+              <router-link to="/register" class="btn btn-primary">Register</router-link>
+            </div>
+            <h1 class="text-center">BidGo</h1>
 
-      <!-- About Us Section -->
-      <section class="about-us">
-        <h1>About Us</h1>
-        <p>We are a company dedicated to providing solutions...</p>
-      </section>
+            <!-- Card with BidGo Title and About Us / What We Do Sections -->
+            <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16" >
 
-      <!-- What We Do Section -->
-      <section class="what-we-do">
-        <h1>What We Do</h1>
-        <p>We specialize in...</p>
-      </section>
-    </div>
+              <!-- About Us Section -->
+              <section class="about-us">
+                <h2>About Us</h2>
+                <p>We are a company dedicated to providing solutions...</p>
+              </section>
+            </v-card>
+            <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16" >
+                <!-- What We Do Section -->
+                <section class="what-we-do">
+                  <h2>What We Do</h2>
+                  <p>We specialize in...</p>
+                </section>
+              </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
   </template>
 
   <script>
-export default {
-  name: 'LandingPage'
-}
-</script>
+  export default {
+    name: 'LandingPage'
+  }
+  </script>
 
-<style scoped>
-/* Add your custom styles here */
-.landing-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.nav-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.nav-buttons > * {
-  margin-left: 10px;
-}
-
-.about-us, .what-we-do {
-  margin-bottom: 40px;
-}
-
-.about-us h1, .what-we-do h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-</style>
+<style src="../../css/styles.css" scoped></style>
