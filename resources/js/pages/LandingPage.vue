@@ -5,8 +5,8 @@
           <v-col cols="12">
             <!-- Navigation Buttons -->
             <div class="nav-buttons">
-              <router-link to="/signin" class="btn btn-primary">Sign In</router-link>
-              <router-link to="/register" class="btn btn-primary">Register</router-link>
+              <router-link to="/Login" class="btn btn-primary">Log In</router-link>
+              <router-link to="/Register" class="btn btn-primary">Register</router-link>
             </div>
             <h1 class="text-center">BidGo</h1>
 

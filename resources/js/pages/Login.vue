@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container class="container-top-margin">
+    <v-container class="container-top-margin" fluid>
       <v-row>
         <v-col class="text-center">
           <v-img
@@ -23,10 +23,10 @@
               <v-text-field label="Password" variant="outlined" type="password">
               </v-text-field>
             </v-form>
-
+            <v-checkbox label="Remember Me" ></v-checkbox>
             <v-card-actions class="justify-center">
               <v-btn color="blue"> Signup</v-btn>
-              <v-btn color="blue"> Login</v-btn>
+              <v-btn color="blue" variant="tonal"> Login</v-btn>
             </v-card-actions>
             <div class="divider-container">
               <v-divider></v-divider>
@@ -37,12 +37,18 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-checkbox label="Remember Me" ></v-checkbox>
   </v-main>
 </template>
 
 <script>
-  export default {
-    name: 'Login'
+export default {
+  name: "Login",
+  data() {
+    return {
+    };
+  }
 };
 </script>
+
 <style src="/resources/css/styles.css"></style>
