@@ -17,6 +17,14 @@
     margin-top: 25px; /* Adjust the top margin as needed */
 }
 
+.forgot-password {
+    font-size: 12px;
+    padding-right: 1px;
+}
+
+.small-text label {
+    font-size: 12px;
+}
 /*Maui Styles*/
 /* Landing Page Styles */
 .landing-page {

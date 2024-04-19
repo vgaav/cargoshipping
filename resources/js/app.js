@@ -18,6 +18,8 @@ const vuetify = createVuetify({
 
 //material design icons
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@mdi/font/css/materialdesignicons.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const app = createApp(App)
 app.use(router)
