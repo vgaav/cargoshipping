@@ -40,4 +40,9 @@
   </v-main>
 </template>
 
+<script>
+  export default {
+    name: 'Login'
+};
+</script>
 <style src="/resources/css/styles.css"></style>

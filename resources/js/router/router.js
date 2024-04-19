@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeVue from '../pages/Home.vue'
-import LandingPageVue from '../pages/LandingPage.vue' //Landing page for anonymouse user
+import LoginVue from '../pages/Login.vue'
+import LandingPageVue from '../pages/LandingPage.vue'
 
 const routes = [
     {
         path: '/',
-        name:'Home',
+        name:'LandingPage',
         component: LandingPageVue,
     },
     {
-        path: '/LandingPage', // Landing page for the user
-        name: 'LandingPage',
-        component: LandingPageVue,
+        path: '/Login',
+        name: 'Login',
+        component: LoginVue,
     },
 ];
 

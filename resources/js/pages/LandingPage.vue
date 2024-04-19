@@ -35,7 +35,7 @@
   <script>
   export default {
     name: 'LandingPage'
-  }
+  };
   </script>
 
 <style src="../../css/styles.css" scoped></style>
