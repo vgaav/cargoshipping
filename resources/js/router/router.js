@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginVue from '../pages/Login.vue'
 import LandingPageVue from '../pages/LandingPage.vue'
-import RegisterVue from '../pages/Register.vue'
+import MainMenuUserVue from '../pages/MainMenuUser.vue'
 
 const routes = [
     {
@@ -15,10 +15,10 @@ const routes = [
         component: LoginVue,
     },
     {
-        path:'/Register',
-        name: 'Register',
-        component:RegisterVue
-    }
+        path: '/MainMenuUser',
+        name: 'MainMenuUser',
+        component: MainMenuUserVue
+      }
 ];
 
 const router = createRouter({

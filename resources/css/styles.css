@@ -10,11 +10,11 @@
 }
   
 .divider-text {
-    margin: 0 10px; /* Adjust the spacing as needed */
+    margin: 0 10px; 
 }
 
 .container-top-margin {
-    margin-top: 25px; /* Adjust the top margin as needed */
+    margin-top: 25px; 
 }
 
 .forgot-password {
@@ -24,6 +24,12 @@
 
 .small-text label {
     font-size: 12px;
+    padding-top: 1px;
+}
+
+.welcome-back-text {
+  font-size: 24px;
+  font-family: 'Arial', sans-serif; 
 }
 /*Maui Styles*/
 /* Landing Page Styles */
