@@ -8,13 +8,13 @@
     display: flex;
     align-items: center;
 }
-  
+
 .divider-text {
-    margin: 0 10px; 
+    margin: 0 10px;
 }
 
 .container-top-margin {
-    margin-top: 25px; 
+    margin-top: 25px;
 }
 
 .forgot-password {
@@ -29,16 +29,48 @@
 
 .welcome-back-text {
   font-size: 24px;
-  font-family: 'Arial', sans-serif; 
+  font-family: 'Arial', sans-serif;
 }
 /*Maui Styles*/
 /* Landing Page Styles */
+
+/* Add custom styles here */
+
 .landing-page {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
   }
 
+  .banner {
+    position: relative;
+  }
+
+  .banner img {
+    width: 100%;
+    height: auto;
+    filter: brightness(80%);
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 50%;
+    left:70%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+
+  .banner-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .banner-slogan {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
   /* Navigation Buttons Styles */
   .nav-buttons {
     display: flex;
@@ -57,28 +89,31 @@
 
   /* Heading Styles */
   .about-us h1, .what-we-do h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 28px; /* Increase the font size for emphasis */
+    margin-bottom: 20px; /* Increase the bottom margin for spacing */
   }
 
 
-.landing-page {
-  padding: 20px;
-}
-
-.card {
-  margin-top: 20px;
-}
-
-.bg-light-orange {
-  background-color: #FFEFD5; /* Light orange background color */
-}
-
-.nav-buttons {
+  /* Three cards at the bottom - landing page */
+  .nav-buttons {
     margin-bottom: 20px;
   }
 
   .custom-rounded-card {
     border-radius: 15px; /* Customize border radius as needed */
-    background-color: #FFEFD5;
+    margin-top: 50px
   }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensure the card takes full height of its container */
+  }
+
+  .card-image {
+    width: 80px;
+    height: auto;
+    margin: 0 auto;
+  }
+

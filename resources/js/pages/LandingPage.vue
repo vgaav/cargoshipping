@@ -1,5 +1,17 @@
 <template>
   <v-main>
+        <!-- Banner Section -->
+    <!-- Banner Section -->
+    <div class="banner">
+        <img src="../../assets/banner_image.jpeg" alt="Banner Image">
+        <div class="banner-overlay">
+          <h1 class="banner-title">BidGo</h1>
+          <p class="banner-slogan">Your Trusted Platform for Cargo Bidding</p>
+          <router-link to="/register" class="btn btn-primary">Sign Up</router-link>
+        </div>
+      </div>
+
+
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -10,7 +22,6 @@
             >
             <!--Tinanggal ko yung Register, Maui. Tignan mo na lang yung login page-->
           </div>
-          <h1 class="text-center">BidGo</h1>
 
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
           <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16">
@@ -26,6 +37,37 @@
               <h2>What We Do</h2>
               <p>We specialize in...</p>
             </section>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <!--Three cards at the bottom-->
+      <v-row class="mt-5">
+        <v-col cols="4">
+          <v-card class="text-center card bottom-card">
+            <img src="../../assets/expand.png" class="card-image" alt="Super Flexible">
+            <div class="pa-3">
+              <h3>Super flexible</h3>
+              <p>Flexible and customizable solutions for your needs.</p>
+            </div>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card class="text-center card bottom-card">
+            <img src="../../assets/time.png" class="card-image" alt="Less Work for You">
+            <div class="pa-3">
+              <h3>Less Work for You</h3>
+              <p>Automate tasks and reduce manual effort.</p>
+            </div>
+          </v-card>
+        </v-col>
+        <v-col cols="4">
+          <v-card class="text-center card bottom-card">
+            <img src="../../assets/money.png" class="card-image" alt="Saves Time">
+            <div class="pa-3">
+              <h3>Saves Time</h3>
+              <p>Efficient processes to save you time and effort.</p>
+            </div>
           </v-card>
         </v-col>
       </v-row>
