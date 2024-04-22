@@ -37,29 +37,38 @@
 /* Add custom styles here */
 
 .landing-page {
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .animate-drop-down {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(0);
   }
 
   .banner {
     position: relative;
-  }
+}
 
-  .banner img {
+.banner img {
     width: 100%;
-    height: auto;
+    height: 300px; /* Adjust the height as needed */
+    object-fit: cover; /* Maintain aspect ratio */
     filter: brightness(80%);
-  }
+}
 
-  .banner-overlay {
+.banner-overlay {
     position: absolute;
     top: 50%;
-    left:70%;
+    left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-  }
+}
 
   .banner-title {
     font-size: 48px;
@@ -72,10 +81,23 @@
     margin-bottom: 20px;
   }
   /* Navigation Buttons Styles */
-  .nav-buttons {
+  .banner .nav-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 20px;
+  }
+
+  .banner  .btn-primary {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff; /* Change to your desired button color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Add smooth transition effect */
+  }
+
+  .banner .btn-primary:hover {
+    background-color: #0056b3; /* Change to a darker shade when hovered */
   }
 
   .nav-buttons > * {

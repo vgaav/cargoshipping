@@ -1,5 +1,6 @@
 <template>
   <v-main>
+    <div class="landing-page" ref="landingPage">
         <!-- Banner Section -->
     <!-- Banner Section -->
     <div class="banner">
@@ -7,7 +8,9 @@
         <div class="banner-overlay">
           <h1 class="banner-title">BidGo</h1>
           <p class="banner-slogan">Your Trusted Platform for Cargo Bidding</p>
-          <router-link to="/register" class="btn btn-primary">Sign Up</router-link>
+          <div class="nav-buttons">
+            <router-link to="/Login" class="btn btn-primary">Log In</router-link>
+          </div>
         </div>
       </div>
 
@@ -16,12 +19,7 @@
       <v-row>
         <v-col cols="12">
           <!-- Navigation Buttons -->
-          <div class="nav-buttons">
-            <router-link to="/Login" class="btn btn-primary"
-              >Log In</router-link
-            >
-            <!--Tinanggal ko yung Register, Maui. Tignan mo na lang yung login page-->
-          </div>
+
 
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
           <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16">
@@ -72,15 +70,27 @@
         </v-col>
       </v-row>
     </v-container>
+    </div>
   </v-main>
 </template>
 
   <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
-export default ref({
+export default {
   name: "LandingPage",
-});
+  setup() {
+    const landingPage = ref(null);
+
+    onMounted(() => {
+      setTimeout(() => {
+        landingPage.value.classList.add("animate-drop-down");
+      }, 100);
+    });
+
+    return { landingPage };
+  },
+};
 </script>
 
 
