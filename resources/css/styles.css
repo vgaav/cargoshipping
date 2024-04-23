@@ -33,9 +33,6 @@
 }
 /*Maui Styles*/
 /* Landing Page Styles */
-
-/* Add custom styles here */
-
 .landing-page {
     width: 100%;
     margin: 0 auto;
@@ -105,7 +102,7 @@
   }
 
   /* About Us and What We Do Section Styles */
-  .about-us, .what-we-do {
+  .about-us.what-we-do {
     margin-bottom: 40px;
   }
 
@@ -122,9 +119,29 @@
   }
 
   .custom-rounded-card {
-    border-radius: 15px; /* Customize border radius as needed */
-    margin-top: 50px
-  }
+    position: relative;
+    overflow: hidden; /* Clear floats */
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.text-wrapper {
+    width: 70%; /* Adjust the width of text wrapper */
+    float: left; /* Float text to the left */
+}
+
+.image-wrapper {
+    width: 30%; /* Adjust the width of image wrapper */
+    float: right; /* Float image to the right */
+    text-align: right; /* Align image to the right */
+    padding-top: 10px; /* Add some padding to align with text */
+}
+
+.side-image {
+    width: 100%; /* Ensure the image fills the wrapper */
+    height: auto;
+    border-radius: 5px; /* Add border radius if needed */
+}
 
   .card {
     display: flex;
@@ -139,3 +156,53 @@
     margin: 0 auto;
   }
 
+  .what-we-do .text-wrapper {
+    width: 70%; /* Adjust the width of text wrapper */
+    float: right; /* Float text to the right */
+}
+
+.what-we-do .image-wrapper {
+    width: 30%; /* Adjust the width of image wrapper */
+    float: left; /* Float image to the left */
+    text-align: right; /* Align image to the right */
+    padding-top: 10px; /* Add some padding to align with text */
+    padding-right: 20px; /* Add padding to the right of the image */
+    padding-bottom: 10px; /* Add padding to the bottom of the image */
+}
+
+.what-we-do .side-image{
+    width: 100%; /* Ensure the image fills the wrapper */
+    height: auto;
+    border-radius: 5px; /* Add border radius if needed */
+}
+
+/* Mobile Phones for Landing Page */
+
+@media only screen and (max-width: 600px) {
+    .text-wrapper, .image-wrapper {
+      width: 100%; /* Make text and image wrappers full width on smaller screens */
+      float: none; /* Remove float */
+      text-align: left; /* Align text to the left */
+      padding-top: 0; /* Remove padding */
+    }
+    .custom-rounded-card {
+      padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+    .side-image {
+      border-radius: 0; /* Remove border radius for image */
+    }
+
+    .what-we-do.text-wrapper, .what-we-do .image-wrapper {
+        width: 100%; /* Make text and image wrappers full width on smaller screens */
+        float: none; /* Remove float */
+        text-align: right; /* Align text to the left */
+        padding-top: 0; /* Remove padding */
+      }
+
+      .what-we-do.custom-rounded-card {
+        padding: 20px 10px; /* Adjust padding for smaller screens */
+      }
+      .what-we-do.side-image {
+        border-radius: 0; /* Remove border radius for image */
+      }
+  }
