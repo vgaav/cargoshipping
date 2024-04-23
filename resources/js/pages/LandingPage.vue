@@ -13,14 +13,13 @@
             </div>
         </div>
     </div>
+    <div class="black-box"></div>
 
 
     <v-container>
       <v-row>
         <v-col cols="12">
           <!-- Navigation Buttons -->
-
-
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
           <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16">
             <section class="about-us">
@@ -58,8 +57,23 @@
                 </div>
             </section>
         </v-card>
+
+        <section class="how-it-works">
+            <div class="text-wrapper">
+              <h2>How It Works</h2>
+              <!-- Add your content for the How It Works section here -->
+              <h3>Give us information about your shipment.</h3>
+              <h3>Wait for bidders to check your shipment.</h3>
+              <h3>Select your carrier/driver.</h3>
+              <h3>Shipment Complete</h3>
+
+
+            </div>
+          </section>
         </v-col>
       </v-row>
+
+
 
       <!--Three cards at the bottom-->
       <v-row class="mt-5">

@@ -33,6 +33,12 @@
 }
 /*Maui Styles*/
 /* Landing Page Styles */
+.black-box {
+    height: 20px; /* Adjust the height as needed */
+    background-color: black;
+    width:100%;
+}
+
 .landing-page {
     width: 100%;
     margin: 0 auto;
@@ -49,23 +55,23 @@
 
   .banner {
     position: relative;
-}
+    text-align: center; /* Center align text */
+  }
 
-.banner img {
+  .banner img {
     width: 100%;
-    height: 300px; /* Adjust the height as needed */
-    object-fit: cover; /* Maintain aspect ratio */
+    height: 400px; /* Auto adjust height */
+    object-fit: cover;
     filter: brightness(80%);
-}
+  }
 
-.banner-overlay {
+  .banner-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
     color: white;
-}
+  }
 
   .banner-title {
     font-size: 48px;
@@ -77,6 +83,7 @@
     font-size: 24px;
     margin-bottom: 20px;
   }
+
   /* Navigation Buttons Styles */
   .banner .nav-buttons {
     display: flex;
@@ -179,30 +186,56 @@
 /* Mobile Phones for Landing Page */
 
 @media only screen and (max-width: 600px) {
+
+    .banner-title {
+        font-size: 24px; /* Adjust title font size for smaller screens */
+      }
+
+      .banner-slogan {
+        font-size: 16px; /* Adjust slogan font size for smaller screens */
+      }
+
     .text-wrapper, .image-wrapper {
       width: 100%; /* Make text and image wrappers full width on smaller screens */
       float: none; /* Remove float */
       text-align: left; /* Align text to the left */
       padding-top: 0; /* Remove padding */
     }
+
     .custom-rounded-card {
       padding: 20px 10px; /* Adjust padding for smaller screens */
     }
+
     .side-image {
       border-radius: 0; /* Remove border radius for image */
     }
 
-    .what-we-do.text-wrapper, .what-we-do .image-wrapper {
-        width: 100%; /* Make text and image wrappers full width on smaller screens */
-        float: none; /* Remove float */
-        text-align: right; /* Align text to the left */
-        padding-top: 0; /* Remove padding */
+    .what-we-do .text-wrapper, .what-we-do .image-wrapper {
+      width: 100%; /* Make text and image wrappers full width on smaller screens */
+      float: none; /* Remove float */
+      text-align: right; /* Align text to the right */
+      padding-top: 0; /* Remove padding */
+    }
+
+    .what-we-do .custom-rounded-card {
+      padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .what-we-do .side-image {
+      border-radius: 0; /* Remove border radius for image */
+    }
+
+
+      .bottom-card .card-image {
+        width: 30px; /* Adjust image size for smaller screens */
+        padding-top: 10px;
       }
 
-      .what-we-do.custom-rounded-card {
-        padding: 20px 10px; /* Adjust padding for smaller screens */
+      .bottom-card h3 {
+        font-size: 13px; /* Adjust heading font size for smaller screens */
       }
-      .what-we-do.side-image {
-        border-radius: 0; /* Remove border radius for image */
+
+      .bottom-card p {
+        font-size: 10px; /* Adjust paragraph font size for smaller screens */
       }
   }
