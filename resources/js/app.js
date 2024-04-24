@@ -1,27 +1,31 @@
-//vue
 import { createApp } from 'vue'
 import App from './App.vue'
-
-//vue-router
 import router from './router/router.js';
+import { createVuetify, Vmessages } from 'vuetify'
 
-//vuetify
+
+// Import Vuetify styles
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
+
+// Import Vuetify components and directives
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+
+// Import Vuetify CSS
+import 'vuetify/dist/vuetify.min.css'
+
+// Import Material Design Icons
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@mdi/font/css/materialdesignicons.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const vuetify = createVuetify({
   components,
   directives,
 })
 
-//material design icons
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import '@mdi/font/css/materialdesignicons.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
 const app = createApp(App)
 app.use(router)
 app.use(vuetify)
+
 app.mount('#app')
