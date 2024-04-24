@@ -3,6 +3,7 @@ import LoginVue from '../pages/Login.vue'
 import LandingPageVue from '../pages/LandingPage.vue'
 import MainMenuUserVue from '../pages/MainMenuUser.vue'
 import CarrierInfoVue from '../pages/CarrierInfo.vue'
+import DashboardVue from '../pages/Dashboard.vue'
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path:'/CarrierInfo',
         name:'CarrierInfo',
         component: CarrierInfoVue
+    },
+    {
+        path:'/Dashboard',
+        name:'Dashboard',
+        component: DashboardVue
     }
 ];
 

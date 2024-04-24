@@ -21,7 +21,7 @@
         <v-col cols="12">
           <!-- Navigation Buttons -->
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
-          <v-card class="mx-auto px-6 py-8 custom-rounded-card-about-us" elevation="0">
+          <v-card ref="aboutUsCard" class="mx-auto px-6 py-8 custom-rounded-card-about-us" id="aboutUsCard" elevation="0">
             <section class="about-us">
                 <!-- Image on top (for smaller screens) -->
                 <div class="image-wrapper">
@@ -38,7 +38,7 @@
                 </div>
             </section>
         </v-card>
-        <v-card class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" elevation="1">
+        <v-card ref="whatWeDoCard" class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" id="whatWeDoCard" elevation="1">
             <!-- What We Do Section -->
             <section class="what-we-do">
                 <div class="text-wrapper">
@@ -87,8 +87,10 @@
                 </div>
             </div>
           </div>
+          <!-- Image on the right -->
+              <img src="../../assets/network.png"  alt="Description of image" class="side-image">
         </section>
-         </div>
+        </div>
         </v-col>
       </v-row>
 
