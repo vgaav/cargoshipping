@@ -38,7 +38,7 @@
                 </div>
             </section>
         </v-card>
-        <v-card class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" elevation="3">
+        <v-card class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" elevation="1">
             <!-- What We Do Section -->
             <section class="what-we-do">
                 <div class="text-wrapper">
@@ -58,23 +58,37 @@
             </section>
         </v-card>
 
-        <div class="why-use-us-section">
-        <section class="why-use-us">
-            <div class="text-wrapper">
-              <h2>Why use us?</h2>
-              <!-- Add your content for the How It Works section here -->
-              <h3>Move and ship anything <img src="../../assets/package-variant.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
-              <P>Test</P>
-              <h3>Best way to connect with clients and carriers <img src="../../assets/account-multiple.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
-              <P>Test</P>
-              <h3>Safety and Protection <img src="../../assets/security.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
-              <P>Test</P>
-              <h3>Saves Money and Time <img src="../../assets/account-cash.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
-              <P>Test</P>
-
+<!-- Why Use Us Section -->
+<div class="why-use-us-section">
+    <section class="why-use-us">
+        <div class="text-wrapper">
+            <h2>Why use us?</h2>
+            <!-- Why Use Us Content -->
+            <div class="why-use-us-content">
+                <!-- Reason 1 -->
+                <div class="why-use-reason">
+                    <h3>Move and ship anything <img src="../../assets/package-variant.svg" alt="An example icon" class="icon-img" /></h3>
+                    <p>Effortlessly transport goods of any size or type to any destination, making logistics seamless and convenient.</p>
+                </div>
+                <!-- Reason 2 -->
+                <div class="why-use-reason">
+                    <h3>Best way to connect <img src="../../assets/account-multiple.svg" alt="An example icon" class="icon-img" /></h3>
+                    <p>Facilitate direct communication and collaboration between clients and carriers, enhancing efficiency and reducing intermediaries.</p>
+                </div>
+                <!-- Reason 3 -->
+                <div class="why-use-reason">
+                    <h3>Safety and Protection <img src="../../assets/security.svg" alt="An example icon" class="icon-img" /></h3>
+                    <p>Ensure the security and protection of goods throughout the shipping process, minimizing risks and losses.</p>
+                </div>
+                <!-- Reason 4 -->
+                <div class="why-use-reason">
+                    <h3>Saves Money and time <img src="../../assets/account-cash.svg" alt="An example icon" class="icon-img" /></h3>
+                    <p>Optimize costs and time by streamlining operations and leveraging competitive bidding to secure the best deals.</p>
+                </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
+         </div>
         </v-col>
       </v-row>
 
@@ -112,6 +126,12 @@
       </v-row>
     </v-container>
     </div>
+    <nav class="bottom-navbar">
+        <!-- Circular Button -->
+        <router-link to="/Login" class="circle-button">
+          <span class="plus-sign">+</span>
+        </router-link>
+      </nav>
   </v-main>
 </template>
 
