@@ -2,7 +2,7 @@
   <v-main>
     <v-container class="container-top-margin" fluid>
       <v-row>
-         <v-col class="text-center">
+        <v-col class="text-center">
           <v-img
             class="mx-auto rounded-circle"
             cover
@@ -21,31 +21,42 @@
                 </v-row>
                 <v-form @submit.prevent="login">
                   <v-text-field
-                    v-model="email"
+                    v-model="emailLogin"
                     label="Username"
                     variant="outlined"
                     placeholder="juandelacruz@email.com"
                     type="email"
+                    :rules="emailRule"
                     required
                   ></v-text-field>
                   <v-text-field
-                    v-model="password"
+                    v-model="passwordLogin"
                     label="Password"
                     variant="outlined"
-                    :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                    :append-inner-icon="
+                      showPasswordLogin ? 'mdi-eye-off' : 'mdi-eye'
+                    "
                     @click:append-inner="togglePasswordVisibility"
-                    :type="showPassword ? 'text' : 'password'"
-                    hint="At least 8 characters"
+                    :type="showPasswordLogin ? 'text' : 'password'"
+                    :rules="passwordRule"
                     required
-                    :rules="[passwordRule]"
                   ></v-text-field>
                   <v-col cols="12" class="px-0 py-0 text-right forgot-password">
                     <span @click="forgotPassword">Forgot Password?</span>
                   </v-col>
                   <v-card-actions class="mt-1 justify-center">
-                    <v-btn type="submit" block color="#4E47C6" variant="tonal">Login</v-btn>
+                    <v-btn type="submit" block color="#4E47C6" variant="tonal"
+                      >Login</v-btn
+                    >
                   </v-card-actions>
-                </v-form> <div class="mt-2 divider-container">
+                </v-form>
+                <v-alert v-if="loginSuccess" type="success" class="mt-3"
+                  >Login Successful!</v-alert
+                >
+                <v-alert v-if="loginError" type="error" class="mt-3"
+                  >Login Failed. Please check your credentials.</v-alert
+                >
+                <div class="mt-2 divider-container">
                   <v-divider></v-divider>
                   <span class="divider-text">OR</span>
                   <v-divider></v-divider>
@@ -97,9 +108,42 @@
                 </div>
               </v-window-item>
               <v-window-item :value="2">
-                <div class="text-center">
-                  <v-btn tile outlined dark @click="step--">Log in</v-btn>
-                </div>
+                <v-form @submit.prevent="signUp">
+                  <v-text-field
+                    v-model="emailSignUp"
+                    label="Email"
+                    variant="outlined"
+                    placeholder="Enter your email"
+                    type="email"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="passwordSignUp"
+                    label="Password"
+                    variant="outlined"
+                    :append-inner-icon="'mdi-eye-off'"
+                    @click:append-inner="toggleNewPasswordVisibility"
+                    :type="showPasswordSignUp ? 'text' : 'password'"
+                    required
+                    :rules="newPasswordRule"
+                  ></v-text-field>
+                  <v-card-actions class="mt-1 justify-center">
+                    <v-btn type="submit" block color="#4E47C6" variant="tonal"
+                      >Sign Up</v-btn
+                    >
+                  </v-card-actions>
+                  <v-card-actions class="mt-1 justify-center">
+                    <div>
+                      <span>Don't have an account yet? </span>
+                      <span
+                        class="text--primary"
+                        @click="step--"
+                        style="text-decoration: underline; cursor: pointer"
+                        >SIGN UP</span
+                      >
+                    </div>
+                  </v-card-actions>
+                </v-form>
               </v-window-item>
             </v-window>
           </v-card>
@@ -109,46 +153,75 @@
   </v-main>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  name: "Login",
-  setup() {
-    const step = ref(1);
-    const showPassword = ref(false);
-    const email = ref('');
-    const password = ref('');
+const router = useRouter();
 
-    const forgotPassword = () => {
-      console.log("Forgot Password clicked");
-    }
+const step = ref(1);
+const showPasswordLogin = ref(false);
+const emailLogin = ref("");
+const password = ref("");
+const loginSuccess = ref(false);
+const loginError = ref(false);
+const emailSignUp = ref("");
+const newPassword = ref("");
+const showPasswordSignUp = ref(false);
 
-    const togglePasswordVisibility = () => {
-      showPassword.value = !showPassword.value;
-    }
-
-    const login = () => {
-      // Perform login logic here
-    }
-
-    const passwordRule = [
-      v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
-    ];
-
-    return {
-      step,
-      showPassword,
-      forgotPassword,
-      togglePasswordVisibility,
-      email,
-      password,
-      login,
-      passwordRule
-    };
-  },
+const forgotPassword = () => {
+  console.log("Forgot Password clicked");
 };
+
+const togglePasswordVisibility = () => {
+  showPasswordLogin.value = !showPasswordLogin.value;
+};
+
+const toggleNewPasswordVisibility = () => {
+  showPasswordSignUp.value = !showPasswordSignUp.value;
+};
+
+const login = () => {
+  if (emailLogin.value === "user@example.com" && password.value === "password") {
+    loginSuccess.value = true;
+    loginError.value = false;
+    router.push({ name: "MainMenuUser" });
+  } else {
+    loginSuccess.value = false;
+    loginError.value = true;
+  }
+};
+
+const signUp = () => {
+  // Implement sign-up logic here
+  console.log("Sign Up clicked");
+};
+
+const emailRule = [
+  (v) => !!v || "Email is required",
+  (v) => /.+@.+\..+/.test(v) || "Email must be valid",
+];
+
+const passwordRule = [
+  (v) => !!v || "Password is required",
+  (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
+];
+
+const newPasswordRule = [
+  (v) => !!v || "Password is required",
+  (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
+];
+
+
+watch(step, () => {
+  emailLogin.value = "";
+  passwordLogin.value = "";
+  emailSignUp.value = "";
+  passwordSignUp.value ="";
+  loginSuccess.value = false;
+  loginError.value = false;
+});
+
 </script>
 
 <style src="/resources/css/styles.css"></style>
