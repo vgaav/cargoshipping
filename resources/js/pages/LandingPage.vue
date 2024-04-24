@@ -21,7 +21,7 @@
         <v-col cols="12">
           <!-- Navigation Buttons -->
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
-          <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="0">
+          <v-card class="mx-auto px-6 py-8 custom-rounded-card-about-us" elevation="0">
             <section class="about-us">
                 <!-- Image on top (for smaller screens) -->
                 <div class="image-wrapper">
@@ -38,7 +38,7 @@
                 </div>
             </section>
         </v-card>
-        <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="0">
+        <v-card class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" elevation="3">
             <!-- What We Do Section -->
             <section class="what-we-do">
                 <div class="text-wrapper">
@@ -58,18 +58,23 @@
             </section>
         </v-card>
 
+        <div class="why-use-us-section">
         <section class="why-use-us">
             <div class="text-wrapper">
               <h2>Why use us?</h2>
               <!-- Add your content for the How It Works section here -->
-              <h3>Move and ship anything</h3>
-              <h3>Best way to connect with clients and carriers</h3>
-              <h3>Safety and Protection</h3>
-              <h3>Shipment Complete</h3>
-
+              <h3>Move and ship anything <img src="../../assets/package-variant.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
+              <P>Test</P>
+              <h3>Best way to connect with clients and carriers <img src="../../assets/account-multiple.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
+              <P>Test</P>
+              <h3>Safety and Protection <img src="../../assets/security.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
+              <P>Test</P>
+              <h3>Saves Money and Time <img src="../../assets/account-cash.svg" alt="An example icon" style="width:45px;height:45px" /></h3>
+              <P>Test</P>
 
             </div>
           </section>
+        </div>
         </v-col>
       </v-row>
 
@@ -78,7 +83,7 @@
       <!--Three cards at the bottom-->
       <v-row class="mt-5">
         <v-col cols="4">
-          <v-card class="text-center card bottom-card">
+          <v-card class="text-center card bottom-card" elevation="0">
             <img src="../../assets/expand.png" class="card-image" alt="Super Flexible">
             <div class="pa-3">
               <h3>Super flexible</h3>
@@ -87,7 +92,7 @@
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card class="text-center card bottom-card">
+          <v-card class="text-center card bottom-card" elevation="0">
             <img src="../../assets/time.png" class="card-image" alt="Less Work for You">
             <div class="pa-3">
               <h3>Less Work for You</h3>
@@ -96,7 +101,7 @@
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card class="text-center card bottom-card">
+          <v-card class="text-center card bottom-card" elevation="0">
             <img src="../../assets/money.png" class="card-image" alt="Saves Time">
             <div class="pa-3">
               <h3>Saves Time</h3>

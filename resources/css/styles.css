@@ -34,7 +34,7 @@
 /*Maui Styles*/
 /* Landing Page Styles */
 .black-box {
-    height: 20px; /* Adjust the height as needed */
+    height: 5px; /* Adjust the height as needed */
     background-color:#4E47C6;
     width:100%;
 }
@@ -42,7 +42,6 @@
 .landing-page {
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
     opacity: 0;
     transform: translateY(-20px);
   }
@@ -56,6 +55,7 @@
   .banner {
     position: relative;
     text-align: center; /* Center align text */
+    width: 100%;
   }
 
   .banner img {
@@ -115,17 +115,17 @@
 
   /* Heading Styles */
   .about-us h2, .what-we-do h2 {
-    font-size: 35px; /* Increase the font size for emphasis */
-    margin-bottom: 20px; /* Increase the bottom margin for spacing */
+    font-size: 28px; /* Increase the font size for emphasis */
+    margin-bottom: 10px; /* Increase the bottom margin for spacing */
   }
   .about-us h3, .what-we-do h3 {
-    font-size: 30px; /* Increase the font size for emphasis */
+    font-size: 20px; /* Increase the font size for emphasis */
   }
 
   .about-us p, .what-we-do p {
-    font-size: 27px; /* Increase the font size for emphasis */
+    font-size: 18px; /* Increase the font size for emphasis */
     margin-bottom: 20px; /* Increase the bottom margin for spacing */
-    color:grey;
+    color:black;
   }
 
 
@@ -134,14 +134,21 @@
     margin-bottom: 20px;
   }
 
-  .custom-rounded-card {
-    position: relative;
+  .custom-rounded-card-about-us{
     overflow: hidden; /* Clear floats */
-    padding: 20px;
-    margin-top: 50px;
+    padding: 5px;
+    margin-top: 10px;
     width:100%;
+    background-color:#FAB440;
+
 }
 
+.custom-rounded-card-what-we-do{
+    overflow: hidden; /* Clear floats */
+    padding: 5px;
+    margin-top: 10px;
+    width:100%;
+}
 .text-wrapper {
     width: 70%; /* Adjust the width of text wrapper */
     float: left; /* Float text to the left */
@@ -193,12 +200,27 @@
     border-radius: 5px; /* Add border radius if needed */
 }
 .bottom-card{
-    background-color: #FAB440;
+    background-color: #4E47C6;
 }
 .bottom-card .card-image {
     padding-top: 10px;
   }
 
+  .why-use-us-section{
+    padding-top:15px;
+  }
+
+  .why-use-us-section h2{
+    font-size: 28px;
+    text-align:center;
+    width: 100%; /* Make text and image wrappers full width on smaller screens */
+    padding-left:200px;
+
+  }
+
+  .why-use-us-section h3{
+    padding:20px;
+  }
 
 /* Mobile Phones for Landing Page */
 
@@ -218,6 +240,20 @@
       text-align: left; /* Align text to the left */
       padding-top: 0; /* Remove padding */
     }
+
+    .about-us h2, .what-we-do h2 {
+        font-size: 24px; /* Increase the font size for emphasis */
+        margin-bottom: 10px; /* Increase the bottom margin for spacing */
+      }
+      .about-us h3, .what-we-do h3 {
+        font-size: 18px; /* Increase the font size for emphasis */
+      }
+
+      .about-us p, .what-we-do p {
+        font-size: 16px; /* Increase the font size for emphasis */
+        margin-bottom: 10px; /* Increase the bottom margin for spacing */
+        color:grey;
+      }
 
     .custom-rounded-card {
       padding: 20px 10px; /* Adjust padding for smaller screens */
