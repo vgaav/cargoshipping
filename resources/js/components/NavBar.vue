@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar>
+    <v-bottom-navigation>
         <v-row>
             <v-col>
                 <v-btn icon="mdi-home"/>
@@ -17,5 +17,5 @@
                 <v-btn icon="mdi-earth"/>
             </v-col>
         </v-row>
-    </v-app-bar>
+    </v-bottom-navigation>
 </template>
