@@ -21,7 +21,7 @@
         <v-col cols="12">
           <!-- Navigation Buttons -->
           <!-- Card with BidGo Title and About Us / What We Do Sections -->
-          <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16">
+          <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="0">
             <section class="about-us">
                 <!-- Image on top (for smaller screens) -->
                 <div class="image-wrapper">
@@ -38,7 +38,7 @@
                 </div>
             </section>
         </v-card>
-        <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="16">
+        <v-card class="mx-auto px-6 py-8 custom-rounded-card" elevation="0">
             <!-- What We Do Section -->
             <section class="what-we-do">
                 <div class="text-wrapper">
@@ -58,13 +58,13 @@
             </section>
         </v-card>
 
-        <section class="how-it-works">
+        <section class="why-use-us">
             <div class="text-wrapper">
-              <h2>How It Works</h2>
+              <h2>Why use us?</h2>
               <!-- Add your content for the How It Works section here -->
-              <h3>Give us information about your shipment.</h3>
-              <h3>Wait for bidders to check your shipment.</h3>
-              <h3>Select your carrier/driver.</h3>
+              <h3>Move and ship anything</h3>
+              <h3>Best way to connect with clients and carriers</h3>
+              <h3>Safety and Protection</h3>
               <h3>Shipment Complete</h3>
 
 
@@ -110,23 +110,16 @@
   </v-main>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from "vue";
 
-export default {
-  name: "LandingPage",
-  setup() {
-    const landingPage = ref(null);
+const landingPage = ref(null);
 
-    onMounted(() => {
-      setTimeout(() => {
-        landingPage.value.classList.add("animate-drop-down");
-      }, 100);
-    });
-
-    return { landingPage };
-  },
-};
+onMounted(() => {
+  setTimeout(() => {
+    landingPage.value.classList.add("animate-drop-down");
+  }, 100);
+});
 </script>
 
 <style src="../../css/styles.css" scoped></style>
