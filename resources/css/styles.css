@@ -8,13 +8,13 @@
     display: flex;
     align-items: center;
 }
-  
+
 .divider-text {
-    margin: 0 10px; 
+    margin: 0 10px;
 }
 
 .container-top-margin {
-    margin-top: 25px; 
+    margin-top: 25px;
 }
 
 .forgot-password {
@@ -29,21 +29,79 @@
 
 .welcome-back-text {
   font-size: 24px;
-  font-family: 'Arial', sans-serif; 
+  font-family: 'Arial', sans-serif;
 }
 /*Maui Styles*/
 /* Landing Page Styles */
+.black-box {
+    height: 20px; /* Adjust the height as needed */
+    background-color:#4E47C6;
+    width:100%;
+}
+
 .landing-page {
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .animate-drop-down {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(0);
+  }
+
+  .banner {
+    position: relative;
+    text-align: center; /* Center align text */
+  }
+
+  .banner img {
+    width: 100%;
+    height: 400px; /* Auto adjust height */
+    object-fit: cover;
+    filter: brightness(60%);
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  .banner-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .banner-slogan {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
 
   /* Navigation Buttons Styles */
-  .nav-buttons {
+  .banner .nav-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 20px;
+  }
+
+  .banner  .btn-primary {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff; /* Change to your desired button color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Add smooth transition effect */
+  }
+
+  .banner .btn-primary:hover {
+    background-color: #0056b3; /* Change to a darker shade when hovered */
   }
 
   .nav-buttons > * {
@@ -51,34 +109,150 @@
   }
 
   /* About Us and What We Do Section Styles */
-  .about-us, .what-we-do {
+  .about-us.what-we-do {
     margin-bottom: 40px;
   }
 
   /* Heading Styles */
-  .about-us h1, .what-we-do h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  .about-us h2, .what-we-do h2 {
+    font-size: 35px; /* Increase the font size for emphasis */
+    margin-bottom: 20px; /* Increase the bottom margin for spacing */
+  }
+  .about-us h3, .what-we-do h3 {
+    font-size: 30px; /* Increase the font size for emphasis */
+  }
+
+  .about-us p, .what-we-do p {
+    font-size: 27px; /* Increase the font size for emphasis */
+    margin-bottom: 20px; /* Increase the bottom margin for spacing */
+    color:grey;
   }
 
 
-.landing-page {
-  padding: 20px;
-}
-
-.card {
-  margin-top: 20px;
-}
-
-.bg-light-orange {
-  background-color: #FFEFD5; /* Light orange background color */
-}
-
-.nav-buttons {
+  /* Three cards at the bottom - landing page */
+  .nav-buttons {
     margin-bottom: 20px;
   }
 
   .custom-rounded-card {
-    border-radius: 15px; /* Customize border radius as needed */
-    background-color: #FFEFD5;
+    position: relative;
+    overflow: hidden; /* Clear floats */
+    padding: 20px;
+    margin-top: 50px;
+    width:100%;
+}
+
+.text-wrapper {
+    width: 70%; /* Adjust the width of text wrapper */
+    float: left; /* Float text to the left */
+}
+
+.image-wrapper {
+    width: 30%; /* Adjust the width of image wrapper */
+    float: right; /* Float image to the right */
+    text-align: right; /* Align image to the right */
+    padding-top: 10px; /* Add some padding to align with text */
+}
+
+.side-image {
+    width: 100%; /* Ensure the image fills the wrapper */
+    height: auto;
+    border-radius: 5px; /* Add border radius if needed */
+}
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensure the card takes full height of its container */
+  }
+
+  .card-image {
+    width: 80px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .what-we-do .text-wrapper {
+    width: 70%; /* Adjust the width of text wrapper */
+    float: right; /* Float text to the right */
+}
+
+.what-we-do .image-wrapper {
+    width: 30%; /* Adjust the width of image wrapper */
+    float: left; /* Float image to the left */
+    text-align: right; /* Align image to the right */
+    padding-top: 10px; /* Add some padding to align with text */
+    padding-right: 20px; /* Add padding to the right of the image */
+    padding-bottom: 10px; /* Add padding to the bottom of the image */
+}
+
+.what-we-do .side-image{
+    width: 100%; /* Ensure the image fills the wrapper */
+    height: auto;
+    border-radius: 5px; /* Add border radius if needed */
+}
+.bottom-card{
+    background-color: #FAB440;
+}
+.bottom-card .card-image {
+    padding-top: 10px;
+  }
+
+
+/* Mobile Phones for Landing Page */
+
+@media only screen and (max-width: 600px) {
+
+    .banner-title {
+        font-size: 24px; /* Adjust title font size for smaller screens */
+      }
+
+      .banner-slogan {
+        font-size: 16px; /* Adjust slogan font size for smaller screens */
+      }
+
+    .text-wrapper, .image-wrapper {
+      width: 100%; /* Make text and image wrappers full width on smaller screens */
+      float: none; /* Remove float */
+      text-align: left; /* Align text to the left */
+      padding-top: 0; /* Remove padding */
+    }
+
+    .custom-rounded-card {
+      padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .side-image {
+      border-radius: 0; /* Remove border radius for image */
+    }
+
+    .what-we-do .text-wrapper, .what-we-do .image-wrapper {
+      width: 100%; /* Make text and image wrappers full width on smaller screens */
+      float: none; /* Remove float */
+      text-align: right; /* Align text to the right */
+      padding-top: 0; /* Remove padding */
+    }
+
+    .what-we-do .custom-rounded-card {
+      padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .what-we-do .side-image {
+      border-radius: 0; /* Remove border radius for image */
+    }
+
+
+      .bottom-card .card-image {
+        width: 30px; /* Adjust image size for smaller screens */
+        padding-top: 10px;
+      }
+
+      .bottom-card h3 {
+        font-size: 13px; /* Adjust heading font size for smaller screens */
+      }
+
+      .bottom-card p {
+        font-size: 10px; /* Adjust paragraph font size for smaller screens */
+      }
   }
