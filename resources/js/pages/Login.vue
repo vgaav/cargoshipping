@@ -38,7 +38,7 @@
                     "
                     @click:append-inner="togglePasswordVisibility"
                     :type="showPasswordLogin ? 'text' : 'password'"
-                    :rules="passwordRule"
+                    :rules="passwordLoginRule"
                     required
                   ></v-text-field>
                   <v-col cols="12" class="px-0 py-0 text-right forgot-password">
@@ -125,7 +125,7 @@
                     @click:append-inner="toggleNewPasswordVisibility"
                     :type="showPasswordSignUp ? 'text' : 'password'"
                     required
-                    :rules="newPasswordRule"
+                    :rules="PasswordSignUpRule"
                   ></v-text-field>
                   <v-card-actions class="mt-1 justify-center">
                     <v-btn type="submit" block color="#4E47C6" variant="tonal"
@@ -134,12 +134,12 @@
                   </v-card-actions>
                   <v-card-actions class="mt-1 justify-center">
                     <div>
-                      <span>Don't have an account yet? </span>
+                      <span>Already have an account? </span>
                       <span
                         class="text--primary"
                         @click="step--"
                         style="text-decoration: underline; cursor: pointer"
-                        >SIGN UP</span
+                        >LOG IN</span
                       >
                     </div>
                   </v-card-actions>
@@ -162,11 +162,11 @@ const router = useRouter();
 const step = ref(1);
 const showPasswordLogin = ref(false);
 const emailLogin = ref("");
-const password = ref("");
+const passwordLogin = ref("");
 const loginSuccess = ref(false);
 const loginError = ref(false);
 const emailSignUp = ref("");
-const newPassword = ref("");
+const passwordSignUp = ref("");
 const showPasswordSignUp = ref(false);
 
 const forgotPassword = () => {
@@ -182,7 +182,7 @@ const toggleNewPasswordVisibility = () => {
 };
 
 const login = () => {
-  if (emailLogin.value === "user@example.com" && password.value === "password") {
+  if (emailLogin.value === "user@example.com" && passwordLogin.value === "password") {
     loginSuccess.value = true;
     loginError.value = false;
     router.push({ name: "MainMenuUser" });
@@ -193,7 +193,6 @@ const login = () => {
 };
 
 const signUp = () => {
-  // Implement sign-up logic here
   console.log("Sign Up clicked");
 };
 
@@ -202,15 +201,20 @@ const emailRule = [
   (v) => /.+@.+\..+/.test(v) || "Email must be valid",
 ];
 
-const passwordRule = [
+const passwordLoginRule = [
   (v) => !!v || "Password is required",
-  (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
 ];
 
-const newPasswordRule = [
+const PasswordSignUpRule = [
   (v) => !!v || "Password is required",
   (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
+  (v) => /[a-z]/.test(v) || "Password must contain at least one lowercase letter",
+  (v) => /[A-Z]/.test(v) || "Password must contain at least one uppercase letter",
+  (v) => /\d/.test(v) || "Password must contain at least one digit",
+  (v) => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(v) || "Password must contain at least one special character",
+  (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~])/.test(v) || "Password must contain at least one of each: lowercase letter, uppercase letter, digit, and special character"
 ];
+
 
 
 watch(step, () => {
