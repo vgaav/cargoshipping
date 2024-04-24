@@ -127,26 +127,6 @@
                     required
                     :rules="PasswordSignUpRule"
                   ></v-text-field>
-                  <v-messages
-                    :value="passwordSignUp"
-                    :rules="PasswordSignUpRule"
-                  >
-                    <template
-                      v-for="(rule, index) in PasswordSignUpRule"
-                      :key="'rule-' + index"
-                    >
-                      <v-message
-                        v-if="!rule(passwordSignUp)"
-                        :key="'error-' + index"
-                        color="red"
-                        >{{ rule(passwordSignUp) }}</v-message
-                      >
-                      <v-message v-else :key="'pass-' + index" color="green"
-                        >Rule {{ index + 1 }} passed!</v-message
-                      >
-                    </template>
-                  </v-messages>
-
                   <v-card-actions class="mt-1 justify-center">
                     <v-btn type="submit" block color="#4E47C6" variant="tonal"
                       >Sign Up</v-btn
@@ -176,8 +156,6 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { VMessages, VMessage } from "vuetify";
-
 
 const router = useRouter();
 
@@ -204,10 +182,7 @@ const toggleNewPasswordVisibility = () => {
 };
 
 const login = () => {
-  if (
-    emailLogin.value === "user@example.com" &&
-    passwordLogin.value === "password"
-  ) {
+  if (emailLogin.value === "user@example.com" && passwordLogin.value === "password") {
     loginSuccess.value = true;
     loginError.value = false;
     router.push({ name: "MainMenuUser" });
@@ -226,34 +201,31 @@ const emailRule = [
   (v) => /.+@.+\..+/.test(v) || "Email must be valid",
 ];
 
-const passwordLoginRule = [(v) => !!v || "Password is required"];
+const passwordLoginRule = [
+  (v) => !!v || "Password is required",
+];
 
 const PasswordSignUpRule = [
   (v) => !!v || "Password is required",
   (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
-  (v) =>
-    /[a-z]/.test(v) || "Password must contain at least one lowercase letter",
-  (v) =>
-    /[A-Z]/.test(v) || "Password must contain at least one uppercase letter",
+  (v) => /[a-z]/.test(v) || "Password must contain at least one lowercase letter",
+  (v) => /[A-Z]/.test(v) || "Password must contain at least one uppercase letter",
   (v) => /\d/.test(v) || "Password must contain at least one digit",
-  (v) =>
-    /[!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(v) ||
-    "Password must contain at least one special character",
-  (v) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~])/.test(
-      v
-    ) ||
-    "Password must contain at least one of each: lowercase letter, uppercase letter, digit, and special character",
+  (v) => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(v) || "Password must contain at least one special character",
+  (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~])/.test(v) || "Password must contain at least one of each: lowercase letter, uppercase letter, digit, and special character"
 ];
+
+
 
 watch(step, () => {
   emailLogin.value = "";
   passwordLogin.value = "";
   emailSignUp.value = "";
-  passwordSignUp.value = "";
+  passwordSignUp.value ="";
   loginSuccess.value = false;
   loginError.value = false;
 });
+
 </script>
 
 <style src="/resources/css/styles.css"></style>
