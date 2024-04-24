@@ -92,6 +92,29 @@
                 </div>
               </v-window-item>
               <v-window-item :value="2">
+                <div class="text-center">
+                  <span>Registration</span>
+                  <v-btn
+                    depressed
+                    outlined
+                    color="#07143F"
+                    class="mr-1 ml-1 mt-4"
+                    @click="step++"
+                  >
+                    Register as Client
+                  </v-btn>
+                  <v-btn
+                    depressed
+                    outlined
+                    color="#07143F"
+                    class="mr-1 ml-1 mt-4"
+                    @click="step+=2"
+                  >
+                    Register as Carrier
+                  </v-btn>
+                </div>
+              </v-window-item>
+              <v-window-item :value="3">
                 <v-form @submit.prevent="signUp">
                   <v-text-field
                     v-model="emailSignUp"
@@ -99,6 +122,7 @@
                     variant="outlined"
                     placeholder="Enter your email"
                     type="email"
+                    :rules="emailRule"
                     required
                   ></v-text-field>
                   <v-text-field
@@ -109,7 +133,46 @@
                     @click:append-inner="toggleNewPasswordVisibility"
                     :type="showPasswordSignUp ? 'text' : 'password'"
                     required
-                    :rules="PasswordSignUpRule"
+                    :rules="passwordSignUpRule"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="confirmPasswordSignUp"
+                    label="Confirm Password"
+                    variant="outlined"
+                    :append-inner-icon="'mdi-eye-off'"
+                    @click:append-inner="toggleConfirmPasswordVisibility"
+                    :type="showConfirmPassword ? 'text' : 'password'"
+                    required
+                    :rules="confirmPasswordRule"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="contactNumberSignUp"
+                    label="Contact Number"
+                    variant="outlined"
+                    placeholder="Enter your contact number"
+                    required
+                  ></v-text-field>
+                  <v-autocomplete
+                    v-model="selectedProvince"
+                    :items="filteredProvinces"
+                    label="Province"
+                    outlined
+                    required
+                    :filter="customFilter"
+                  ></v-autocomplete>
+                  <v-autocomplete
+                    v-model="selectedMunicipality"
+                    :items="filteredMunicipalities"
+                    label="Municipality"
+                    outlined
+                    required
+                    :filter="customFilter"
+                  ></v-autocomplete>
+                  <v-text-field
+                    v-model="postalCode"
+                    label="Postal Code"
+                    variant="outlined"
+                    required
                   ></v-text-field>
                   <v-card-actions class="mt-1 justify-center">
                     <v-btn type="submit" block color="#4E47C6" variant="tonal"
@@ -121,13 +184,15 @@
                       <span>Already have an account? </span>
                       <span
                         class="text--primary"
-                        @click="step--"
+                        @click="step-=2"
                         style="text-decoration: underline; cursor: pointer"
                         >LOG IN</span
                       >
                     </div>
                   </v-card-actions>
                 </v-form>
+              </v-window-item>
+              <v-window-item :value="4">
               </v-window-item>
             </v-window>
           </v-card>
@@ -136,12 +201,116 @@
     </v-container>
   </v-main>
 </template>
-
 <script setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
+const municipalities = [
+  "Caloocan",
+  "Las Piñas",
+  "Makati",
+  "Malabon",
+  "Mandaluyong",
+  "Manila",
+  "Marikina",
+  "Muntinlupa",
+  "Navotas",
+  "Parañaque",
+  "Pasay",
+  "Pasig",
+  "Pateros",
+  "Quezon City",
+  "San Juan",
+  "Taguig",
+  "Valenzuela",
+];
+
+// Define provinces first
+const provinces = [
+  "Abra",
+  "Agusan del Norte",
+  "Agusan del Sur",
+  "Aklan",
+  "Albay",
+  "Antique",
+  "Apayao",
+  "Aurora",
+  "Basilan",
+  "Bataan",
+  "Batanes",
+  "Batangas",
+  "Benguet",
+  "Biliran",
+  "Bohol",
+  "Bukidnon",
+  "Bulacan",
+  "Cagayan",
+  "Camarines Norte",
+  "Camarines Sur",
+  "Camiguin",
+  "Capiz",
+  "Catanduanes",
+  "Cavite",
+  "Cebu",
+  "Compostela Valley",
+  "Cotabato",
+  "Davao del Norte",
+  "Davao del Sur",
+  "Davao Occidental",
+  "Davao Oriental",
+  "Dinagat Islands",
+  "Eastern Samar",
+  "Guimaras",
+  "Ifugao",
+  "Ilocos Norte",
+  "Ilocos Sur",
+  "Iloilo",
+  "Isabela",
+  "Kalinga",
+  "La Union",
+  "Laguna",
+  "Lanao del Norte",
+  "Lanao del Sur",
+  "Leyte",
+  "Maguindanao",
+  "Marinduque",
+  "Masbate",
+  "Misamis Occidental",
+  "Misamis Oriental",
+  "Mountain Province",
+  "Negros Occidental",
+  "Negros Oriental",
+  "Northern Samar",
+  "Nueva Ecija",
+  "Nueva Vizcaya",
+  "Occidental Mindoro",
+  "Oriental Mindoro",
+  "Palawan",
+  "Pampanga",
+  "Pangasinan",
+  "Quezon",
+  "Quirino",
+  "Rizal",
+  "Romblon",
+  "Samar",
+  "Sarangani",
+  "Siquijor",
+  "Sorsogon",
+  "South Cotabato",
+  "Southern Leyte",
+  "Sultan Kudarat",
+  "Sulu",
+  "Surigao del Norte",
+  "Surigao del Sur",
+  "Tarlac",
+  "Tawi-Tawi",
+  "Zambales",
+  "Zamboanga del Norte",
+  "Zamboanga del Sur",
+  "Zamboanga Sibugay",
+];
 
 const step = ref(1);
 const showPasswordLogin = ref(false);
@@ -151,7 +320,13 @@ const loginSuccess = ref(false);
 const loginError = ref(false);
 const emailSignUp = ref("");
 const passwordSignUp = ref("");
+const confirmPasswordSignUp = ref("");
+const contactNumberSignUp = ref("");
+const selectedProvince = ref(null);
+const selectedMunicipality = ref(null);
+const postalCode = ref("");
 const showPasswordSignUp = ref(false);
+const showConfirmPassword = ref(false);
 
 const forgotPassword = () => {
   console.log("Forgot Password clicked");
@@ -163,6 +338,10 @@ const togglePasswordVisibility = () => {
 
 const toggleNewPasswordVisibility = () => {
   showPasswordSignUp.value = !showPasswordSignUp.value;
+};
+
+const toggleConfirmPasswordVisibility = () => {
+  showConfirmPassword.value = !showConfirmPassword.value;
 };
 
 const login = () => {
@@ -190,32 +369,49 @@ const emailRule = [
 
 const passwordLoginRule = [(v) => !!v || "Password is required"];
 
-const PasswordSignUpRule = [
+const passwordSignUpRule = [
   (v) => !!v || "Password is required",
   (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
-  (v) =>
-    /[a-z]/.test(v) || "Password must contain at least one lowercase letter",
-  (v) =>
-    /[A-Z]/.test(v) || "Password must contain at least one uppercase letter",
-  (v) => /\d/.test(v) || "Password must contain at least one digit",
-  (v) =>
-    /[!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(v) ||
-    "Password must contain at least one special character",
-  (v) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~])/.test(
-      v
-    ) ||
-    "Password must contain at least one of each: lowercase letter, uppercase letter, digit, and special character",
+  // Add other password rules here
 ];
+
+const confirmPasswordRule = [
+  (v) => !!v || "Confirm Password is required",
+  (v) => v === passwordSignUp.value || "Passwords do not match",
+];
+
+const filteredProvinces = ref([...provinces]);
+const filteredMunicipalities = ref([...municipalities]);
+
+const customFilter = (item, queryText, itemText) => {
+  const searchText = queryText.toLowerCase();
+  return itemText.toLowerCase().includes(searchText);
+};
+
+watch(selectedProvince, (newValue) => {
+  if (newValue) {
+    filteredMunicipalities.value = municipalities.filter((municipality) =>
+      municipality.toLowerCase().includes(newValue.toLowerCase())
+    );
+  } else {
+    filteredMunicipalities.value = [];
+  }
+});
 
 watch(step, () => {
   emailLogin.value = "";
   passwordLogin.value = "";
   emailSignUp.value = "";
   passwordSignUp.value = "";
+  confirmPasswordSignUp.value = "";
+  contactNumberSignUp.value = "";
+  selectedProvince.value = null;
+  selectedMunicipality.value = null;
+  postalCode.value = "";
   loginSuccess.value = false;
   loginError.value = false;
 });
 </script>
+
 
 <style src="/resources/css/styles.css"></style>
