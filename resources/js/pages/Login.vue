@@ -92,30 +92,52 @@
                 </div>
               </v-window-item>
               <v-window-item :value="2">
-                <div class="text-center">
-                  <span>Registration</span>
-                  <v-btn
-                    depressed
-                    outlined
-                    color="#07143F"
-                    class="mr-1 ml-1 mt-4"
-                    @click="step++"
-                  >
-                    Register as Client
-                  </v-btn>
-                  <v-btn
-                    depressed
-                    outlined
-                    color="#07143F"
-                    class="mr-1 ml-1 mt-4"
-                    @click="step+=2"
-                  >
-                    Register as Carrier
-                  </v-btn>
-                </div>
+                <v-col cols="12" class="text-center mt-2">
+                  <!-- Adjust the mt-8 for proper spacing above -->
+                  <v-row
+                    ><span
+                      class="text--primary"
+                      @click="step -= 2"
+                      style="text-decoration: underline; cursor: pointer"
+                      >LOG IN</span
+                    >
+                    <span>Registration</span>
+                  </v-row>
+
+                  <div class="mt-4">
+                    <!-- Adjust the mt-4 for proper spacing below -->
+                    <v-btn
+                      depressed
+                      outlined
+                      color="#07143F"
+                      class="register-button mt-1"
+                      @click="step++"
+                    >
+                      Register as Client
+                    </v-btn>
+                    <v-btn
+                      depressed
+                      outlined
+                      color="#07143F"
+                      class="register-button mt-4"
+                      @click="step += 2"
+                    >
+                      Register as Carrier
+                    </v-btn>
+                  </div>
+                </v-col>
               </v-window-item>
+
               <v-window-item :value="3">
-                <v-form @submit.prevent="signUp">
+                <v-form @submit.prevent="signUp"><v-row
+                    ><span
+                      class="text--primary"
+                      @click="step -= 2"
+                      style="text-decoration: underline; cursor: pointer"
+                      >LOG IN</span
+                    >
+                    <span>Client Registration</span>
+                  </v-row>
                   <v-text-field
                     v-model="emailSignUp"
                     label="Email"
@@ -184,7 +206,7 @@
                       <span>Already have an account? </span>
                       <span
                         class="text--primary"
-                        @click="step-=2"
+                        @click="step -= 2"
                         style="text-decoration: underline; cursor: pointer"
                         >LOG IN</span
                       >
@@ -192,8 +214,7 @@
                   </v-card-actions>
                 </v-form>
               </v-window-item>
-              <v-window-item :value="4">
-              </v-window-item>
+              <v-window-item :value="4"> </v-window-item>
             </v-window>
           </v-card>
         </v-col>
