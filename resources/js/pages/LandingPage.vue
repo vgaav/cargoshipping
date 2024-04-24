@@ -133,7 +133,7 @@
         <router-link to="/Login" class="circle-button">
           <span class="plus-sign">+</span>
         </router-link>
-      </nav>
+    </nav>
   </v-main>
 </template>
 
