@@ -233,16 +233,6 @@
     align-items: center; /* Center items vertically */
 }
 
-/* Why Use Us Content */
-.why-use-us-content {
-    /* Add styles for the content wrapper */
-}
-
-/* Why Use Reason */
-.why-use-reason {
-    /* Add styles for each reason container */
-}
-
 /* Align text and image wrappers */
 .why-use-us-section .text-wrapper {
     width: 50%; /* Adjust the width of the text wrapper */
