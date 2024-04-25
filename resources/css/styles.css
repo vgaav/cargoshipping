@@ -89,6 +89,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    padding-top:50px;
   }
 
   .banner  .btn-primary {
@@ -198,6 +199,7 @@
     width: 100%; /* Ensure the image fills the wrapper */
     height: auto;
     border-radius: 5px; /* Add border radius if needed */
+    padding-top:10px;
 }
 .bottom-card{
     background-color: #4E47C6;
@@ -318,6 +320,10 @@
     padding-top:5px;
   }
 
+  .show-more-btn {
+    display: none;
+  }
+
 
 
 /* Mobile Phones for Landing Page */
@@ -331,6 +337,7 @@
       .banner-slogan {
         font-size: 16px; /* Adjust slogan font size for smaller screens */
       }
+
 
     .text-wrapper, .image-wrapper {
       width: 100%; /* Make text and image wrappers full width on smaller screens */
@@ -428,6 +435,29 @@
         height: 38px;
         /* Add additional styles for the icon image if needed */
     }
+
+
+      .hide-content {
+        display: none;
+      }
+
+      .show-more-btn {
+        display: inline-block;
+        padding: 8px 16px; /* Adjust padding for button size */
+        border: 1px solid #007bff; /* Button border */
+        background-color: #007bff; /* Button background color */
+        color: white; /* Button text color */
+        font-size: 14px; /* Button text size */
+        font-weight: bold; /* Button text weight */
+        border-radius: 4px; /* Button border radius */
+        cursor: pointer; /* Show pointer cursor on hover */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+
+      }
+
+      .show-more-btn:hover {
+        background-color: #0056b3; /* Darker background color on hover */
+      }
 
 
 
