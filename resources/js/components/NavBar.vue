@@ -1,15 +1,18 @@
 <template>    
     <!-- Top Navigation -->
-    <v-btn position="fixed" size="x-large" location = "top right" class="ma-4" icon="mdi-earth"></v-btn>
+    <v-btn position="fixed" size="x-large" location = "top right" class="ma-4" icon="mdi-bell"></v-btn>
 
     <!-- Bottom Navigation-->
     <v-btn position="fixed" size="x-large" location = "bottom end" class="ma-4" icon="mdi-menu" id="menu-activator"/>
-    
+
     <v-menu activator="#menu-activator">
         <v-list>
             <v-list-item>
                 <v-btn append-icon="mdi-truck">
                     Delivery
+                </v-btn>
+                <v-btn append-icon="mdi-earth">
+                    Maps
                 </v-btn>
             </v-list-item>
         </v-list>
