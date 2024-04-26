@@ -1,7 +1,5 @@
 <template>
     <div class="carrier-dashboard-page" ref="carrierDashboardPage">
-
-    <NavBar />
     <div class="dashboard">
       <div class="header">
         <div class="website-name">BidGo</div>
@@ -58,44 +56,43 @@
             </v-row>
           </v-card>
 
-    <!-- Modal -->
-<v-dialog v-model="modalVisible" max-width="400">
-    <v-card>
-      <v-card-title>Shipping Information</v-card-title>
-      <v-card-text>
-        <div>
-          <img :src="selectedItem.image" alt="Item Image" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;">
-        </div>
-        <div>
-          <label>Order from:</label>
-          <span>{{ selectedItem.client }}</span>
-        </div>
-        <div>
-          <label>Ship Out Date:</label>
-          <span>{{ selectedItem.pickupTime }}</span>
-        </div>
-        <div>
-          <label>Status:</label>
-          <span>{{ selectedItem.status }}</span>
-        </div>
-        <div>
-          <label>Destination:</label>
-          <span>{{ selectedItem.destination }}</span>
-        </div>
-        <div>
-          <label>Current Bids:</label>
-          <span>{{ selectedItem.currentBids }}</span>
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn color="green" @click="bid">Bid</v-btn>
-        <v-btn color="red" @click="cancel">Cancel</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+          <!-- Modal -->
+    <v-dialog v-model="modalVisible" max-width="400">
+        <v-card>
+          <v-card-title>Shipping Information</v-card-title>
+          <v-card-text>
+            <div>
+              <label>Order from:</label>
+              <span>{{ selectedItem.client }}</span>
+            </div>
+            <div>
+              <label>Ship Out Date:</label>
+              <span>{{ selectedItem.pickupTime }}</span>
+            </div>
+            <div>
+              <label>Status:</label>
+              <span>{{ selectedItem.status }}</span>
+            </div>
+            <div>
+              <label>Destination:</label>
+              <span>{{ selectedItem.destination }}</span>
+            </div>
+            <div>
+              <label>Current Bids:</label>
+              <span>{{ selectedItem.currentBids }}</span>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="green" @click="bid">Bid</v-btn>
+            <v-btn color="red" @click="cancel">Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       </v-main>
     </div>
     </div>
+    <NavBar />
+
   </template>
 
   <script setup>
@@ -121,16 +118,25 @@
 
   const showModal = (itemName) => {
     modalVisible.value = true;
-    // Set the selected item data here
-    selectedItem.value = {
-      client: 'DepEd', // Replace with actual data
-      pickupTime: '6:00AM', // Replace with actual data
-      status: 'Ongoing', // Replace with actual data
-      destination: 'iAcademy, Makati', // Replace with actual data
-      currentBids: '100', // Replace with actual data
-      image: '../../assets/colgate-cargo.jpg' // Add the image URL or path here
-
-    };
+    if (itemName === 'Computers Cargo') {
+      selectedItem.value = {
+        client: 'DepEd',
+        pickupTime: '6:00AM',
+        status: 'Ongoing',
+        destination: 'iAcademy, Makati',
+        currentBids: '100'
+      };
+    } else if (itemName === 'Colgate Cargo') {
+      selectedItem.value = {
+        client: 'Colgate-Palmolive',
+        pickupTime: '7:00AM',
+        status: 'Ongoing',
+        destination: 'Puregold, Marikina',
+        currentBids: '200'
+      };
+    } else {
+      console.log('Invalid item name');
+    }
   };
 
   const bid = () => {

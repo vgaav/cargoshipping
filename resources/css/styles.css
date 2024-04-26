@@ -326,8 +326,12 @@
 
   .dashboard {
     position: relative;
-    justify-content: center; /* Center the content horizontally */
+    justify-content: center;
+  }
 
+  .dashboard .deliveries-text{
+    text-align: center;
+    font-size: 50px;
   }
 
   .header {
@@ -347,6 +351,7 @@
 
   .user-welcome {
     font-size: 16px;
+    margin-right:80px;
   }
 
   .user-symbol {
@@ -356,13 +361,10 @@
   }
 
   .deliveries-text {
-    position: absolute;
-    top: 60px;
-    left: 10px;
     font-size: 18px;
     font-weight: bold;
-    padding-bottom: 10px;
     padding-top: 10px;
+    margin: 0 auto; /* center horizontally */
   }
 
   .ongoing-text {
