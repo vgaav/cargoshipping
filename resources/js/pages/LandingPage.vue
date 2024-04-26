@@ -136,17 +136,13 @@
       </v-row>
     </v-container>
     </div>
-    <nav class="bottom-navbar">
-        <!-- Circular Button -->
-        <router-link to="/Login" class="circle-button">
-          <span class="plus-sign">+</span>
-        </router-link>
-    </nav>
   </v-main>
+  <NavBar/>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import NavBar from '../components/NavBar.vue';  
 
 const landingPage = ref(null);
 
