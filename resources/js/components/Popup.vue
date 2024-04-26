@@ -1,3 +1,5 @@
+
+<!--This will appear when a item card is clicked :O -->
 <template>
     <v-dialog v-model="show" max-width="500">
       <v-card>

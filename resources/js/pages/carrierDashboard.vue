@@ -1,4 +1,4 @@
-<template>
+<v-template>
     <NavBar />
     <div class="dashboard">
       <div class="header">
@@ -13,7 +13,7 @@
         <div class="ongoing-text">Ongoing</div>
 
         <!-- Item Card: Computers Cargo -->
-        <v-card class="item-card" :class="{ 'hoverable': !isClicked }" @click="toggleClicked" elevation="hoverElevation">
+        <v-card class="item-card" @click="showModal('Computers Cargo')" elevation="hoverElevation">
           <v-row>
             <v-col cols="4">
               <img src="../../assets/computers-cargo.jpg" alt="Item Image" class="item-image">
@@ -37,7 +37,7 @@
         <div class="deliveries-later-text">Deliveries for Later</div>
 
         <!-- Item Card: Colgate Cargo -->
-        <v-card class="item-card" :class="{ 'hoverable': !isClicked }" @click="toggleClicked" elevation="hoverElevation">
+        <v-card class="item-card" @click="showModal('Colgate Cargo')" elevation="hoverElevation">
           <v-row>
             <v-col cols="4">
               <img src="../../assets/colgate-cargo.jpg" alt="Item Image" class="item-image">
@@ -58,19 +58,52 @@
         </v-card>
       </v-main>
     </div>
-  </template>
 
-<script setup>
-import NavBar from '../components/NavBar.vue';
+    <!-- Modal Popup -->
+    <v-dialog v-model="modalVisible">
+      <v-card>
+        <v-card-title>{{ modalItemName }}</v-card-title>
+        <v-card-text>
+          <div>Order from: {{ modalItemDetails.orderFrom }}</div>
+          <div>Ship Out Date: {{ modalItemDetails.shipOutDate }}</div>
+          <div>Status: {{ modalItemDetails.status }}</div>
+          <div>Destination: {{ modalItemDetails.destination }}</div>
+          <!-- Additional details and buttons here -->
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="green darken-1" @click="bid">Bid</v-btn>
+          <v-btn color="red darken-1" @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-template>
 
-import { ref } from 'vue';
+  <script setup>
+  import NavBar from '../components/NavBar.vue';
+  import { ref } from 'vue';
 
-const isClicked = ref(false);
+  const modalVisible = ref(false);
+  const modalItemName = ref('');
+  const modalItemDetails = ref({});
 
-const toggleClicked = () => {
-  isClicked.value = !isClicked.value;
-}
-</script>
+  const showModal = (itemName) => {
+    if (itemName === 'Computers Cargo') {
+      modalItemName.value = 'Computers Cargo';
+      modalItemDetails.value = { orderFrom: 'DepEd', shipOutDate: "10/07/24", status: "Ongoing", destination: "iAcademy" };
+    } else if (itemName === 'Colgate Cargo') {
+      modalItemName.value = 'Colgate Cargo';
+      modalItemDetails.value = { orderFrom: 'Puregold, Bay 3', shipOutDate: "12/27/24", status: "Ongoing", destination: "Puregold, Conception" };
+    }
+    modalVisible.value = true;
+  };
 
-<style src="../../css/styles.css" scoped></style>
+  const bid = () => {
+    // Handle bidding action
+  };
 
+  const cancel = () => {
+    // Handle cancel action
+  };
+  </script>
+
+  <style src="../../css/styles.css" scoped></style>

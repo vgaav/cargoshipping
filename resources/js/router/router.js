@@ -32,7 +32,6 @@ const routes = [
         name:'Dashboard',
         component: DashboardVue
     },
-    /* Maui - For some reason, pag linalagay sa router to, nawawala lahat ng pages??? */
     {
         path:'/CarrierDashboard',
         name:'CarrierDashboard',
