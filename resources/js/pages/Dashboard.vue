@@ -5,7 +5,7 @@
             <v-row>
                 <v-col class="text-center" cols="12">
                     <v-card color="primary" class="mx-auto px-6 py-4"
-                    text="Call niyo si <NavBar/> sa component para makita siya"
+                    text="Call niyo si <NavBar/> sa component para makita"
                     >
                     </v-card>
                 </v-col>
