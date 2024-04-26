@@ -8,6 +8,7 @@
         <div class="banner-overlay">
             <h1 class="banner-title">BidGo</h1>
             <p class="banner-slogan">Your Trusted Platform for Cargo Bidding</p>
+            <p class="additional-text">Connecting you with carriers and clients digitally and safely</p>
             <div class="nav-buttons">
                 <router-link to="/Login" class="btn btn-primary">Log In</router-link>
             </div>
@@ -19,45 +20,52 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <!-- Navigation Buttons -->
-          <!-- Card with BidGo Title and About Us / What We Do Sections -->
-          <v-card ref="aboutUsCard" class="mx-auto px-6 py-8 custom-rounded-card-about-us" id="aboutUsCard" elevation="0">
-            <section class="about-us">
-                <!-- Image on top (for smaller screens) -->
-                <div class="image-wrapper">
+            <v-card ref="aboutUsCard" class="mx-auto px-6 py-8 custom-rounded-card-about-us" id="aboutUsCard" elevation="0">
+                <section class="about-us">
+                  <!-- Image on top (for smaller screens) -->
+                  <div class="image-wrapper">
                     <img src="../../assets/programmer.jpg" alt="Image" class="side-image">
-                </div>
-                <div class="text-wrapper">
+                  </div>
+                  <div class="text-wrapper">
                     <h2>About Us</h2>
                     <h3>Shiftminds</h3>
-                    <div class="content">
-                        <p>Welcome to ShiftMinds, where innovation meets efficiency to revolutionize the way businesses operate. At ShiftMinds, we're on a mission to empower organizations with cutting-edge technology solutions tailored to streamline workflows and elevate productivity...</p>
-                        <br>
-                        <p>At the core of our ethos lies a commitment to harnessing the power of technology to simplify complexities and drive tangible results. Whether you're a budding startup or an established enterprise, our suite of services is designed to cater to your unique needs, paving the way for seamless operations and unparalleled growth.</p>
-                    </div>
-                </div>
-            </section>
-        </v-card>
-        <v-card ref="whatWeDoCard" class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" id="whatWeDoCard" elevation="1">
-            <!-- What We Do Section -->
-            <section class="what-we-do">
-                <div class="text-wrapper">
-                    <h2>Introducing: CargoBid</h2>
-                    <h3> Your Gateway to Seamless Cargo Bidding and Beyond</h3>
-
-                    <p>a revolutionary platform designed to simplify the process of cargo bidding and connect carriers, truckers, and delivery riders with lucrative contracts and clients.</p>
-
+                    <p>Welcome to ShiftMinds, where innovation meets efficiency to revolutionize the way businesses operate. At ShiftMinds, we're on a mission to empower organizations with cutting-edge technology solutions tailored to streamline workflows and elevate productivity...</p>
                     <br>
+                    <div class="content-wrapper">
+                      <!-- Wrap the content you want to hide initially -->
+                      <div class="content hide-content">
+                        <p>At the core of our ethos lies a commitment to harnessing the power of technology to simplify complexities and drive tangible results. Whether you're a budding startup or an established enterprise, our suite of services is designed to cater to your unique needs, paving the way for seamless operations and unparalleled growth.</p>
+                      </div>
+                      <!-- Show More Button -->
+                      <button class="show-more-btn" @click="toggleContent">Show More</button>
+                    </div>
+                  </div>
+                </section>
+              </v-card>
 
-                    <p>Cargo bidding is a dynamic concept that empowers logistics professionals to compete for contracts by submitting competitive bids or even purchasing available contracts outright. It's a game-changing approach that enables carriers and drivers to maximize their earning potential while offering clients unparalleled flexibility and choice.</p>
-                </div>
-                <!-- Image on the left side -->
-                <div class="image-wrapper">
+              <!-- What We Do Section -->
+              <v-card ref="whatWeDoCard" class="mx-auto px-6 py-8 custom-rounded-card-what-we-do" id="whatWeDoCard" elevation="1">
+                <section class="what-we-do">
+                  <div class="text-wrapper">
+                    <h2>Introducing: CargoBid</h2>
+                    <h3>Your Gateway to Seamless Cargo Bidding and Beyond</h3>
+                    <p>a revolutionary platform designed to simplify the process of cargo bidding and connect carriers, truckers, and delivery riders with lucrative contracts and clients.</p>
+                    <br>
+                    <div class="content-wrapper">
+                      <!-- Wrap the content you want to hide initially -->
+                      <div class="content hide-content">
+                        <p>Cargo bidding is a dynamic concept that empowers logistics professionals to compete for contracts by submitting competitive bids or even purchasing available contracts outright. It's a game-changing approach that enables carriers and drivers to maximize their earning potential while offering clients unparalleled flexibility and choice.</p>
+                      </div>
+                      <!-- Show More Button -->
+                      <button class="show-more-btn" @click="toggleContent">Show More</button>
+                    </div>
+                  </div>
+                  <!-- Image on the left side -->
+                  <div class="image-wrapper">
                     <img src="../../assets/delivery.jpg" alt="Image" class="side-image">
-                </div>
-            </section>
-        </v-card>
-
+                  </div>
+                </section>
+              </v-card>
 <!-- Why Use Us Section -->
 <div class="why-use-us-section">
     <section class="why-use-us">
@@ -146,6 +154,18 @@ onMounted(() => {
   setTimeout(() => {
     landingPage.value.classList.add("animate-drop-down");
   }, 100);
+
+  const showMoreButtons = document.querySelectorAll(".show-more-btn");
+
+  function toggleContent() {
+    const content = this.previousElementSibling;
+    content.classList.toggle("hide-content");
+    this.textContent = content.classList.contains("hide-content") ? "Show More" : "Show Less";
+  }
+
+  showMoreButtons.forEach(button => {
+    button.addEventListener("click", toggleContent);
+  });
 });
 </script>
 

@@ -4,6 +4,7 @@ import LandingPageVue from '../pages/LandingPage.vue'
 import MainMenuUserVue from '../pages/MainMenuUser.vue'
 import CarrierInfoVue from '../pages/CarrierInfo.vue'
 import DashboardVue from '../pages/Dashboard.vue'
+import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
 
 const routes = [
     {
@@ -30,7 +31,14 @@ const routes = [
         path:'/Dashboard',
         name:'Dashboard',
         component: DashboardVue
-    }
+    },
+    /* Maui - For some reason, pag linalagay sa router to, nawawala lahat ng pages??? */
+    {
+        path:'/CarrierDashboard',
+        name:'CarrierDashboard',
+        component:CarrierDashboardVue
+    },
+
 ];
 
 const router = createRouter({
