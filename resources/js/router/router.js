@@ -4,7 +4,7 @@ import LandingPageVue from '../pages/LandingPage.vue'
 import MainMenuUserVue from '../pages/MainMenuUser.vue'
 import CarrierInfoVue from '../pages/CarrierInfo.vue'
 import DashboardVue from '../pages/Dashboard.vue'
-import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
+import CarrierDashboardVue from '../pages/carrierDashboard.vue'
 
 const routes = [
     {
