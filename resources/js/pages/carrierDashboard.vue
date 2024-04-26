@@ -1,4 +1,6 @@
-<v-template>
+<template>
+    <div class="carrier-dashboard-page" ref="carrierDashboardPage">
+
     <NavBar />
     <div class="dashboard">
       <div class="header">
@@ -13,97 +15,136 @@
         <div class="ongoing-text">Ongoing</div>
 
         <!-- Item Card: Computers Cargo -->
-        <v-card class="item-card" @click="showModal('Computers Cargo')" elevation="hoverElevation">
-          <v-row>
-            <v-col cols="4">
-              <img src="../../assets/computers-cargo.jpg" alt="Item Image" class="item-image">
-            </v-col>
-            <v-col cols="8">
-              <v-card-text>
-                <div class="item-details">
-                  <div class="item-name">Computers Cargo</div>
-                  <div class="client">DepEd</div>
-                  <div class="weight">1200Kg (Weight)</div>
-                  <div class="from-to">From Marikina <span class="arrow-symbol">➔</span> iAcademy, Makati</div>
-                  <div class="pickup-time">Pickup Time: 6:00AM</div>
-                  <div class="drop-off-time">Estimated Drop-off Time: 3:00PM </div>
-                </div>
-              </v-card-text>
-            </v-col>
-          </v-row>
-        </v-card>
+        <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Computers Cargo')" elevation="hoverElevation">
+            <v-row>
+              <v-col cols="4" xs12>
+                <img src="../../assets/computers-cargo.jpg" alt="Item Image" class="item-image">
+              </v-col>
+              <v-col cols="8" xs12>
+                <v-card-text>
+                  <div class="item-details">
+                    <div class="item-name">Computers Cargo</div>
+                    <div class="client"><b>Client:</b> DepEd</div>
+                    <div class="weight">1200Kg (Weight)</div>
+                    <div class="from-to"><b>From: Marikina</b> <span class="arrow-symbol">➔</span> <b>To: iAcademy, Makati</b></div>
+                    <div class="pickup-time"><b>Pickup Time:</b> 6:00AM</div>
+                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 3:00PM </div>
+                  </div>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
 
         <!-- "Deliveries for Later" Text Positioned Below Item Card -->
         <div class="deliveries-later-text">Deliveries for Later</div>
 
-        <!-- Item Card: Colgate Cargo -->
-        <v-card class="item-card" @click="showModal('Colgate Cargo')" elevation="hoverElevation">
-          <v-row>
-            <v-col cols="4">
-              <img src="../../assets/colgate-cargo.jpg" alt="Item Image" class="item-image">
-            </v-col>
-            <v-col cols="8">
-              <v-card-text>
-                <div class="item-details">
-                  <div class="item-name">Colgate Cargo</div>
-                  <div class="client">Puregold, Bay 3</div>
-                  <div class="weight">700Kg (Weight)</div>
-                  <div class="from-to">From Puregold, Bay 3 <span class="arrow-symbol">➔</span> Puregold, Conception</div>
-                  <div class="pickup-time">Pickup Time: 7:00AM</div>
-                  <div class="drop-off-time">Estimated Drop-off Time: 10:00PM </div>
-                </div>
-              </v-card-text>
-            </v-col>
-          </v-row>
-        </v-card>
+        <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Colgate Cargo')" elevation="hoverElevation">
+            <v-row>
+              <v-col cols="4">
+                <img src="../../assets/colgate-cargo.jpg" alt="Item Image" class="item-image">
+              </v-col>
+              <v-col cols="8">
+                <v-card-text>
+                  <div class="item-details">
+                    <div class="item-name">Colgate Cargo</div>
+                    <div class="client"><b>Client:</b> Colgate-Palmolive</div>
+                    <div class="weight">700Kg (Weight)</div>
+                    <div class="from-to"><b>From: Mckinley Hill, Taguig</b> <span class="arrow-symbol">➔</span> <b>To: Puregold, Marikina</b></div>
+                    <div class="pickup-time"><b>Pickup Time:</b> 7:00AM</div>
+                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 10:00PM </div>
+                  </div>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+
+    <!-- Modal -->
+<v-dialog v-model="modalVisible" max-width="400">
+    <v-card>
+      <v-card-title>Shipping Information</v-card-title>
+      <v-card-text>
+        <div>
+          <img :src="selectedItem.image" alt="Item Image" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;">
+        </div>
+        <div>
+          <label>Order from:</label>
+          <span>{{ selectedItem.client }}</span>
+        </div>
+        <div>
+          <label>Ship Out Date:</label>
+          <span>{{ selectedItem.pickupTime }}</span>
+        </div>
+        <div>
+          <label>Status:</label>
+          <span>{{ selectedItem.status }}</span>
+        </div>
+        <div>
+          <label>Destination:</label>
+          <span>{{ selectedItem.destination }}</span>
+        </div>
+        <div>
+          <label>Current Bids:</label>
+          <span>{{ selectedItem.currentBids }}</span>
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="green" @click="bid">Bid</v-btn>
+        <v-btn color="red" @click="cancel">Cancel</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
       </v-main>
     </div>
-
-    <!-- Modal Popup -->
-    <v-dialog v-model="modalVisible">
-      <v-card>
-        <v-card-title>{{ modalItemName }}</v-card-title>
-        <v-card-text>
-          <div>Order from: {{ modalItemDetails.orderFrom }}</div>
-          <div>Ship Out Date: {{ modalItemDetails.shipOutDate }}</div>
-          <div>Status: {{ modalItemDetails.status }}</div>
-          <div>Destination: {{ modalItemDetails.destination }}</div>
-          <!-- Additional details and buttons here -->
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="green darken-1" @click="bid">Bid</v-btn>
-          <v-btn color="red darken-1" @click="cancel">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-template>
+    </div>
+  </template>
 
   <script setup>
-  import NavBar from '../components/NavBar.vue';
-  import { ref } from 'vue';
+  import { ref, onMounted } from "vue";
 
+  import NavBar from '../components/NavBar.vue';
+
+  const isClicked = ref(false);
   const modalVisible = ref(false);
-  const modalItemName = ref('');
-  const modalItemDetails = ref({});
+  const selectedItem = ref({});
+
+  const toggleClicked = () => {
+    isClicked.value =!isClicked.value;
+  }
+
+  const carrierDashboardPage = ref(null); // Add a reference to the carrierDashboardPage element
+
+  onMounted(() => {
+    setTimeout(() => {
+      carrierDashboardPage.value.classList.add("animate-drop-down"); // Apply animate-drop-down class to the carrierDashboardPage element
+    }, 100);
+  });
 
   const showModal = (itemName) => {
-    if (itemName === 'Computers Cargo') {
-      modalItemName.value = 'Computers Cargo';
-      modalItemDetails.value = { orderFrom: 'DepEd', shipOutDate: "10/07/24", status: "Ongoing", destination: "iAcademy" };
-    } else if (itemName === 'Colgate Cargo') {
-      modalItemName.value = 'Colgate Cargo';
-      modalItemDetails.value = { orderFrom: 'Puregold, Bay 3', shipOutDate: "12/27/24", status: "Ongoing", destination: "Puregold, Conception" };
-    }
     modalVisible.value = true;
+    // Set the selected item data here
+    selectedItem.value = {
+      client: 'DepEd', // Replace with actual data
+      pickupTime: '6:00AM', // Replace with actual data
+      status: 'Ongoing', // Replace with actual data
+      destination: 'iAcademy, Makati', // Replace with actual data
+      currentBids: '100', // Replace with actual data
+      image: '../../assets/colgate-cargo.jpg' // Add the image URL or path here
+
+    };
   };
 
   const bid = () => {
-    // Handle bidding action
+    console.log('Bid button clicked');
+    // Add your bid logic here
   };
 
   const cancel = () => {
-    // Handle cancel action
+    console.log('Cancel button clicked');
+    modalVisible.value = false;
   };
-  </script>
+</script>
 
-  <style src="../../css/styles.css" scoped></style>
+<style src="../../css/styles.css" scoped></style>
+
+<style src="../../css/styles.css" scoped></style>
+
