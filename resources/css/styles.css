@@ -374,6 +374,11 @@
     padding: 20px;
   }
 
+  .help-icon{
+    width: 25px;
+    height:25px;
+  }
+
   .deliveries-later-text {
     margin-top: 24px;
     font-size: 18px;
