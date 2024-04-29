@@ -97,7 +97,7 @@
                   <!-- Help Modal -->
   <v-dialog v-model="helpModalVisible" max-width="300">
     <v-card>
-      <v-card-title>Help</v-card-title>
+      <v-card-title>Help~</v-card-title>
       <v-card-text>
         {{ helpModalText }}
       </v-card-text>
