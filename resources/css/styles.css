@@ -317,16 +317,21 @@
   /*Carrier Dashboard CSS*/
 
   .carrier-dashboard-page{
-    width: 100%;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(-20px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
   }
 
+  .user-symbol{
+    width: 50px;
+    height:50px;
+  }
+
   .dashboard {
-    position: relative;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .dashboard .deliveries-text{
@@ -335,13 +340,27 @@
   }
 
   .header {
-    background-color: white;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 16px;
     background-color: #4E47C6;
+    color: #fff;
+  }
+
+  .header .website-name {
+    font-size: 2rem;
+  }
+
+  .header .user-welcome {
+    display: flex;
+    align-items: center;
+  }
+
+  .header .user-welcome .user-symbol {
+    height: 24px;
+    width: 24px;
+    margin-left: 16px;
   }
 
   .website-name {
@@ -372,6 +391,11 @@
     font-size: 18px;
     font-weight: bold;
     padding: 20px;
+  }
+
+  .help-icon{
+    width: 25px;
+    height:25px;
   }
 
   .deliveries-later-text {
@@ -454,6 +478,8 @@
 /* Mobile Phones for Landing Page */
 
 @media only screen and (max-width: 600px) {
+
+
 
     .banner-title {
         font-size: 24px; /* Adjust title font size for smaller screens */
@@ -587,7 +613,16 @@
       /*CSS for Carrier Dashboard*/
 
       .header {
-        padding: 12px; /* Adjust padding for smaller screens */
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .header .website-name {
+        font-size: 1.5rem;
+      }
+
+      .header .user-welcome {
+        margin-top: 16px;
       }
 
       .deliveries-text {
