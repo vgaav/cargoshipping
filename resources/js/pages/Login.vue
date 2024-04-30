@@ -93,7 +93,6 @@
               </v-window-item>
               <v-window-item :value="2">
                 <v-col cols="12" class="text-center mt-2">
-                  <!-- Adjust the mt-8 for proper spacing above -->
                   <v-row
                     ><span
                       class="text--primary"
@@ -105,7 +104,6 @@
                   </v-row>
 
                   <div class="mt-4">
-                    <!-- Adjust the mt-4 for proper spacing below -->
                     <v-btn
                       depressed
                       outlined
@@ -138,6 +136,13 @@
                     >
                     <span>Client Registration</span>
                   </v-row>
+                  <v-text-field
+                    v-model="nameSignUp"
+                    label="Name"
+                    variant="outlined"
+                    placeholder="Enter your Full Name"
+                    required
+                  ></v-text-field>
                   <v-text-field
                     v-model="emailSignUp"
                     label="Email"
@@ -225,6 +230,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 
@@ -236,16 +242,6 @@ const municipalities = [
   "Mandaluyong",
   "Manila",
   "Marikina",
-  "Muntinlupa",
-  "Navotas",
-  "Parañaque",
-  "Pasay",
-  "Pasig",
-  "Pateros",
-  "Quezon City",
-  "San Juan",
-  "Taguig",
-  "Valenzuela",
 ];
 
 // Define provinces first
@@ -255,82 +251,6 @@ const provinces = [
   "Agusan del Sur",
   "Aklan",
   "Albay",
-  "Antique",
-  "Apayao",
-  "Aurora",
-  "Basilan",
-  "Bataan",
-  "Batanes",
-  "Batangas",
-  "Benguet",
-  "Biliran",
-  "Bohol",
-  "Bukidnon",
-  "Bulacan",
-  "Cagayan",
-  "Camarines Norte",
-  "Camarines Sur",
-  "Camiguin",
-  "Capiz",
-  "Catanduanes",
-  "Cavite",
-  "Cebu",
-  "Compostela Valley",
-  "Cotabato",
-  "Davao del Norte",
-  "Davao del Sur",
-  "Davao Occidental",
-  "Davao Oriental",
-  "Dinagat Islands",
-  "Eastern Samar",
-  "Guimaras",
-  "Ifugao",
-  "Ilocos Norte",
-  "Ilocos Sur",
-  "Iloilo",
-  "Isabela",
-  "Kalinga",
-  "La Union",
-  "Laguna",
-  "Lanao del Norte",
-  "Lanao del Sur",
-  "Leyte",
-  "Maguindanao",
-  "Marinduque",
-  "Masbate",
-  "Misamis Occidental",
-  "Misamis Oriental",
-  "Mountain Province",
-  "Negros Occidental",
-  "Negros Oriental",
-  "Northern Samar",
-  "Nueva Ecija",
-  "Nueva Vizcaya",
-  "Occidental Mindoro",
-  "Oriental Mindoro",
-  "Palawan",
-  "Pampanga",
-  "Pangasinan",
-  "Quezon",
-  "Quirino",
-  "Rizal",
-  "Romblon",
-  "Samar",
-  "Sarangani",
-  "Siquijor",
-  "Sorsogon",
-  "South Cotabato",
-  "Southern Leyte",
-  "Sultan Kudarat",
-  "Sulu",
-  "Surigao del Norte",
-  "Surigao del Sur",
-  "Tarlac",
-  "Tawi-Tawi",
-  "Zambales",
-  "Zamboanga del Norte",
-  "Zamboanga del Sur",
-  "Zamboanga Sibugay",
 ];
 
 const step = ref(1);
@@ -339,6 +259,7 @@ const emailLogin = ref("");
 const passwordLogin = ref("");
 const loginSuccess = ref(false);
 const loginError = ref(false);
+const nameSignUp = ref("");
 const emailSignUp = ref("");
 const passwordSignUp = ref("");
 const confirmPasswordSignUp = ref("");
@@ -365,23 +286,41 @@ const toggleConfirmPasswordVisibility = () => {
   showConfirmPassword.value = !showConfirmPassword.value;
 };
 
-const login = () => {
-  if (
-    emailLogin.value === "user@example.com" &&
-    passwordLogin.value === "password"
-  ) {
+const login = async () => {
+  try {
+    const response = await axios.post('/login', {
+      email: emailLogin.value,
+      password: passwordLogin.value
+    });
     loginSuccess.value = true;
     loginError.value = false;
+    // Redirect to MainMenuUser or handle success as needed
     router.push({ name: "MainMenuUser" });
-  } else {
+  } catch (error) {
     loginSuccess.value = false;
     loginError.value = true;
+    // Handle error, show error message, etc.
   }
 };
 
-const signUp = () => {
-  console.log("Sign Up clicked");
+const signUp = async () => {
+  try {
+    const response = await axios.post('/register', {
+      name: nameSignUp.value,
+      email: emailSignUp.value,
+      password: passwordSignUp.value,
+      password_confirmation: confirmPasswordSignUp.value,
+      contact_number: contactNumberSignUp.value,
+      province: selectedProvince.value,
+      municipality: selectedMunicipality.value,
+      postal_code: postalCode.value,
+    });
+    console.log("Registration successful", response.data);
+  } catch (error) {
+    console.error("Registration failed", error.response.data);
+  }
 };
+
 
 const emailRule = [
   (v) => !!v || "Email is required",
@@ -393,7 +332,6 @@ const passwordLoginRule = [(v) => !!v || "Password is required"];
 const passwordSignUpRule = [
   (v) => !!v || "Password is required",
   (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
-  // Add other password rules here
 ];
 
 const confirmPasswordRule = [
