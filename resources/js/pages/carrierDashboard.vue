@@ -5,7 +5,13 @@
                 <div class="website-name">BidGo</div>
                 <div class="user-welcome">Welcome, [username] <img src="../../assets/account.svg" alt="User Symbol" class="user-symbol"></div>
             </div>
+              <v-window v-model="step">
+                <!-- Step 1: Items and Bidding View -->
+                <v-window-item :value="1">
             <v-main>
+                <div class="vehicle-selection-button">
+                    <span class="text--primary" @click="step++">Select Vehicle</span>
+                  </div>
                 <!-- "Deliveries" Text Positioned at the Top Right -->
                 <div class="deliveries-text">Deliveries</div>
 
@@ -94,6 +100,8 @@
                     </v-card>
                 </v-dialog>
 
+
+
                   <!-- Help Modal -->
   <v-dialog v-model="helpModalVisible" max-width="300">
     <v-card>
@@ -104,6 +112,20 @@
     </v-card>
   </v-dialog>
             </v-main>
+            </v-window-item>
+
+            <v-window-item :value="2">
+                <!-- Vehicle selection content goes here -->
+                <!-- Add your vehicle selection content here -->
+                <div>
+                  <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
+                  <!-- Add your vehicle selection UI components here -->
+                </div>
+                <div class="back-button">
+                  <span class="text--primary" @click="step--">Back to Items</span>
+                </div>
+              </v-window-item>
+            </v-window>
         </div>
     </div>
     <NavBar />
@@ -112,6 +134,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import NavBar from '../components/NavBar.vue';
+
+const step = ref(1); // Initialize step to 1, indicating the items and bidding view
 
 const isClicked = ref(false);
 const modalVisible = ref(false);
@@ -148,6 +172,9 @@ const showModal = (itemName, isBidPlaced = false) => {
         currentBids: '200',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
       };
+
+      step.value = 2; // Set step to 2 to show the vehicle selection view
+
     }
   } else {
     console.log('Invalid item name');
@@ -167,6 +194,9 @@ const bid = () => {
 
   // Show mini modal with bid placed message
   showModal(selectedItem.value.itemName, true); // Call showModal with isBidPlaced = true
+
+  step.value = 2;
+
 };
 
 const cancel = () => {
@@ -192,8 +222,14 @@ const helpModalVisible = ref(false);
       helpModalText.value = 'Ongoing deliveries are shipments that are currently in transit.';
     } else if (type === 'deliveriesLater') {
       helpModalText.value = 'Deliveries for later are shipments that are scheduled to be delivered at a later date.';
+    }else if(type === 'vehicleSelect'){
+        helpModalText.value = 'This is where you can view your available vehicles. Select which vehicle will handle the delivery.';
     }
   };
+
+  const selectVehicle = () => {
+  step.value = 2; // Set step to 2 to show the vehicle selection view
+};
 </script>
 
 <style src="../../css/styles.css" scoped></style>
