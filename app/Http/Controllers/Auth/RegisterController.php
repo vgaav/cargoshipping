@@ -33,6 +33,7 @@ class RegisterController extends Controller
             'province' => ['required', 'string', 'max:255'],
             'municipality' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:255'],
+            'user_type' => ['required', 'string', 'in:client,carrier'],
         ]);
     }
 
@@ -46,6 +47,7 @@ class RegisterController extends Controller
             'province' => $data['province'],
             'municipality' => $data['municipality'],
             'postal_code' => $data['postal_code'],
+            'user_type' => $data['user_type'],
         ]);
     }
 }

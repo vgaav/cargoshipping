@@ -91,135 +91,115 @@
                   </v-card-actions>
                 </div>
               </v-window-item>
-              <v-window-item :value="2">
-                <v-col cols="12" class="text-center mt-2">
+              <v-col cols="12" class="text-center mt-2">
+                <v-window-item :value="2">
                   <v-row
                     ><span
                       class="text--primary"
-                      @click="step -= 2"
+                      @click="step--"
                       style="text-decoration: underline; cursor: pointer"
-                      >LOG IN</span
-                    >
-                    <span>Registration</span>
-                  </v-row>
-
-                  <div class="mt-4">
-                    <v-btn
-                      depressed
-                      outlined
-                      color="#07143F"
-                      class="register-button mt-1"
-                      @click="step++"
-                    >
-                      Register as Client
-                    </v-btn>
-                    <v-btn
-                      depressed
-                      outlined
-                      color="#07143F"
-                      class="register-button mt-4"
-                      @click="step += 2"
-                    >
-                      Register as Carrier
-                    </v-btn>
-                  </div>
-                </v-col>
-              </v-window-item>
-
-              <v-window-item :value="3">
-                <v-form @submit.prevent="signUp"><v-row
-                    ><span
-                      class="text--primary"
-                      @click="step -= 2"
-                      style="text-decoration: underline; cursor: pointer"
-                      >LOG IN</span
+                      >BACK</span
                     >
                     <span>Client Registration</span>
                   </v-row>
-                  <v-text-field
-                    v-model="nameSignUp"
-                    label="Name"
-                    variant="outlined"
-                    placeholder="Enter your Full Name"
-                    required
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="emailSignUp"
-                    label="Email"
-                    variant="outlined"
-                    placeholder="Enter your email"
-                    type="email"
-                    :rules="emailRule"
-                    required
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="passwordSignUp"
-                    label="Password"
-                    variant="outlined"
-                    :append-inner-icon="'mdi-eye-off'"
-                    @click:append-inner="toggleNewPasswordVisibility"
-                    :type="showPasswordSignUp ? 'text' : 'password'"
-                    required
-                    :rules="passwordSignUpRule"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="confirmPasswordSignUp"
-                    label="Confirm Password"
-                    variant="outlined"
-                    :append-inner-icon="'mdi-eye-off'"
-                    @click:append-inner="toggleConfirmPasswordVisibility"
-                    :type="showConfirmPassword ? 'text' : 'password'"
-                    required
-                    :rules="confirmPasswordRule"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="contactNumberSignUp"
-                    label="Contact Number"
-                    variant="outlined"
-                    placeholder="Enter your contact number"
-                    required
-                  ></v-text-field>
-                  <v-autocomplete
-                    v-model="selectedProvince"
-                    :items="filteredProvinces"
-                    label="Province"
-                    outlined
-                    required
-                    :filter="customFilter"
-                  ></v-autocomplete>
-                  <v-autocomplete
-                    v-model="selectedMunicipality"
-                    :items="filteredMunicipalities"
-                    label="Municipality"
-                    outlined
-                    required
-                    :filter="customFilter"
-                  ></v-autocomplete>
-                  <v-text-field
-                    v-model="postalCode"
-                    label="Postal Code"
-                    variant="outlined"
-                    required
-                  ></v-text-field>
-                  <v-card-actions class="mt-1 justify-center">
-                    <v-btn type="submit" block color="#4E47C6" variant="tonal"
-                      >Sign Up</v-btn
-                    >
-                  </v-card-actions>
-                  <v-card-actions class="mt-1 justify-center">
-                    <div>
-                      <span>Already have an account? </span>
-                      <span
-                        class="text--primary"
-                        @click="step -= 2"
-                        style="text-decoration: underline; cursor: pointer"
-                        >LOG IN</span
-                      >
-                    </div>
-                  </v-card-actions>
-                </v-form>
-              </v-window-item>
-              <v-window-item :value="4"> </v-window-item>
+                  <v-row>
+                    <v-form @submit.prevent="signUp">
+                      <v-text-field
+                        v-model="nameSignUp"
+                        label="Name"
+                        variant="outlined"
+                        placeholder="Enter your Full Name"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="emailSignUp"
+                        label="Email"
+                        variant="outlined"
+                        placeholder="Enter your email"
+                        type="email"
+                        :rules="emailRule"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="passwordSignUp"
+                        label="Password"
+                        variant="outlined"
+                        :append-inner-icon="'mdi-eye-off'"
+                        @click:append-inner="toggleNewPasswordVisibility"
+                        :type="showPasswordSignUp ? 'text' : 'password'"
+                        required
+                        :rules="passwordSignUpRule"
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="confirmPasswordSignUp"
+                        label="Confirm Password"
+                        variant="outlined"
+                        :append-inner-icon="'mdi-eye-off'"
+                        @click:append-inner="toggleConfirmPasswordVisibility"
+                        :type="showConfirmPassword ? 'text' : 'password'"
+                        required
+                        :rules="confirmPasswordRule"
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="contactNumberSignUp"
+                        label="Contact Number"
+                        variant="outlined"
+                        placeholder="Enter your contact number"
+                        required
+                      ></v-text-field>
+                      <v-autocomplete
+                        v-model="selectedProvince"
+                        :items="filteredProvinces"
+                        label="Province"
+                        outlined
+                        required
+                        :filter="customFilter"
+                      ></v-autocomplete>
+                      <v-autocomplete
+                        v-model="selectedMunicipality"
+                        :items="filteredMunicipalities"
+                        label="Municipality"
+                        outlined
+                        required
+                        :filter="customFilter"
+                      ></v-autocomplete>
+                      <v-text-field
+                        v-model="postalCode"
+                        label="Postal Code"
+                        variant="outlined"
+                        required
+                      ></v-text-field>
+                      <div>
+                        <v-radio-group v-model="selectedUserType">
+                          <v-radio label="Client" value="client"></v-radio>
+                          <v-radio label="Carrier" value="carrier"></v-radio>
+                        </v-radio-group>
+                      </div>
+                      <v-card-actions class="mt-1 justify-center">
+                        <v-btn
+                          type="submit"
+                          block
+                          color="#4E47C6"
+                          variant="tonal"
+                          >Sign Up</v-btn
+                        >
+                      </v-card-actions>
+                      <v-card-actions class="mt-1 justify-center">
+                        <div>
+                          <span>Already have an account? </span>
+                          <span
+                            class="text--primary"
+                            @click="step -= 2"
+                            style="text-decoration: underline; cursor: pointer"
+                            >LOG IN</span
+                          >
+                        </div>
+                      </v-card-actions>
+                    </v-form>
+                  </v-row>
+                </v-window-item>
+              </v-col>
+              <v-window-item :value="3"> </v-window-item>
             </v-window>
           </v-card>
         </v-col>
@@ -269,6 +249,7 @@ const selectedMunicipality = ref(null);
 const postalCode = ref("");
 const showPasswordSignUp = ref(false);
 const showConfirmPassword = ref(false);
+const selectedUserType = ref("");
 
 const forgotPassword = () => {
   console.log("Forgot Password clicked");
@@ -288,9 +269,9 @@ const toggleConfirmPasswordVisibility = () => {
 
 const login = async () => {
   try {
-    const response = await axios.post('/login', {
+    const response = await axios.post("/login", {
       email: emailLogin.value,
-      password: passwordLogin.value
+      password: passwordLogin.value,
     });
     loginSuccess.value = true;
     loginError.value = false;
@@ -305,7 +286,7 @@ const login = async () => {
 
 const signUp = async () => {
   try {
-    const response = await axios.post('/register', {
+    const response = await axios.post("/register", {
       name: nameSignUp.value,
       email: emailSignUp.value,
       password: passwordSignUp.value,
@@ -314,13 +295,13 @@ const signUp = async () => {
       province: selectedProvince.value,
       municipality: selectedMunicipality.value,
       postal_code: postalCode.value,
+      user_type: selectedUserType.value,
     });
     console.log("Registration successful", response.data);
   } catch (error) {
     console.error("Registration failed", error.response.data);
   }
 };
-
 
 const emailRule = [
   (v) => !!v || "Email is required",
@@ -369,6 +350,10 @@ watch(step, () => {
   postalCode.value = "";
   loginSuccess.value = false;
   loginError.value = false;
+  selectedUserType.value = "";
+});
+watch(selectedUserType, (newValue) => {
+  console.log("Selected user type:", newValue);
 });
 </script>
 
