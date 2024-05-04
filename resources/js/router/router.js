@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginVue from '../pages/Login.vue'
 import LandingPageVue from '../pages/LandingPage.vue'
-import MainMenuUserVue from '../pages/MainMenuUser.vue'
 import CarrierInfoVue from '../pages/CarrierInfo.vue'
 import DashboardVue from '../pages/Dashboard.vue'
 import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
+import ItemListing from '../pages/ItemListing.vue'
 
 const routes = [
     {
@@ -16,11 +16,6 @@ const routes = [
         path: '/Login',
         name: 'Login',
         component: LoginVue,
-    },
-    {
-        path: '/MainMenuUser',
-        name: 'MainMenuUser',
-        component: MainMenuUserVue
     },
     {
         path:'/CarrierInfo',
@@ -37,6 +32,11 @@ const routes = [
         name:'CarrierDashboard',
         component:CarrierDashboardVue
     },
+    {
+        path:'/List',
+        name:'ItemListing',
+        component: ItemListing
+    }
 
 ];
 
