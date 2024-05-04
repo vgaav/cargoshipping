@@ -3,7 +3,7 @@
         <div class="dashboard">
             <div class="header">
                 <div class="website-name">BidGo</div>
-                <div class="user-welcome">Welcome, [username] <img src="../../assets/account.svg" alt="User Symbol" class="user-symbol"></div>
+                <div class="user-welcome">Welcome, [username]</div>
             </div>
               <v-window v-model="step">
                 <!-- Step 1: Items and Bidding View -->
@@ -87,6 +87,30 @@
                                 <label>Current Bids:</label>
                                 <span>{{ selectedItem.currentBids }}</span>
                             </div>
+                            <v-btn @click="showItemInfo =!showItemInfo">Show Item Information</v-btn>
+                            <!-- Item Information -->
+                            <div v-if="showItemInfo" class="item-info-card">
+                              <div class="item-info-row">
+                                <label>Description:</label>
+                                <span>{{ selectedItem.itemName }}</span>
+                              </div>
+                              <div class="item-info-row">
+                                <label>Length:</label>
+                                <span>{{ selectedItem.length }}</span>
+                              </div>
+                              <div class="item-info-row">
+                                <label>Width:</label>
+                                <span>{{ selectedItem.width }}</span>
+                              </div>
+                              <div class="item-info-row">
+                                <label>Height:</label>
+                                <span>{{ selectedItem.height }}</span>
+                              </div>
+                              <div class="item-info-row">
+                                <label>Weight:</label>
+                                <span>{{ selectedItem.weight }}</span>
+                              </div>
+                            </div>
                         </v-card-text>
                         <v-card-actions v-if="modalVisible">
                             <template v-if="!bidPlaced">
@@ -113,10 +137,16 @@
   </v-dialog>
             </v-main>
             </v-window-item>
-
             <v-window-item :value="2">
                 <!-- Vehicle selection content goes here -->
-                <!-- Add your vehicle selection content here -->
+                <div class="banner">
+                    <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image">
+                    <div class="banner-overlay">
+                        <h1 class="banner-title">Select Vehicle</h1>
+                        <div class="nav-buttons">
+                            <span class="btn btn-primary" @click="step--">Back to Items</span>                        </div>
+                    </div>
+                </div>
                 <div>
                   <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
                   <!-- Add your vehicle selection UI components here -->
@@ -134,6 +164,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import NavBar from '../components/NavBar.vue';
+import { weight } from "fontawesome";
 
 const step = ref(1); // Initialize step to 1, indicating the items and bidding view
 
@@ -141,6 +172,8 @@ const isClicked = ref(false);
 const modalVisible = ref(false);
 const bidPlaced = ref(false);
 const selectedItem = ref({});
+const showItemInfo = ref(false); // Add this line
+
 
 const carrierDashboardPage = ref(null);
 
@@ -162,6 +195,13 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'iAcademy, Makati',
         currentBids: '100',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        //item information
+        itemName:'20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)',
+        length:'Not Provided',
+        width:'Not Provided',
+        height:'Not Provided',
+        weight:'450kg (Overall)',
+
       };
     } else if (itemName === 'Colgate Cargo') {
       selectedItem.value = {
@@ -171,10 +211,13 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'Puregold, Marikina',
         currentBids: '200',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        //item information
+        itemName:'10 Boxes of Colgate Toothpaste (20 pieces per box)', //Example lang to
+        length:'Not Provided',
+        width:'Not Provided',
+        height:'Not Provided',
+        weight:'380kg (Overall)',
       };
-
-      step.value = 2; // Set step to 2 to show the vehicle selection view
-
     }
   } else {
     console.log('Invalid item name');
