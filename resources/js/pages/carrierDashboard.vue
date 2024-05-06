@@ -33,6 +33,7 @@
                                     <div class="from-to"><b>From: Marikina</b> <span class="arrow-symbol">➔</span> <b>To: iAcademy, Makati</b></div>
                                     <div class="pickup-time"><b>Pickup Time:</b> 6:00AM</div>
                                     <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 3:00PM </div>
+                                    <div class="payment"><b>Quote/Price: P</b>8,000</div>
                                 </div>
                             </v-card-text>
                         </v-col>
@@ -56,6 +57,7 @@
                                     <div class="from-to"><b>From: Mckinley Hill, Taguig</b> <span class="arrow-symbol">➔</span> <b>To: Puregold, Marikina</b></div>
                                     <div class="pickup-time"><b>Pickup Time:</b> 7:00AM</div>
                                     <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 10:00PM </div>
+                                    <div class="payment"><b>Quote/Price: P</b>5,000</div>
                                 </div>
                             </v-card-text>
                         </v-col>
@@ -78,8 +80,6 @@
                     </v-card>
                   </v-dialog>
 
-                  <!-- Update the bid button to show the new modal -->
-                  <v-btn color="green" @click="showBidModal">Bid</v-btn>
 
                 <!-- Modal -->
                 <v-dialog v-model="modalVisible" max-width="400">
@@ -105,6 +105,10 @@
                             <div>
                                 <label>Current Bids:</label>
                                 <span>{{ selectedItem.currentBids }}</span>
+                            </div>
+                            <div>
+                                <label>Quote/Pricing:</label>
+                                <span>{{ selectedItem.quote }}</span>
                             </div>
                             <v-btn @click="showItemInfo =!showItemInfo">Show Item Information</v-btn>
                             <!-- Item Information -->
@@ -227,6 +231,7 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'iAcademy, Makati',
         currentBids: '100',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        quote:'8,000',
         //item information
         itemName:'20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)',
         length:'Not Provided',
@@ -243,6 +248,7 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'Puregold, Marikina',
         currentBids: '200',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        quote:'5,000',
         //item information
         itemName:'10 Boxes of Colgate Toothpaste (20 pieces per box)', //Example lang to
         length:'Not Provided',
@@ -256,23 +262,6 @@ const showModal = (itemName, isBidPlaced = false) => {
   }
 };
 
-
-
-const bid = () => {
-  console.log('Bid button clicked');
-  // Add your bid logic here
-
-  // Update UI to show bid placed message and hide buttons
-  selectedItem.value.currentBids++; // Example: Increment current bids count
-  selectedItem.value.status = 'Bid Placed'; // Update status to 'Bid Placed'
-  bidPlaced.value = true; // Set bidPlaced to true
-
-  // Show mini modal with bid placed message
-  showModal(selectedItem.value.itemName, true); // Call showModal with isBidPlaced = true
-
-  step.value = 2;
-
-};
 
 const cancel = () => {
   console.log('Cancel button clicked');
@@ -343,8 +332,6 @@ const cancelBid = () => {
 };
 
 </script>
-
-
 <style src="../../css/styles.css" scoped></style>
 
 
