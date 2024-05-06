@@ -69,8 +69,8 @@
                       <v-card-title>Bid Confirmation</v-card-title>
                       <v-card-text>
                         <form>
-                          <v-text-field label="Bid Amount" v-model="bidAmount" type="number" />
-                          <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" />
+                          <v-text-field label="Bid Amount" v-model="bidAmount" type="number" required/>
+                          <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" required />
                         </form>
                       </v-card-text>
                       <v-card-actions>
