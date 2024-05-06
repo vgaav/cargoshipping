@@ -62,6 +62,25 @@
                     </v-row>
                 </v-card>
 
+                <v-dialog v-model="bidModalVisible" max-width="400">
+                    <v-card>
+                      <v-card-title>Bid Confirmation</v-card-title>
+                      <v-card-text>
+                        <form>
+                          <v-text-field label="Bid Amount" v-model="bidAmount" type="number" />
+                          <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" />
+                        </form>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="green" @click="confirmBid">Confirm Bid</v-btn>
+                        <v-btn color="red" @click="cancelBid">Cancel</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+
+                  <!-- Update the bid button to show the new modal -->
+                  <v-btn color="green" @click="showBidModal">Bid</v-btn>
+
                 <!-- Modal -->
                 <v-dialog v-model="modalVisible" max-width="400">
                     <v-card>
@@ -114,13 +133,13 @@
                         </v-card-text>
                         <v-card-actions v-if="modalVisible">
                             <template v-if="!bidPlaced">
-                              <v-btn color="green" @click="bid">Bid</v-btn>
+                              <v-btn color="green" @click="showBidModal">Bid</v-btn>
                               <v-btn color="red" @click="cancel">Cancel</v-btn>
                             </template>
                             <template v-else>
                               <div class="bid-placed-text">Bid has been placed</div>
                             </template>
-                          </v-card-actions>
+                          </v-card-actions>/
                     </v-card>
                 </v-dialog>
 
@@ -138,22 +157,26 @@
             </v-main>
             </v-window-item>
             <v-window-item :value="2">
-                <!-- Vehicle selection content goes here -->
-                <div class="banner">
-                    <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image">
-                    <div class="banner-overlay">
-                        <h1 class="banner-title">Select Vehicle</h1>
-                        <div class="nav-buttons">
-                            <span class="btn btn-primary" @click="step--">Back to Items</span>                        </div>
-                    </div>
-                </div>
-                <div>
-                  <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
-                  <!-- Add your vehicle selection UI components here -->
-                </div>
-                <div class="back-button">
-                  <span class="text--primary" @click="step--">Back to Items</span>
-                </div>
+              <!-- Vehicle selection content goes here -->
+    <div class="banner">
+        <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image">
+        <div class="banner-overlay">
+          <h1 class="banner-title">Select Vehicle</h1>
+          <div class="nav-buttons">
+            <span class="btn btn-primary" @click="step--">Back to Items</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
+        <!-- Add your vehicle selection UI components here -->
+        <div class="vehicle-cards">
+          <VehicleCard v-for="(vehicle, index) in vehicles" :key="index" :vehicle="vehicle" />
+        </div>
+      </div>
+      <div class="back-button">
+        <span class="text--primary" @click="step--">Back to Items</span>
+      </div>
               </v-window-item>
             </v-window>
         </div>
@@ -165,14 +188,23 @@
 import { ref, onMounted } from "vue";
 import NavBar from '../components/NavBar.vue';
 import { weight } from "fontawesome";
+import { defineComponent } from 'vue';
+import VehicleCard from '../components/VehicleCard.vue';
+
+
 
 const step = ref(1); // Initialize step to 1, indicating the items and bidding view
+const bidModalVisible = ref(false);
+const bidAmount = ref(0);
+const minimumBid = ref(0);
+
 
 const isClicked = ref(false);
 const modalVisible = ref(false);
 const bidPlaced = ref(false);
 const selectedItem = ref({});
 const showItemInfo = ref(false); // Add this line
+
 
 
 const carrierDashboardPage = ref(null);
@@ -273,7 +305,45 @@ const helpModalVisible = ref(false);
   const selectVehicle = () => {
   step.value = 2; // Set step to 2 to show the vehicle selection view
 };
+
+const vehicles = ref([
+  {
+    name: 'Vehicle 1',
+    type: 'Truck',
+    capacity: '1000kg',
+    availability: 'Available'
+  },
+  {
+    name: 'Vehicle 2',
+    type: 'Van',
+    capacity: '500kg',
+    availability: 'Available'
+  },
+  // Add more vehicles to the array
+]);
+
+const showBidModal = () => {
+  bidModalVisible.value = true;
+};
+
+const confirmBid = () => {
+  // Add your bid confirmation logic here
+  console.log(`Bid amount: ${bidAmount.value}, Minimum bid: ${minimumBid.value}`);
+  // Update the UI to show the bid has been placed
+  bidPlaced.value = true;
+  bidModalVisible.value = false;
+  selectedItem.value.currentBids++; // Example: Increment current bids count
+
+  step.value = 2;
+
+};
+
+const cancelBid = () => {
+  bidModalVisible.value = false;
+};
+
 </script>
+
 
 <style src="../../css/styles.css" scoped></style>
 
