@@ -19,50 +19,35 @@
                 <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('ongoing')"></div>
 
                 <!-- Item Card: Computers Cargo -->
-                <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Computers Cargo')" elevation="hoverElevation">
-                    <v-row>
-                        <v-col cols="4" xs12>
-                            <img src="../../assets/computers-cargo.jpg" alt="Item Image" class="item-image">
-                        </v-col>
-                        <v-col cols="8" xs12>
-                            <v-card-text>
-                                <div class="item-details">
-                                    <div class="item-name">Computers Cargo</div>
-                                    <div class="client"><b>Client:</b> DepEd</div>
-                                    <div class="weight">1200Kg (Weight)</div>
-                                    <div class="from-to"><b>From: Marikina</b> <span class="arrow-symbol">➔</span> <b>To: iAcademy, Makati</b></div>
-                                    <div class="pickup-time"><b>Pickup Time:</b> 6:00AM</div>
-                                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 3:00PM </div>
-                                    <div class="payment"><b>Quote/Price: P</b>8,000</div>
-                                </div>
-                            </v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-card>
+                <ItemCard
+                :itemName="'Computers Cargo'"
+                :itemImage="computersCargoImage"
+                :client="'DepEd'"
+                :weight="'1200Kg'"
+                :from="'Marikina'"
+                :to="'iAcademy, Makati'"
+                :pickupTime="'6:00AM'"
+                :dropOffTime="'3:00PM'"
+                :quote="'8,000'"
+                @click="showModal"
 
+              />
                 <!-- "Deliveries for Later" Text Positioned Below Item Card -->
                 <div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')"></div>
 
-                <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Colgate Cargo')" elevation="hoverElevation">
-                    <v-row>
-                        <v-col cols="4">
-                            <img src="../../assets/colgate-cargo.jpg" alt="Item Image" class="item-image">
-                        </v-col>
-                        <v-col cols="8">
-                            <v-card-text>
-                                <div class="item-details">
-                                    <div class="item-name">Colgate Cargo</div>
-                                    <div class="client"><b>Client:</b> Colgate-Palmolive</div>
-                                    <div class="weight">700Kg (Weight)</div>
-                                    <div class="from-to"><b>From: Mckinley Hill, Taguig</b> <span class="arrow-symbol">➔</span> <b>To: Puregold, Marikina</b></div>
-                                    <div class="pickup-time"><b>Pickup Time:</b> 7:00AM</div>
-                                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 10:00PM </div>
-                                    <div class="payment"><b>Quote/Price: P</b>5,000</div>
-                                </div>
-                            </v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-card>
+                <ItemCard
+                :itemName="'Colgate Cargo'"
+                :itemImage="colgateCargoImage"
+                :client="'Colgate-Palmolive'"
+                :weight="'700Kg'"
+                :from="'Mckinley Hill, Taguig'"
+                :to="'Puregold, Marikina'"
+                :pickupTime="'7:00AM'"
+                :dropOffTime="'10:00PM'"
+                :quote="'5,000'"
+                @click="showModal"
+
+              />
 
                 <v-dialog v-model="bidModalVisible" max-width="400">
                     <v-card>
@@ -175,7 +160,7 @@
         <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
         <!-- Add your vehicle selection UI components here -->
         <div class="vehicle-cards">
-          <VehicleCard v-for="(vehicle, index) in vehicles" :key="index" :vehicle="vehicle" />
+          <VehicleCard v-for="(vehicle, index) in vehicles" :key="index" :vehicle="vehicle" :image="getVehicleImage(vehicle.type)" />
         </div>
       </div>
       <div class="back-button">
@@ -194,6 +179,14 @@ import NavBar from '../components/NavBar.vue';
 import { weight } from "fontawesome";
 import { defineComponent } from 'vue';
 import VehicleCard from '../components/VehicleCard.vue';
+import ItemCard from '../components/ItemCard.vue';
+import computersCargoImage from '../../assets/computers-cargo.jpg';
+import colgateCargoImage from '../../assets/colgate-cargo.jpg';
+import scooterDelivery from '../../assets/scooter.png';
+import vanDelivery from '../../assets/van.png';
+
+
+
 
 
 
@@ -202,6 +195,7 @@ const bidModalVisible = ref(false);
 const bidAmount = ref(0);
 const minimumBid = ref(0);
 
+components: { ItemCard, VehicleCard }
 
 const isClicked = ref(false);
 const modalVisible = ref(false);
@@ -329,6 +323,15 @@ const confirmBid = () => {
 
 const cancelBid = () => {
   bidModalVisible.value = false;
+};
+
+const getVehicleImage = (vehicleType) => {
+  if (vehicleType === 'Truck') {
+    return scooterDelivery;
+  } else if (vehicleType === 'Van') {
+    return vanDelivery;
+  }
+  // Add more vehicle types to the switch statement
 };
 
 </script>
