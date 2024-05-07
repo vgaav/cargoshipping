@@ -160,8 +160,15 @@
         <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
         <!-- Add your vehicle selection UI components here -->
         <div class="vehicle-cards">
-          <VehicleCard v-for="(vehicle, index) in vehicles" :key="index" :vehicle="vehicle" :image="getVehicleImage(vehicle.type)" />
-        </div>
+            <VehicleCard
+              v-for="(vehicle, index) in vehicles"
+              :key="index"
+              :vehicle="vehicle"
+              :image="getVehicleImage(vehicle.type)"
+              :selected="selectedVehicle === vehicle"
+              @select-vehicle="selectVehicle"
+            />
+          </div>
       </div>
       <div class="back-button">
         <span class="text--primary" @click="step--">Back to Items</span>
@@ -176,7 +183,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import NavBar from '../components/NavBar.vue';
-import { weight } from "fontawesome";
 import { defineComponent } from 'vue';
 import VehicleCard from '../components/VehicleCard.vue';
 import ItemCard from '../components/ItemCard.vue';
@@ -184,10 +190,6 @@ import computersCargoImage from '../../assets/computers-cargo.jpg';
 import colgateCargoImage from '../../assets/colgate-cargo.jpg';
 import scooterDelivery from '../../assets/scooter.png';
 import vanDelivery from '../../assets/van.png';
-
-
-
-
 
 
 const step = ref(1); // Initialize step to 1, indicating the items and bidding view
@@ -202,7 +204,14 @@ const modalVisible = ref(false);
 const bidPlaced = ref(false);
 const selectedItem = ref({});
 const showItemInfo = ref(false); // Add this line
+const selectedVehicle = ref(null);
 
+
+const selectVehicle = (vehicle) => {
+  selectedVehicle.value = vehicle;
+  step.value = 2; // Set step to 2 to show the vehicle selection view
+
+};
 
 
 const carrierDashboardPage = ref(null);
@@ -285,15 +294,12 @@ const helpModalVisible = ref(false);
     }
   };
 
-  const selectVehicle = () => {
-  step.value = 2; // Set step to 2 to show the vehicle selection view
-};
 
 const vehicles = ref([
   {
     name: 'Vehicle 1',
-    type: 'Truck',
-    capacity: '1000kg',
+    type: 'Motorcycle',
+    capacity: '100kg',
     availability: 'Available'
   },
   {
@@ -326,7 +332,7 @@ const cancelBid = () => {
 };
 
 const getVehicleImage = (vehicleType) => {
-  if (vehicleType === 'Truck') {
+  if (vehicleType === 'Motorcycle') {
     return scooterDelivery;
   } else if (vehicleType === 'Van') {
     return vanDelivery;
