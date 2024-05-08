@@ -23,8 +23,13 @@
                             Select Date
                         </v-btn>
                         <v-dialog activator="#selectdate">
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                            <v-date-picker v-model="selectedDate"></v-date-picker>
                         </v-dialog>
+                        <v-card-text v-if="selectedDate!=null">  
+                            <v-sheet class="mx-auto px-4 py-6" rounded color="primary">
+                                Selected Date: {{ selectedDate }}
+                            </v-sheet>
+                        </v-card-text>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -35,8 +40,7 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        Bid Express on:
-
+                        Bid Expires on:
                         <v-btn block>
                             Select Date
                         </v-btn>
@@ -58,3 +62,11 @@
         </v-container>
     </v-main>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+    
+const selectedDate = ref(null);
+
+
+</script>
