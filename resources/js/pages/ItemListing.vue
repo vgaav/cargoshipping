@@ -23,14 +23,13 @@
                             Select Date
                         </v-btn>
                         <v-dialog activator="#selectdate">
-                            <v-date-selector> </v-date-selector>
+                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                         </v-dialog>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         Select preferred vehicle
-
                         <v-select :items="['Motorcycle', 'Van', 'Truck']"></v-select>
                     </v-col>
                 </v-row>
@@ -41,6 +40,18 @@
                         <v-btn block>
                             Select Date
                         </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="6">
+                        <v-btn color="primary" block>
+                            Start Bidding
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-btn block>
+                                Cancel
+                            </v-btn>
                     </v-col>
                 </v-row>
             </v-card>
