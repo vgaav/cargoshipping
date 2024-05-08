@@ -161,13 +161,13 @@
         <!-- Add your vehicle selection UI components here -->
         <div class="vehicle-cards">
             <VehicleCard
-              v-for="(vehicle, index) in vehicles"
-              :key="index"
-              :vehicle="vehicle"
-              :image="getVehicleImage(vehicle.type)"
-              :selected="selectedVehicle === vehicle"
-              @select-vehicle="selectVehicle"
-            />
+            v-for="(vehicle, index) in vehicles"
+            :key="index"
+            :vehicle="vehicle"
+            :image="getVehicleImage(vehicle.type)"
+            :selected-vehicle="selectedVehicle"
+            @select-vehicle="selectVehicle"
+          />
           </div>
       </div>
       <div class="back-button">
@@ -199,19 +199,15 @@ const minimumBid = ref(0);
 
 components: { ItemCard, VehicleCard }
 
+
+
 const isClicked = ref(false);
 const modalVisible = ref(false);
 const bidPlaced = ref(false);
 const selectedItem = ref({});
-const showItemInfo = ref(false); // Add this line
+const showItemInfo = ref(false);
 const selectedVehicle = ref(null);
 
-
-const selectVehicle = (vehicle) => {
-  selectedVehicle.value = vehicle;
-  step.value = 2; // Set step to 2 to show the vehicle selection view
-
-};
 
 
 const carrierDashboardPage = ref(null);
@@ -294,6 +290,9 @@ const helpModalVisible = ref(false);
     }
   };
 
+  const selectVehicle = (vehicle) => {
+  selectedVehicle.value = vehicle;
+};
 
 const vehicles = ref([
   {
