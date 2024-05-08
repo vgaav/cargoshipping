@@ -1,10 +1,10 @@
 <template>
     <v-card
-      class="vehicle-card"
-      elevation="hoverElevation"
-      :class="{ 'selected': selectedVehicle === vehicle }"
-      @click="selectVehicle(vehicle)"
-    >
+    class="vehicle-card"
+    elevation="12"
+    :class="{ 'elected': selectedVehicle === vehicle }"
+    @click="selectVehicle(vehicle)"
+  >
       <v-row>
         <v-col cols="4" class="vehicle-image-col">
           <img :src="image" alt="Vehicle Image" class="vehicle-image" />
@@ -29,11 +29,16 @@
   </template>
 
   <style scoped>
-    .vehicle-card {
+  .vehicle-card {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    border: 1px solid #ccc; /* default border color */
+  }
+
+  .selected {
+    border: 1px solid #007bff; /* highlighted border color */
   }
 
   .vehicle-image-col {
@@ -126,18 +131,28 @@
     }
   }
   </style>
-
   <script>
   export default {
     props: {
-      vehicle: {
-        type: Object,
-        required: true
-      },
-      image: {
+    vehicle: {
+      type: Object,
+      required: true
+    },
+    image: {
       type: String,
       required: true
+    },
+    selectedVehicle: {
+      type: Object,
+      required: true
     }
+  },
+    methods: {
+      selectVehicle(vehicle) {
+        // emit an event to the parent component
+        this.$emit('select-vehicle', vehicle);
+      }
     }
   }
   </script>
+
