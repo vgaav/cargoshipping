@@ -22,7 +22,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// Leaflet Map 
+// Leaflet Map
 import 'leaflet/dist/leaflet.css';
 
 const vuetify = createVuetify({
@@ -44,4 +44,3 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 // Mount the Vue app
 app.mount('#app');
-

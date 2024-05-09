@@ -2,7 +2,7 @@
     <v-card
     class="vehicle-card"
     elevation="12"
-    :class="{ 'elected': selectedVehicle === vehicle }"
+    :class="{ 'selected': isSelected }"
     @click="selectVehicle(vehicle)"
   >
       <v-row>
@@ -28,6 +28,36 @@
     </v-card>
   </template>
 
+  <script>
+  export default {
+    props: {
+      vehicle: {
+        type: Object,
+        required: true
+      },
+      image: {
+        type: String,
+        required: true
+      },
+      selectedVehicle: {
+        type: Object,
+        required: true
+      }
+    },
+    computed: {
+      isSelected() {
+        return this.selectedVehicle === this.vehicle;
+      }
+    },
+    methods: {
+      selectVehicle(vehicle) {
+        // emit an event to the parent component
+        this.$emit('select-vehicle', vehicle);
+      }
+    }
+  }
+  </script>
+
   <style scoped>
   .vehicle-card {
     border-radius: 8px;
@@ -38,8 +68,9 @@
   }
 
   .selected {
-    border: 1px solid #007bff; /* highlighted border color */
+    border: 2px solid #007bff; /* highlighted border color */
   }
+
 
   .vehicle-image-col {
     display: flex;
@@ -131,28 +162,4 @@
     }
   }
   </style>
-  <script>
-  export default {
-    props: {
-    vehicle: {
-      type: Object,
-      required: true
-    },
-    image: {
-      type: String,
-      required: true
-    },
-    selectedVehicle: {
-      type: Object,
-      required: true
-    }
-  },
-    methods: {
-      selectVehicle(vehicle) {
-        // emit an event to the parent component
-        this.$emit('select-vehicle', vehicle);
-      }
-    }
-  }
-  </script>
 

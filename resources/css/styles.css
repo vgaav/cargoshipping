@@ -444,6 +444,12 @@
     margin-top: 4px;
   }
 
+  .validation-message {
+    color: red;
+    font-size: 14px;
+    margin: 4px;
+}
+
   .payment{
     font-size:18px;
     margin-top: 10px;
