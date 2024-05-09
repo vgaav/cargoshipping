@@ -6,6 +6,7 @@ import App from './App.vue';
 
 // Import other components
 import NavBarVue from './components/NavBar.vue';
+import LeafletMap from './components/LeafletMap.vue';
 
 // Import Vue Router
 import router from './router/router.js';
@@ -21,6 +22,9 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// Leaflet Map 
+import 'leaflet/dist/leaflet.css';
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -30,6 +34,7 @@ const app = createApp(App);
 
 // Register components, plugins, and router
 app.component('NavBarVue', NavBarVue);
+app.component('LeafletMap',LeafletMap);
 app.use(router);
 app.use(vuetify);
 
@@ -39,3 +44,4 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 // Mount the Vue app
 app.mount('#app');
+

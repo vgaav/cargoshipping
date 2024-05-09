@@ -19,48 +19,52 @@
                 <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('ongoing')"></div>
 
                 <!-- Item Card: Computers Cargo -->
-                <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Computers Cargo')" elevation="hoverElevation">
-                    <v-row>
-                        <v-col cols="4" xs12>
-                            <img src="../../assets/computers-cargo.jpg" alt="Item Image" class="item-image">
-                        </v-col>
-                        <v-col cols="8" xs12>
-                            <v-card-text>
-                                <div class="item-details">
-                                    <div class="item-name">Computers Cargo</div>
-                                    <div class="client"><b>Client:</b> DepEd</div>
-                                    <div class="weight">1200Kg (Weight)</div>
-                                    <div class="from-to"><b>From: Marikina</b> <span class="arrow-symbol">➔</span> <b>To: iAcademy, Makati</b></div>
-                                    <div class="pickup-time"><b>Pickup Time:</b> 6:00AM</div>
-                                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 3:00PM </div>
-                                </div>
-                            </v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-card>
+                <ItemCard
+                :itemName="'Computers Cargo'"
+                :itemImage="computersCargoImage"
+                :client="'DepEd'"
+                :weight="'1200Kg'"
+                :from="'Marikina'"
+                :to="'iAcademy, Makati'"
+                :pickupTime="'6:00AM'"
+                :dropOffTime="'3:00PM'"
+                :quote="'8,000'"
+                @click="showModal"
 
+              />
                 <!-- "Deliveries for Later" Text Positioned Below Item Card -->
                 <div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')"></div>
 
-                <v-card class="item-card" :class="{ 'hoverable':!isClicked }" @click="showModal('Colgate Cargo')" elevation="hoverElevation">
-                    <v-row>
-                        <v-col cols="4">
-                            <img src="../../assets/colgate-cargo.jpg" alt="Item Image" class="item-image">
-                        </v-col>
-                        <v-col cols="8">
-                            <v-card-text>
-                                <div class="item-details">
-                                    <div class="item-name">Colgate Cargo</div>
-                                    <div class="client"><b>Client:</b> Colgate-Palmolive</div>
-                                    <div class="weight">700Kg (Weight)</div>
-                                    <div class="from-to"><b>From: Mckinley Hill, Taguig</b> <span class="arrow-symbol">➔</span> <b>To: Puregold, Marikina</b></div>
-                                    <div class="pickup-time"><b>Pickup Time:</b> 7:00AM</div>
-                                    <div class="drop-off-time"><b>Estimated Drop-off Time:</b> 10:00PM </div>
-                                </div>
-                            </v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-card>
+                <ItemCard
+                :itemName="'Colgate Cargo'"
+                :itemImage="colgateCargoImage"
+                :client="'Colgate-Palmolive'"
+                :weight="'700Kg'"
+                :from="'Mckinley Hill, Taguig'"
+                :to="'Puregold, Marikina'"
+                :pickupTime="'7:00AM'"
+                :dropOffTime="'10:00PM'"
+                :quote="'5,000'"
+                @click="showModal"
+
+              />
+
+                <v-dialog v-model="bidModalVisible" max-width="400">
+                    <v-card>
+                      <v-card-title>Bid Confirmation</v-card-title>
+                      <v-card-text>
+                        <form>
+                          <v-text-field label="Bid Amount" v-model="bidAmount" type="number" required/>
+                          <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" required />
+                        </form>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="green" @click="confirmBid">Confirm Bid</v-btn>
+                        <v-btn color="red" @click="cancelBid">Cancel</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+
 
                 <!-- Modal -->
                 <v-dialog v-model="modalVisible" max-width="400">
@@ -86,6 +90,10 @@
                             <div>
                                 <label>Current Bids:</label>
                                 <span>{{ selectedItem.currentBids }}</span>
+                            </div>
+                            <div>
+                                <label>Quote/Pricing:</label>
+                                <span>{{ selectedItem.quote }}</span>
                             </div>
                             <v-btn @click="showItemInfo =!showItemInfo">Show Item Information</v-btn>
                             <!-- Item Information -->
@@ -114,13 +122,13 @@
                         </v-card-text>
                         <v-card-actions v-if="modalVisible">
                             <template v-if="!bidPlaced">
-                              <v-btn color="green" @click="bid">Bid</v-btn>
+                              <v-btn color="green" @click="showBidModal">Bid</v-btn>
                               <v-btn color="red" @click="cancel">Cancel</v-btn>
                             </template>
                             <template v-else>
                               <div class="bid-placed-text">Bid has been placed</div>
                             </template>
-                          </v-card-actions>
+                          </v-card-actions>/
                     </v-card>
                 </v-dialog>
 
@@ -138,22 +146,33 @@
             </v-main>
             </v-window-item>
             <v-window-item :value="2">
-                <!-- Vehicle selection content goes here -->
-                <div class="banner">
-                    <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image">
-                    <div class="banner-overlay">
-                        <h1 class="banner-title">Select Vehicle</h1>
-                        <div class="nav-buttons">
-                            <span class="btn btn-primary" @click="step--">Back to Items</span>                        </div>
-                    </div>
-                </div>
-                <div>
-                  <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
-                  <!-- Add your vehicle selection UI components here -->
-                </div>
-                <div class="back-button">
-                  <span class="text--primary" @click="step--">Back to Items</span>
-                </div>
+              <!-- Vehicle selection content goes here -->
+    <div class="banner">
+        <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image">
+        <div class="banner-overlay">
+          <h1 class="banner-title">Select Vehicle</h1>
+          <div class="nav-buttons">
+            <span class="btn btn-primary" @click="step--">Back to Items</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')"></h2>
+        <!-- Add your vehicle selection UI components here -->
+        <div class="vehicle-cards">
+            <VehicleCard
+            v-for="(vehicle, index) in vehicles"
+            :key="index"
+            :vehicle="vehicle"
+            :image="getVehicleImage(vehicle.type)"
+            :selected-vehicle="selectedVehicle"
+            @select-vehicle="selectVehicle"
+          />
+          </div>
+      </div>
+      <div class="back-button">
+        <span class="text--primary" @click="step--">Back to Items</span>
+      </div>
               </v-window-item>
             </v-window>
         </div>
@@ -164,15 +183,31 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import NavBar from '../components/NavBar.vue';
-import { weight } from "fontawesome";
+import { defineComponent } from 'vue';
+import VehicleCard from '../components/VehicleCard.vue';
+import ItemCard from '../components/ItemCard.vue';
+import computersCargoImage from '../../assets/computers-cargo.jpg';
+import colgateCargoImage from '../../assets/colgate-cargo.jpg';
+import scooterDelivery from '../../assets/scooter.png';
+import vanDelivery from '../../assets/van.png';
+
 
 const step = ref(1); // Initialize step to 1, indicating the items and bidding view
+const bidModalVisible = ref(false);
+const bidAmount = ref(0);
+const minimumBid = ref(0);
+
+components: { ItemCard, VehicleCard }
+
+
 
 const isClicked = ref(false);
 const modalVisible = ref(false);
 const bidPlaced = ref(false);
 const selectedItem = ref({});
-const showItemInfo = ref(false); // Add this line
+const showItemInfo = ref(false);
+const selectedVehicle = ref(null);
+
 
 
 const carrierDashboardPage = ref(null);
@@ -195,6 +230,7 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'iAcademy, Makati',
         currentBids: '100',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        quote:'8,000',
         //item information
         itemName:'20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)',
         length:'Not Provided',
@@ -211,6 +247,7 @@ const showModal = (itemName, isBidPlaced = false) => {
         destination: 'Puregold, Marikina',
         currentBids: '200',
         isBidPlaced: isBidPlaced, // Add isBidPlaced to selectedItem
+        quote:'5,000',
         //item information
         itemName:'10 Boxes of Colgate Toothpaste (20 pieces per box)', //Example lang to
         length:'Not Provided',
@@ -224,23 +261,6 @@ const showModal = (itemName, isBidPlaced = false) => {
   }
 };
 
-
-
-const bid = () => {
-  console.log('Bid button clicked');
-  // Add your bid logic here
-
-  // Update UI to show bid placed message and hide buttons
-  selectedItem.value.currentBids++; // Example: Increment current bids count
-  selectedItem.value.status = 'Bid Placed'; // Update status to 'Bid Placed'
-  bidPlaced.value = true; // Set bidPlaced to true
-
-  // Show mini modal with bid placed message
-  showModal(selectedItem.value.itemName, true); // Call showModal with isBidPlaced = true
-
-  step.value = 2;
-
-};
 
 const cancel = () => {
   console.log('Cancel button clicked');
@@ -270,11 +290,56 @@ const helpModalVisible = ref(false);
     }
   };
 
-  const selectVehicle = () => {
-  step.value = 2; // Set step to 2 to show the vehicle selection view
+  const selectVehicle = (vehicle) => {
+  selectedVehicle.value = vehicle;
 };
-</script>
 
+const vehicles = ref([
+  {
+    name: 'Vehicle 1',
+    type: 'Motorcycle',
+    capacity: '100kg',
+    availability: 'Available'
+  },
+  {
+    name: 'Vehicle 2',
+    type: 'Van',
+    capacity: '500kg',
+    availability: 'Available'
+  },
+  // Add more vehicles to the array
+]);
+
+const showBidModal = () => {
+  bidModalVisible.value = true;
+};
+
+const confirmBid = () => {
+  // Add your bid confirmation logic here
+  console.log(`Bid amount: ${bidAmount.value}, Minimum bid: ${minimumBid.value}`);
+  // Update the UI to show the bid has been placed
+  bidPlaced.value = true;
+  bidModalVisible.value = false;
+  selectedItem.value.currentBids++; // Example: Increment current bids count
+
+  step.value = 2;
+
+};
+
+const cancelBid = () => {
+  bidModalVisible.value = false;
+};
+
+const getVehicleImage = (vehicleType) => {
+  if (vehicleType === 'Motorcycle') {
+    return scooterDelivery;
+  } else if (vehicleType === 'Van') {
+    return vanDelivery;
+  }
+  // Add more vehicle types to the switch statement
+};
+
+</script>
 <style src="../../css/styles.css" scoped></style>
 
 

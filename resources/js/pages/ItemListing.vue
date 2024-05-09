@@ -10,10 +10,10 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="6">
+                    <v-col cols="8">
                         <v-text-field label="Time"></v-text-field>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col cols="4">
                         <v-select :items="['AM','PM']"></v-select>
                     </v-col>
                 </v-row>
@@ -23,27 +23,50 @@
                             Select Date
                         </v-btn>
                         <v-dialog activator="#selectdate">
-                            <v-date-selector> </v-date-selector>
+                            <v-date-picker v-model="selectedDate"></v-date-picker>
                         </v-dialog>
+                        <v-card-text v-if="selectedDate!=null">  
+                            <v-sheet class="mx-auto px-4 py-6" rounded color="primary">
+                                Selected Date: {{ selectedDate }}
+                            </v-sheet>
+                        </v-card-text>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         Select preferred vehicle
-
                         <v-select :items="['Motorcycle', 'Van', 'Truck']"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
-                        Bid Express on:
-
+                        Bid Expires on:
                         <v-btn block>
                             Select Date
                         </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="6">
+                        <v-btn color="primary" block>
+                            Start Bidding
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-btn block>
+                                Cancel
+                            </v-btn>
                     </v-col>
                 </v-row>
             </v-card>
         </v-container>
     </v-main>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+    
+const selectedDate = ref(null);
+
+
+</script>

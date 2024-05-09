@@ -25,10 +25,11 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-//Declaration of Next v-btn to move pages
+//Declaration of v-btn to move pages
 function home() {
   router.push({
     name: 'LandingPage',
   })
 }
+
 </script>
