@@ -1,0 +1,28 @@
+5/9/24
+Landing Page: 
+Styling improvement
+
+NavBar Component: 
+Liitan notif button
+Tanggalin yung may hamburger icon if di pa nakalogin.
+If logged in na, yung currently meron tayo ngayon, retain mo yon para sa carrier,
+If client dashboard, current listing lang ang meron don and profile, mawawala yung current na meron tayo
+Yung sa plus sign naman, if logged in na as carrier, pupunta sa carrierdashboard
+if logged in as client, add listing
+
+Login:
+Paglogin na lang problem neto with token
+
+List
+Yung type of textbox is parang sa login para consistent
+Type of product, bigyan mo choices si user, dropdown na lang to
+Weight, lagay ka units, kg
+Time, if meron, lagay ng time input
+Date, maliit na lang din siguro to, ka-row ng time, depende if maganda tignan
+Bid expires on, date and time
+
+Profile:
+Wala pa tayo neto
+Meron dapat nung completed transaction rate
+Ratings ng katransact
+Info of course
