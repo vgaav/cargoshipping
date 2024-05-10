@@ -1,25 +1,30 @@
 <template>
     <v-main>
         <v-container>
-            <v-card class="mx-auto px-6 py-8">
+            <v-card class="mx-auto px-6 py-4 custom-rounded-card text-center">
                 <v-card-title> Item Listing </v-card-title>
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field label="Type of Product"></v-text-field>
-                        <v-text-field label="Weight"></v-text-field>
+                        <v-select label="Type of Product" variant="outlined" :items="['Consumer Goods', 'Industrial Materials', 'Perishable Goods',]"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="8">
-                        <v-text-field label="Time"></v-text-field>
+                    <v-col cols="12">
+                        <v-text-field variant="outlined" label="Weight (kg)"></v-text-field> 
                     </v-col>
-                    <v-col cols="4">
-                        <v-select :items="['AM','PM']"></v-select>
+                </v-row>
+                <v-row> <!-- TIME ROW -->
+                    <v-col cols="6">
+                        <v-select variant="outlined"  label="HRS":items="['1','2','3','4','5','6','7','8','9','10','11','12']"></v-select>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-select variant="outlined"  label="Unit":items="['AM','PM']"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-btn block id="selectdate"> 
+                        Select Date:
+                        <v-btn block color="#4E47C6" variant="tonal" id="selectdate"> 
                             Select Date
                         </v-btn>
                         <v-dialog activator="#selectdate">
@@ -34,26 +39,26 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        Select preferred vehicle
-                        <v-select :items="['Motorcycle', 'Van', 'Truck']"></v-select>
+                        Select preferred vehicle:
+                        <v-select variant="outlined" :items="['Motorcycle', 'Van', 'Truck']"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         Bid Expires on:
-                        <v-btn block>
+                        <v-btn block color="#4E47C6" variant="tonal">
                             Select Date
                         </v-btn>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="6">
-                        <v-btn color="primary" block>
+                        <v-btn block color="#4E47C6" variant="tonal">
                             Start Bidding
                         </v-btn>
                     </v-col>
                     <v-col cols="6">
-                        <v-btn block>
+                        <v-btn variant="text" block>
                                 Cancel
                             </v-btn>
                     </v-col>
@@ -67,6 +72,7 @@
 import { ref } from 'vue';
     
 const selectedDate = ref(null);
+
 
 
 </script>

@@ -10,6 +10,17 @@ If client dashboard, current listing lang ang meron don and profile, mawawala yu
 Yung sa plus sign naman, if logged in na as carrier, pupunta sa carrierdashboard
 if logged in as client, add listing
 
+NavBar Component CHANGES:
+1. Liitan notif button 
+    - From size x-large to large
+2. Tanggalin yung may hamburger icon if di pa nakalogin 
+    - Added v-if para mag-check ng state if nakalogin.
+    - Change niyo to true sa script tag para makita ang hamburger.
+3. If logged in na, yung currently meron tayo ngayon, retain mo yon para sa carrier, 
+if client dashboard, current listing lang ang meron don and profile, mawawala yung current na meron tayo
+    - Added Carrier and Client state
+ 
+
 Login:
 Paglogin na lang problem neto with token
 
@@ -20,6 +31,24 @@ Weight, lagay ka units, kg
 Time, if meron, lagay ng time input
 Date, maliit na lang din siguro to, ka-row ng time, depende if maganda tignan
 Bid expires on, date and time
+
+List CHANGES:
+1. Yung type of textbox is parang sa login para consistent
+    - Changed ItemListing.vue to same design as Login.vue
+2. Type of product, bigyan mo choices si user, dropdown na lang to
+    - Added Dropdown options such as:
+        a. Consumer Goods
+        b. Industrial Materials
+        c. Perishable Goods
+3. Weight, lagay ka units, kg
+    - No solution as of now, added placeholder "(KG)"
+4. Time, if meron, lagay ng time input
+    - Added HRS
+    - No minutes just yet, looking into adding a loop to create an array from 1-59
+5. Date, maliit na lang din siguro to, ka-row ng time, depende if maganda tignan
+    - Same sa problem 4
+6. Bid expires on, date and time
+    - Same sa problem 4
 
 Profile:
 Wala pa tayo neto
