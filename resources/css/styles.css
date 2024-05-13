@@ -4,6 +4,16 @@
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
+.custom-hr {
+    border-color: black;
+    width:90%;
+
+}
+
+.custom-hr-what-we-do{
+    border-color: black;
+}
+
 .divider-container {
     display: flex;
     align-items: center;
@@ -30,11 +40,11 @@
 .welcome-back-text {
   font-size: 24px;
   font-family: 'Arial', sans-serif;
-}z
+}
 /*Maui Styles*/
 /* Landing Page Styles */
 .black-box {
-    height: 5px; /* Adjust the height as needed */
+    height: 7px; /* Adjust the height as needed */
     background-color:#4E47C6;
     width:100%;
 }
@@ -62,7 +72,7 @@
     width: 100%;
     height: 400px; /* Auto adjust height */
     object-fit: cover;
-    filter: brightness(40%);
+    filter: brightness(60%);
   }
 
   .banner-overlay {
@@ -120,15 +130,14 @@
     margin-bottom: 10px; /* Increase the bottom margin for spacing */
   }
   .about-us h3, .what-we-do h3 {
-    font-size: 20px; /* Increase the font size for emphasis */
+    font-size: 22px; /* Increase the font size for emphasis */
   }
 
   .about-us p, .what-we-do p {
-    font-size: 18px; /* Increase the font size for emphasis */
-    margin-bottom: 20px; /* Increase the bottom margin for spacing */
+    font-size: 17px; /* Increase the font size for emphasis */
+    margin: 10px; /* Increase the bottom margin for spacing */
     color:black;
   }
-
 
   /* Three cards at the bottom - landing page */
   .nav-buttons {
@@ -138,9 +147,8 @@
   .custom-rounded-card-about-us{
     overflow: hidden; /* Clear floats */
     padding: 5px;
-    margin-top: 10px;
     width:100%;
-    background-color:#FAB440;
+    background-color:#FFA726;
 
 }
 
@@ -181,6 +189,10 @@
     margin: 0 auto;
   }
 
+  .hide-content {
+    display: display;
+  }
+
   .what-we-do .text-wrapper {
     width: 70%; /* Adjust the width of text wrapper */
     float: right; /* Float text to the right */
@@ -202,8 +214,16 @@
     padding-top:10px;
 }
 .bottom-card{
-    background-color: #4E47C6;
+    background-color:#8A2BE2;
     padding-bottom: 100px;
+}
+
+.bottom-card h3{
+    color: #FFFFFF;
+}
+
+.bottom-card p{
+    color: #FFFFFF;
 }
 .bottom-card .card-image {
     padding-top: 10px;
@@ -237,7 +257,9 @@
 .why-use-us-section .text-wrapper {
     width: 50%; /* Adjust the width of the text wrapper */
     float:left;
-    padding-right:40px;
+    padding-right:20px;
+    padding-left:40px;
+    padding-bottom: 20px;
 }
 
 
@@ -249,7 +271,10 @@
     text-align:center;
     padding-top: 20%;
     padding-left: 20px;
+    margin-bottom: 100px;
 }
+
+
 
 /* Icon Image */
 .icon-img {
