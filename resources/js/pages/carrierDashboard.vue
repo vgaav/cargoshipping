@@ -53,6 +53,18 @@
                             </v-card>
                         </v-dialog>
 
+                        <v-dialog v-model="confirmDialog" max-width="400">
+                            <v-card>
+                              <v-card-title>Confirm Vehicle Selection</v-card-title>
+                              <v-card-text>Are you sure you want to select this vehicle?</v-card-text>
+                              <v-card-actions>
+                                <v-btn color="green" @click="confirmSelection">Confirm</v-btn>
+                                <v-btn color="red" @click="confirmDialog = false">Cancel</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+
+
                         <!-- Modal -->
                         <v-dialog v-model="modalVisible" max-width="400">
                             <v-card>
@@ -144,18 +156,24 @@
                       <!-- Add your vehicle selection UI components here -->
                       <div class="vehicle-cards">
                         <VehicleCard
-                          v-for="(vehicle, index) in vehicles"
-                          :key="index"
-                          :vehicle="vehicle"
-                          :image="getVehicleImage(vehicle.type)"
-                          :selected-vehicle="selectedVehicle"
-                          @select-vehicle="handleSelectVehicle"
-                        />
+                        v-for="(vehicle, index) in vehicles"
+                        :key="index"
+                        :vehicle="vehicle"
+                        :image="getVehicleImage(vehicle.type)"
+                        :selected-vehicle="selectedVehicle"
+                        @select-vehicle="handleSelectVehicle"
+                      />
                       </div>
                     </div>
                     <div class="back-button">
                       <span class="text--primary" @click="step--">Back to Items</span>
                     </div>
+                  </v-window-item>
+                  <v-window-item :value="3">
+                    <ReviewAndConfirm
+                    :selected-item="selectedItem"
+                    :selected-vehicle="selectedVehicle"
+                  />
                   </v-window-item>
             </v-window>
         </div>
@@ -175,6 +193,8 @@
     import colgateCargoImage from "../../assets/colgate-cargo.jpg";
     import scooterDelivery from "../../assets/scooter.png";
     import vanDelivery from "../../assets/van.png";
+    import ReviewAndConfirm from "../components/ReviewAndConfirm.vue";
+
 
 
     const step = ref(1);
@@ -192,6 +212,8 @@
     const bidValidationMessage = ref('');
     const minimumBidValidationMessage = ref('');
     const helpModalText = ref("");
+    const confirmDialog = ref(false);
+
 
     const carrierDashboardPage = ref(null);
 
@@ -272,7 +294,14 @@
 
     const handleSelectVehicle = (vehicle) => {
     selectedVehicle.value = vehicle;
+    confirmDialog.value = true; // show confirmation dialog
   };
+
+  const confirmSelection = () => {
+    step.value = 3; // move to step 3
+    confirmDialog.value = false; // hide confirmation dialog
+  };
+
     const selectVehicle = (vehicle) => {
         selectedVehicle.value = vehicle;
     };
@@ -295,47 +324,53 @@
         bidModalVisible.value = true;
     };
 
-    const confirmBid = () => {
-    // Reset validation messages
-    bidValidationMessage.value = '';
-    minimumBidValidationMessage.value = '';
+    const confirmBid = (selectedItem) => {
+  // Clear validation messages
+  bidValidationMessage.value = '';
+  minimumBidValidationMessage.value = '';
 
-    // Check if bidAmount and minimumBid are above 0
-    if (bidForm.value.bidAmount <= 0) {
-        bidValidationMessage.value = 'The bid must be above 0.';
-        return;
-    }
+  // Validate bidAmount
+  if (bidForm.value.bidAmount <= 0) {
+    bidValidationMessage.value = 'The bid amount must be above 0.';
+    return;
+  }
 
-    if (bidForm.value.minimumBid <= 0) {
-        minimumBidValidationMessage.value = 'The minimum bid must be above 0.';
-        return;
-    }
+  // Validate minimumBid
+  if (bidForm.value.minimumBid <= 0) {
+    minimumBidValidationMessage.value = 'The minimum bid must be above 0.';
+    return;
+  }
 
-    // Check if bidAmount is above the given item quote/price
-    const bidAmount = parseFloat(bidForm.value.bidAmount);
-    const itemQuote = parseFloat(selectedItem.value.quote);
-    if (bidAmount >= itemQuote) {
-        bidValidationMessage.value = 'The bid must be below the item quote/price.';
-        return;
-    }
+  // Convert the input values to integers
+  const bidAmount = parseInt(bidForm.value.bidAmount);
+  const itemQuote = parseInt(selectedItem.value.quote);
+  const minimumBid = parseInt(bidForm.value.minimumBid);
 
-    // Check if minimumBid is above the given item quote/price
-    const minimumBid = parseFloat(bidForm.value.minimumBid);
-    if (minimumBid >= itemQuote) {
-        minimumBidValidationMessage.value = 'The minimum bid must be below the item quote/price.';
-        return;
-    }
+  // Check if bidAmount is above the given item quote/price
+  if (bidAmount >= itemQuote) {
+    bidValidationMessage.value = 'The bid must be below the item quote/price.';
+    return;
+  }
 
-    // Add your bid confirmation logic here
-    console.log(`Bid amount: ${bidForm.value.bidAmount}, Minimum bid: ${bidForm.value.minimumBid}`);
-    // Update the UI to show the bid has been placed
-    bidPlaced.value = true;
-    bidModalVisible.value = false;
-    selectedItem.value.currentBids++;
+  // Check if minimumBid is above the given item quote/price
+  if (minimumBid >= itemQuote) {
+    minimumBidValidationMessage.value = 'The minimum bid must be below the item quote/price.';
+    return;
+  }
 
-    step.value = 2;
+  // Update the selectedItem.value.quote property
+  selectedItem.value.quote = bidForm.value.bidAmount;
+
+  // Add your bid confirmation logic here
+  console.log(`Bid amount: ${bidForm.value.bidAmount}, Minimum bid: ${bidForm.value.minimumBid}`);
+
+  // Update the UI to show the bid has been placed
+  bidPlaced.value = true;
+  bidModalVisible.value = false;
+  selectedItem.value.currentBids++;
+
+  step.value = 2;
 };
-
 
 
     const cancelBid = () => {
