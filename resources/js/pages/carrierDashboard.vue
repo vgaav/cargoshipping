@@ -23,7 +23,7 @@
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
                             :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
                             :to="'iAcademy, Makati'" :pickup-time="'6:00AM'" :drop-off-time="'3:00PM'"
-                            :quote="'8,000'" @click="showModal" />
+                            :quote=8000 @click="showModal" />
                         <!-- "Deliveries for Later" Text Positioned Below Item Card -->
                         <div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg"
                                 alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')" />
@@ -33,7 +33,7 @@
                         <ItemCard :item-name="'Colgate Cargo'" :item-image="colgateCargoImage"
                             :client="'Colgate-Palmolive'" :weight="'700Kg'" :from="'Mckinley Hill, Taguig'"
                             :to="'Puregold, Marikina'" :pickup-time="'7:00AM'" :drop-off-time="'10:00PM'"
-                            :quote="'5,000'" @click="showModal" />
+                            :quote=5000 @click="showModal" />
 
                         <v-dialog v-model="bidModalVisible" max-width="400">
                             <v-card>
@@ -195,6 +195,8 @@
     import vanDelivery from "../../assets/van.png";
     import ReviewAndConfirm from "../components/ReviewAndConfirm.vue";
 
+    provide('selectedItem', selectedItem)
+
 
 
     const step = ref(1);
@@ -224,46 +226,47 @@
     });
 
     const showModal = (itemName, isBidPlaced = false) => {
-        if (itemName === "Computers Cargo" || itemName === "Colgate Cargo") {
-            modalVisible.value = true;
-            bidPlaced.value = isBidPlaced;
-            if (itemName === "Computers Cargo") {
-                selectedItem.value = {
-                    client: "DepEd",
-                    pickupTime: "6:00AM",
-                    status: "Ongoing",
-                    destination: "iAcademy, Makati",
-                    currentBids: "100",
-                    isBidPlaced: isBidPlaced,
-                    quote: "8,000",
-                    //item information
-                    itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
-                    length: "Not Provided",
-                    width: "Not Provided",
-                    height: "Not Provided",
-                    weight: "450kg (Overall)",
-                };
-            } else if (itemName === "Colgate Cargo") {
-                selectedItem.value = {
-                    client: "Colgate-Palmolive",
-                    pickupTime: "7:00AM",
-                    status: "Ongoing",
-                    destination: "Puregold, Marikina",
-                    currentBids: "200",
-                    isBidPlaced: isBidPlaced,
-                    quote: "5,000",
-                    //item information
-                    itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
-                    length: "Not Provided",
-                    width: "Not Provided",
-                    height: "Not Provided",
-                    weight: "380kg (Overall)",
-                };
-            }
-        } else {
-            console.log("Invalid item name");
-        }
-    };
+  if (itemName === "Computers Cargo" || itemName === "Colgate Cargo") {
+    modalVisible.value = true;
+    bidPlaced.value = isBidPlaced;
+    if (itemName === "Computers Cargo") {
+      selectedItem.value = {
+        client: "DepEd",
+        pickupTime: "6:00AM",
+        status: "Ongoing",
+        destination: "iAcademy, Makati",
+        currentBids: "100",
+        isBidPlaced: isBidPlaced,
+        quote: 8000,
+        //item information
+        itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
+        length: "Not Provided",
+        width: "Not Provided",
+        height: "Not Provided",
+        weight: "450kg (Overall)",
+      };
+      console.log(selectedItem.value.quote); // Add this line
+    } else if (itemName === "Colgate Cargo") {
+      selectedItem.value = {
+        client: "Colgate-Palmolive",
+        pickupTime: "7:00AM",
+        status: "Ongoing",
+        destination: "Puregold, Marikina",
+        currentBids: "200",
+        isBidPlaced: isBidPlaced,
+        quote: 5000,
+        //item information
+        itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
+        length: "Not Provided",
+        width: "Not Provided",
+        height: "Not Provided",
+        weight: "380kg (Overall)",
+      };
+    }
+  } else {
+    console.log("Invalid item name");
+  }
+};
 
     const cancel = () => {
         console.log("Cancel button clicked");
@@ -324,7 +327,25 @@
         bidModalVisible.value = true;
     };
 
+
+    //Button  for Confirm bid
     const confirmBid = (selectedItem) => {
+
+        if (!selectedItem) {
+    console.error("Selected item or quote is EMPTY");
+    console.error(`Invalid quote value: ${selectedItem.value.name}`);
+
+    return;
+  }
+  console.log(`Invalid itemName: ${selectedItem.itemName}`);
+  console.log(`Invalid item Client: ${selectedItem.client}`);
+
+    try{
+  // Convert the input values to integers
+  const bidAmount = parseFloat(bidForm.value.bidAmount);
+  const itemQuote = parseFloat(selectedItem.value.quote); // Convert quote to a number
+  const minimumBid = parseFloat(bidForm.value.minimumBid);
+
   // Clear validation messages
   bidValidationMessage.value = '';
   minimumBidValidationMessage.value = '';
@@ -341,23 +362,18 @@
     return;
   }
 
-  // Convert the input values to integers
-  const bidAmount = parseInt(bidForm.value.bidAmount);
-  const itemQuote = parseInt(selectedItem.value.quote);
-  const minimumBid = parseInt(bidForm.value.minimumBid);
+
 
   // Check if bidAmount is above the given item quote/price
-  if (bidAmount >= itemQuote) {
+  if (bidForm.value.bidAmount >= itemQuote) {
     bidValidationMessage.value = 'The bid must be below the item quote/price.';
     return;
   }
 
-  // Check if minimumBid is above the given item quote/price
-  if (minimumBid >= itemQuote) {
+  if (bidForm.value.minimumBid >= itemQuote) {
     minimumBidValidationMessage.value = 'The minimum bid must be below the item quote/price.';
     return;
   }
-
   // Update the selectedItem.value.quote property
   selectedItem.value.quote = bidForm.value.bidAmount;
 
@@ -370,6 +386,9 @@
   selectedItem.value.currentBids++;
 
   step.value = 2;
+  }catch(error){
+    console.error(`Invalid quote value: ${selectedItem.value.quote}`);
+  }
 };
 
 
