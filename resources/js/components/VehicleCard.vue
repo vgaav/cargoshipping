@@ -1,10 +1,10 @@
 <template>
     <v-card
-    class="vehicle-card"
-    elevation="12"
-    :class="{ 'selected': isSelected }"
-    @click="selectVehicle(vehicle)"
-  >
+      class="vehicle-card"
+      elevation="12"
+      :class="{ 'selected': isSelected }"
+      @click="selectVehicle"
+    >
       <v-row>
         <v-col cols="4" class="vehicle-image-col">
           <img :src="image" alt="Vehicle Image" class="vehicle-image" />
@@ -33,29 +33,29 @@
     props: {
       vehicle: {
         type: Object,
-        required: true
+        required: true,
       },
       image: {
         type: String,
-        required: true
+        required: true,
       },
       selectedVehicle: {
         type: Object,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       isSelected() {
         return this.selectedVehicle === this.vehicle;
-      }
+      },
     },
     methods: {
-      selectVehicle(vehicle) {
+      selectVehicle() {
         // emit an event to the parent component
-        this.$emit('select-vehicle', vehicle);
-      }
-    }
-  }
+        this.$emit('select-vehicle', this.vehicle);
+      },
+    },
+  };
   </script>
 
   <style scoped>
@@ -71,12 +71,10 @@
     border: 2px solid #007bff; /* highlighted border color */
   }
 
-
   .vehicle-image-col {
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
 
   .vehicle-image {
@@ -122,44 +120,49 @@
 
   /* Media queries for smaller screens */
   @media (max-width: 768px) {
-   .vehicle-card {
+    .vehicle-card {
       margin-top: 20px; /* reduce margin for smaller screens */
     }
-   .vehicle-image {
+    .vehicle-image {
       width: 80px; /* reduce image width for smaller screens */
       height: 80px;
       margin-right: 10px;
     }
-   .vehicle-details-col {
+    .vehicle-details-col {
       flex-direction: row; /* change layout for smaller screens */
     }
-   .vehicle-details {
+    .vehicle-details {
       flex-direction: row;
       align-items: center;
     }
-   .vehicle-name,.vehicle-type,.vehicle-capacity,.vehicle-availability {
+    .vehicle-name,
+    .vehicle-type,
+    .vehicle-capacity,
+    .vehicle-availability {
       font-size: 12px; /* reduce font size for smaller screens */
     }
   }
 
   @media (max-width: 480px) {
-   .vehicle-card {
+    .vehicle-card {
       margin-top: 10px; /* reduce margin for even smaller screens */
     }
-   .vehicle-image {
+    .vehicle-image {
       width: 60px; /* reduce image width for even smaller screens */
       height: 60px;
     }
-   .vehicle-details-col {
+    .vehicle-details-col {
       flex-direction: column; /* change layout for even smaller screens */
     }
-   .vehicle-details {
+    .vehicle-details {
       flex-direction: column;
       align-items: flex-start;
     }
-   .vehicle-name,.vehicle-type,.vehicle-capacity,.vehicle-availability {
+    .vehicle-name,
+    .vehicle-type,
+    .vehicle-capacity,
+    .vehicle-availability {
       font-size: 10px; /* reduce font size for even smaller screens */
     }
   }
   </style>
-
