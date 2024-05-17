@@ -1,7 +1,7 @@
 <!-- ReviewAndConfirm.vue -->
 <template>
     <div class="review-and-confirm">
-      <h2>Review and Confirm</h2>
+      <h2>Review and Confirm Transaction</h2>
       <!-- Review and confirm UI components -->
       <div class="review-summary">
         <div class="selected-item">
@@ -16,7 +16,6 @@
         <div class="selected-vehicle">
           <h3>Selected Vehicle:</h3>
           <p>{{ selectedVehicle.type }}</p>
-          <p>{{ selectedVehicle.licensePlate }}</p>
           <p>{{ selectedVehicle.capacity }}</p>
         </div>
       </div>

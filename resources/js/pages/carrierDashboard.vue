@@ -23,7 +23,7 @@
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
                             :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
                             :to="'iAcademy, Makati'" :pickup-time="'6:00AM'" :drop-off-time="'3:00PM'"
-                            :quote="'8,000'" @click="showModal" />
+                            :quote="8000" @click="showModal" />
                         <!-- "Deliveries for Later" Text Positioned Below Item Card -->
                         <div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg"
                                 alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')" />
@@ -33,25 +33,23 @@
                         <ItemCard :item-name="'Colgate Cargo'" :item-image="colgateCargoImage"
                             :client="'Colgate-Palmolive'" :weight="'700Kg'" :from="'Mckinley Hill, Taguig'"
                             :to="'Puregold, Marikina'" :pickup-time="'7:00AM'" :drop-off-time="'10:00PM'"
-                            :quote="'5,000'" @click="showModal" />
+                            :quote="5000" @click="showModal" />
 
-                        <v-dialog v-model="bidModalVisible" max-width="400">
-                            <v-card>
-                                <v-card-title>Bid Confirmation</v-card-title>
-                                <v-card-text>
+                            <v-dialog v-model="bidModalVisible" max-width="400">
+                                <v-card>
+                                  <v-card-title>Bid Confirmation</v-card-title>
+                                  <v-card-text>
                                     <form>
-                                        <v-text-field v-model="bidForm.bidAmount" label="Bid Amount" type="number" required />
-                                        <div v-if="bidValidationMessage" class="validation-message">{{ bidValidationMessage }}</div>
-                                        <v-text-field v-model="bidForm.minimumBid" label="Minimum Bid" type="number" required />
-                                        <div v-if="minimumBidValidationMessage" class="validation-message">{{ minimumBidValidationMessage }}</div>
+                                      <v-text-field label="Bid Amount" v-model="bidAmount" type="number" required/>
+                                      <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" required />
                                     </form>
-                                </v-card-text>
-                                <v-card-actions>
+                                  </v-card-text>
+                                  <v-card-actions>
                                     <v-btn color="green" @click="confirmBid">Confirm Bid</v-btn>
                                     <v-btn color="red" @click="cancelBid">Cancel</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-dialog>
 
                         <v-dialog v-model="confirmDialog" max-width="400">
                             <v-card>
@@ -209,10 +207,10 @@
     const showItemInfo = ref(false);
     const selectedVehicle = ref(null);
     const helpModalVisible = ref(false);
-    const bidValidationMessage = ref('');
-    const minimumBidValidationMessage = ref('');
     const helpModalText = ref("");
     const confirmDialog = ref(false);
+    const bidAmount = ref(0);
+    const minimumBid = ref(0);
 
 
     const carrierDashboardPage = ref(null);
@@ -324,53 +322,22 @@
         bidModalVisible.value = true;
     };
 
-    const confirmBid = (selectedItem) => {
-  // Clear validation messages
-  bidValidationMessage.value = '';
-  minimumBidValidationMessage.value = '';
-
-  // Validate bidAmount
-  if (bidForm.value.bidAmount <= 0) {
-    bidValidationMessage.value = 'The bid amount must be above 0.';
-    return;
-  }
-
-  // Validate minimumBid
-  if (bidForm.value.minimumBid <= 0) {
-    minimumBidValidationMessage.value = 'The minimum bid must be above 0.';
-    return;
-  }
-
-  // Convert the input values to integers
-  const bidAmount = parseInt(bidForm.value.bidAmount);
-  const itemQuote = parseInt(selectedItem.value.quote);
-  const minimumBid = parseInt(bidForm.value.minimumBid);
-
-  // Check if bidAmount is above the given item quote/price
-  if (bidAmount >= itemQuote) {
-    bidValidationMessage.value = 'The bid must be below the item quote/price.';
-    return;
-  }
-
-  // Check if minimumBid is above the given item quote/price
-  if (minimumBid >= itemQuote) {
-    minimumBidValidationMessage.value = 'The minimum bid must be below the item quote/price.';
-    return;
-  }
-
-  // Update the selectedItem.value.quote property
-  selectedItem.value.quote = bidForm.value.bidAmount;
-
+    const confirmBid = () => {
   // Add your bid confirmation logic here
-  console.log(`Bid amount: ${bidForm.value.bidAmount}, Minimum bid: ${bidForm.value.minimumBid}`);
-
+  console.log(`Bid amount: ${bidAmount.value}, Minimum bid: ${minimumBid.value}`);
   // Update the UI to show the bid has been placed
   bidPlaced.value = true;
   bidModalVisible.value = false;
-  selectedItem.value.currentBids++;
+  selectedItem.value.currentBids++; // Example: Increment current bids count
+  console.log(`Item Client: ${selectedItem.value.client}, Pickup Location: ${selectedItem.value.pickupTime}`);
+  console.log(`Item Quote: ${selectedItem.value.quote}`);
+
+
 
   step.value = 2;
+
 };
+
 
 
     const cancelBid = () => {

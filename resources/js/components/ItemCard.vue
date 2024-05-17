@@ -13,7 +13,7 @@
                 <div class="from-to"><b>From: {{ from }}</b> <span class="arrow-symbol">➔</span> <b>To: {{ to }}</b></div>
                 <div class="pickup-time"><b>Pickup Time:</b> {{ pickupTime }}</div>
                 <div class="drop-off-time"><b>Estimated Drop-off Time:</b> {{ dropOffTime }}</div>
-                <div class="quote"><b>Quote/Price: P</b>{{ parseFloat(quote) }}</div>
+                <div class="quote"><b>Quote/Price: P</b>{{quote}}</div>
               </div>
             </v-card-text>
           </v-col>
