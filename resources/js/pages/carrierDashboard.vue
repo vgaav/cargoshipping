@@ -40,8 +40,20 @@
                                   <v-card-title>Bid Confirmation</v-card-title>
                                   <v-card-text>
                                     <form>
-                                      <v-text-field label="Bid Amount" v-model="bidAmount" type="number" required/>
-                                      <v-text-field label="Minimum Bid" v-model="minimumBid" type="number" required />
+                                      <v-text-field
+                                        label="Bid Amount"
+                                        v-model.number="bidAmount"
+                                        :rules="bidRules"
+                                        type="number"
+                                        required
+                                      />
+                                      <v-text-field
+                                        label="Minimum Bid"
+                                        v-model.number="minimumBid"
+                                        :rules="minimumBidRules"
+                                        type="number"
+                                        required
+                                      />
                                     </form>
                                   </v-card-text>
                                   <v-card-actions>
@@ -197,10 +209,6 @@
 
     const step = ref(1);
     const bidModalVisible = ref(false);
-    const bidForm = ref({
-        bidAmount: 0,
-        minimumBid: 0,
-    });
     const modalVisible = ref(false);
     const bidPlaced = ref(false);
     const selectedItem = ref({});
@@ -209,11 +217,22 @@
     const helpModalVisible = ref(false);
     const helpModalText = ref("");
     const confirmDialog = ref(false);
-    const bidAmount = ref(0);
-    const minimumBid = ref(0);
+    const bidAmount = ref(null);
+    const minimumBid = ref(null);
 
 
     const carrierDashboardPage = ref(null);
+
+    const bidRules = [
+  v => v >= 0 || 'Bid amount must be non-negative',
+  v => v <= selectedItem.value.quote || `Bid amount must be below ${selectedItem.value.quote}`,
+
+];
+
+const minimumBidRules = [
+  v => v >= 0 || 'Minimum bid must be non-negative',
+  v => v <= selectedItem.value.quote || `Minimum bid must be below ${selectedItem.value.quote}`,
+];
 
     onMounted(() => {
         setTimeout(() => {
@@ -233,7 +252,7 @@
                     destination: "iAcademy, Makati",
                     currentBids: "100",
                     isBidPlaced: isBidPlaced,
-                    quote: "8,000",
+                    quote: 8000,
                     //item information
                     itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
                     length: "Not Provided",
@@ -249,7 +268,7 @@
                     destination: "Puregold, Marikina",
                     currentBids: "200",
                     isBidPlaced: isBidPlaced,
-                    quote: "5,000",
+                    quote: 5000,
                     //item information
                     itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
                     length: "Not Provided",
@@ -323,27 +342,30 @@
     };
 
     const confirmBid = () => {
-  // Add your bid confirmation logic here
+  if (
+    bidAmount.value < 0 ||
+    minimumBid.value < 0 ||
+    bidAmount.value == 0 ||
+    minimumBid.value == 0 ||
+    bidAmount.value > selectedItem.value.quote ||
+    minimumBid.value > selectedItem.value.quote
+  ) {
+    // Display an alert or error message
+    alert('Invalid bid or minimum bid amount. Please check the values.');
+    return;
+  }
   console.log(`Bid amount: ${bidAmount.value}, Minimum bid: ${minimumBid.value}`);
-  // Update the UI to show the bid has been placed
   bidPlaced.value = true;
   bidModalVisible.value = false;
-  selectedItem.value.currentBids++; // Example: Increment current bids count
+  selectedItem.value.currentBids++;
   console.log(`Item Client: ${selectedItem.value.client}, Pickup Location: ${selectedItem.value.pickupTime}`);
   console.log(`Item Quote: ${selectedItem.value.quote}`);
-
-
-
   step.value = 2;
-
 };
 
-
-
-    const cancelBid = () => {
-        bidModalVisible.value = false;
-    };
-
+const cancelBid = () => {
+  bidModalVisible.value = false;
+};
     const getVehicleImage = (vehicleType) => {
         if (vehicleType === "Motorcycle") {
             return scooterDelivery;
