@@ -353,6 +353,16 @@
     height:50px;
   }
 
+
+/* Or, if you want to target the modal card specifically */
+.custom-dialog .v-card {
+    background-color: #FFA726 !important;
+}
+
+.custom-dialog .item-info-card {
+    background-color: #fff !important;
+}
+
   .dashboard {
     display: flex;
     flex-direction: column;
