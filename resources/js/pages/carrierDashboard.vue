@@ -57,8 +57,8 @@
                                     </form>
                                   </v-card-text>
                                   <v-card-actions>
-                                    <v-btn color="green" @click="confirmBid">Confirm Bid</v-btn>
-                                    <v-btn color="red" @click="cancelBid">Cancel</v-btn>
+                                    <v-btn class="custom-btn green" color="green" @click="confirmBid">Confirm Bid</v-btn>
+                                    <v-btn class="custom-btn red" color="red" @click="cancelBid">Cancel</v-btn>
                                   </v-card-actions>
                                 </v-card>
                               </v-dialog>
@@ -68,79 +68,82 @@
                               <v-card-title>Confirm Vehicle Selection</v-card-title>
                               <v-card-text>Are you sure you want to select this vehicle?</v-card-text>
                               <v-card-actions>
-                                <v-btn color="green" @click="confirmSelection">Confirm</v-btn>
-                                <v-btn color="red" @click="confirmDialog = false">Cancel</v-btn>
+                                <v-btn class="custom-btn green" color="green" @click="confirmSelection">Confirm</v-btn>
+                                <v-btn class="custom-btn red" color="red" @click="confirmDialog = false">Cancel</v-btn>
                               </v-card-actions>
                             </v-card>
                           </v-dialog>
 
 
                      <!-- Modal -->
-<v-dialog v-model="modalVisible" max-width="400" class="custom-dialog">
-    <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
-    <v-card>
-        <v-card-title>Shipping Information</v-card-title>
-        <v-card-text>
-            <div>
-                <label>Order from:</label>
-                <span>{{ selectedItem.client }}</span>
-            </div>
-            <div>
-                <label>Ship Out Date:</label>
-                <span>{{ selectedItem.pickupTime }}</span>
-            </div>
-            <div>
-                <label>Status:</label>
-                <span>{{ selectedItem.status }}</span>
-            </div>
-            <div>
-                <label>Destination:</label>
-                <span>{{ selectedItem.destination }}</span>
-            </div>
-            <div>
-                <label>Current Bids:</label>
-                <span>{{ selectedItem.currentBids }}</span>
-            </div>
-            <div>
-                <label>Quote/Pricing:</label>
-                <span>{{ selectedItem.quote }}</span>
-            </div>
-            <v-btn @click="showItemInfo = !showItemInfo">Show Item Information</v-btn>
-            <!-- Item Information -->
-            <div v-if="showItemInfo" class="item-info-card">
-                <div class="item-info-row">
-                    <label>Description:</label>
-                    <span>{{ selectedItem.itemName }}</span>
-                </div>
-                <div class="item-info-row">
-                    <label>Length:</label>
-                    <span>{{ selectedItem.length }}</span>
-                </div>
-                <div class="item-info-row">
-                    <label>Width:</label>
-                    <span>{{ selectedItem.width }}</span>
-                </div>
-                <div class="item-info-row">
-                    <label>Height:</label>
-                    <span>{{ selectedItem.height }}</span>
-                </div>
-                <div class="item-info-row">
-                    <label>Weight:</label>
-                    <span>{{ selectedItem.weight }}</span>
-                </div>
-            </div>
-        </v-card-text>
-        <v-card-actions v-if="modalVisible">
-            <template v-if="!bidPlaced">
-                <v-btn color="green" @click="showBidModal">Bid</v-btn>
-                <v-btn color="red" @click="cancel">Cancel</v-btn>
-            </template>
-            <template v-else>
-                <div class="bid-placed-text">Bid has been placed</div>
-            </template>
-        </v-card-actions>
-    </v-card>
-</v-dialog>
+                     <v-dialog v-model="modalVisible" max-width="400" class="custom-dialog">
+                        <img :src="selectedItem.itemImage" alt="Item Image" class="item-image">
+                        <v-card>
+                          <v-card-title><u>Shipping Information</u></v-card-title>
+                          <v-card-text>
+                            <div class="info-row">
+                              <label>Order from:</label>
+                              <span>{{ selectedItem.client }}</span>
+                            </div>
+                            <div class="info-row">
+                              <label>Ship Out Date:</label>
+                              <span>{{ selectedItem.pickupTime }}</span>
+                            </div>
+                            <div class="info-row">
+                              <label>Status:</label>
+                              <span>{{ selectedItem.status }}</span>
+                            </div>
+                            <div class="info-row">
+                              <label>Destination:</label>
+                              <span>{{ selectedItem.destination }}</span>
+                            </div>
+                            <div class="info-row">
+                              <label>Current Bids:</label>
+                              <span>{{ selectedItem.currentBids }}</span>
+                            </div>
+                            <div class="info-row">
+                              <label>Quote/Pricing:</label>
+                              <span>{{ selectedItem.quote }}</span>
+                            </div>
+                            <v-btn @click="showItemInfo = !showItemInfo" class="toggle-info-btn">Show Item Information</v-btn>
+                            <!-- Item Information -->
+                            <transition name="fade">
+                              <div v-if="showItemInfo" class="item-info-card">
+                                <div class="item-info-row">
+                                  <label>Description:</label>
+                                  <span>{{ selectedItem.itemName }}</span>
+                                </div>
+                                <div class="item-info-row">
+                                  <label>Length:</label>
+                                  <span>{{ selectedItem.length }}</span>
+                                </div>
+                                <div class="item-info-row">
+                                  <label>Width:</label>
+                                  <span>{{ selectedItem.width }}</span>
+                                </div>
+                                <div class="item-info-row">
+                                  <label>Height:</label>
+                                  <span>{{ selectedItem.height }}</span>
+                                </div>
+                                <div class="item-info-row">
+                                  <label>Weight:</label>
+                                  <span>{{ selectedItem.weight }}</span>
+                                </div>
+                              </div>
+                            </transition>
+                          </v-card-text>
+                          <v-card-actions v-if="modalVisible">
+                            <template v-if="!bidPlaced">
+                              <v-btn class="custom-btn green" color="green" @click="showBidModal">Bid</v-btn>
+                              <v-btn class="custom-btn red" color="red" @click="cancel">Cancel</v-btn>
+                            </template>
+                            <template v-else>
+                              <div class="bid-placed-text">Bid has been placed</div>
+                            </template>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+
 
 <!--                    <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
 -->
@@ -177,9 +180,6 @@
                         @select-vehicle="handleSelectVehicle"
                       />
                       </div>
-                    </div>
-                    <div class="back-button">
-                      <span class="text--primary" @click="step--">Back to Items</span>
                     </div>
                   </v-window-item>
                   <v-window-item :value="3">

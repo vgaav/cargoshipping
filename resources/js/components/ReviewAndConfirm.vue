@@ -23,7 +23,7 @@
         </div>
       </v-card-text>
       <v-card-actions class="confirm-button">
-        <v-btn color="green" dark @click="confirm">Confirm</v-btn>
+        <v-btn class="custom-btn green" color="green" dark @click="confirm">Confirm</v-btn>
     </v-card-actions>
     </v-card>
   </template>
@@ -53,6 +53,38 @@
   </script>
 
 <style scoped>
+
+.custom-btn {
+    background-color: #4CAF50; /* Default background color */
+    color: white !important; /* Text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding inside the button */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Inline block for margin and padding */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+    transition-duration: 0.4s; /* Transition effect */
+}
+
+.custom-btn:hover {
+    background-color: white; /* White background on hover */
+    color: black !important; /* Black text on hover */
+    border: 2px solid #4CAF50; /* Border color on hover */
+}
+
+.custom-btn.red {
+    background-color: #f44336; /* Red background for cancel button */
+}
+
+.custom-btn.red:hover {
+    background-color: white; /* White background on hover */
+    color: black !important; /* Black text on hover */
+    border: 2px solid #f44336; /* Red border on hover */
+}
+
 .review-and-confirm-card {
   max-width: 600px;
   margin: 20px auto;
