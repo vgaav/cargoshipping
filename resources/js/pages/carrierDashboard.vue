@@ -19,6 +19,19 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
+
+                                <ItemCard v-if="items.length > 0"
+                                    :item-name="items[0].item_name"
+                                    :item-image="items[0].item_image"
+                                    :client="items[0].item_client"
+                                    :weight="items[0].item_weight"
+                                    :from="items[0].item_from"
+                                    :to="items[0].item_destination"
+                                    :pickup-time="items[0].item_pickup_time"
+                                    :drop-off-time="items[0].item_dropoff_time"
+                                    :quote="items[0].item_quote"
+                                    @click="showModal(items[0].item_name)" />
+
                         <!-- Item Card: Computers Cargo -->
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
                             :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
@@ -195,36 +208,50 @@
 </template>
 
 <script setup>
-    import {
-        ref,
-        onMounted
-    } from "vue";
-    import NavBar from "../components/NavBar.vue";
-    import VehicleCard from "../components/VehicleCard.vue";
-    import ItemCard from "../components/ItemCard.vue";
-    import computersCargoImage from "../../assets/computers-cargo.jpg";
-    import colgateCargoImage from "../../assets/colgate-cargo.jpg";
-    import scooterDelivery from "../../assets/scooter.png";
-    import vanDelivery from "../../assets/van.png";
-    import ReviewAndConfirm from "../components/ReviewAndConfirm.vue";
+import { ref, onMounted } from "vue";
+import NavBar from "../components/NavBar.vue";
+import VehicleCard from "../components/VehicleCard.vue";
+import ItemCard from "../components/ItemCard.vue";
+import computersCargoImage from "../../assets/computers-cargo.jpg";
+import colgateCargoImage from "../../assets/colgate-cargo.jpg";
+import scooterDelivery from "../../assets/scooter.png";
+import vanDelivery from "../../assets/van.png";
+import ReviewAndConfirm from "../components/ReviewAndConfirm.vue";
 
+const items = ref([]); // Array to store fetched items data
+const step = ref(1);
+const bidModalVisible = ref(false);
+const modalVisible = ref(false);
+const bidPlaced = ref(false);
+const selectedItem = ref({});
+const showItemInfo = ref(false);
+const selectedVehicle = ref(null);
+const helpModalVisible = ref(false);
+const helpModalText = ref("");
+const confirmDialog = ref(false);
+const bidAmount = ref(null);
+const minimumBid = ref(null);
 
+const fetchItems = () => {
+    fetch('/items')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Items:', data);
+            items.value = data;
+        })
+        .catch(error => {
+            console.error('Error fetching items:', error);
+        });
+};
 
-    const step = ref(1);
-    const bidModalVisible = ref(false);
-    const modalVisible = ref(false);
-    const bidPlaced = ref(false);
-    const selectedItem = ref({});
-    const showItemInfo = ref(false);
-    const selectedVehicle = ref(null);
-    const helpModalVisible = ref(false);
-    const helpModalText = ref("");
-    const confirmDialog = ref(false);
-    const bidAmount = ref(null);
-    const minimumBid = ref(null);
-
-
-    const carrierDashboardPage = ref(null);
+onMounted(() => {
+    fetchItems(); // Call fetchItems function when the component is mounted
+});
 
     const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
