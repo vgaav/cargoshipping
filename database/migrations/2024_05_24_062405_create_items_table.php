@@ -8,22 +8,22 @@ class CreateItemsTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id('item_id'); // Primary key
-            $table->string('item_name'); // Name or description
-            $table->string('item_client'); // Client name
-            $table->decimal('item_weight', 8, 2); // Weight in kg
-            $table->string('item_from'); // Origin
-            $table->string('item_destination'); // Destination
-            $table->string('item_pickup_time'); // Pickup time
-            $table->string('item_dropoff_time'); // Drop-off time
-            $table->decimal('item_quote', 10, 2); // Quote or pricing
-            $table->string('item_image'); // Image URL or path
-            $table->decimal('item_length', 8, 2)->nullable(); // Length
-            $table->decimal('item_width', 8, 2)->nullable(); // Width
-            $table->decimal('item_height', 8, 2)->nullable(); // Height
-            $table->string('item_status')->nullable(); // Status
-            $table->integer('item_current_bids')->nullable(); // Current bids
-            $table->timestamps(); // Created and updated timestamps
+            $table->id();
+            $table->string('item_name');
+            $table->string('item_client');
+            $table->float('item_weight');
+            $table->string('item_from');
+            $table->string('item_destination');
+            $table->timestamp('item_pickup_time');
+            $table->timestamp('item_dropoff_time');
+            $table->float('item_quote');
+            $table->string('item_image');
+            $table->float('item_length')->nullable();
+            $table->float('item_width')->nullable();
+            $table->float('item_height')->nullable();
+            $table->string('item_status')->nullable();
+            $table->integer('item_current_bids')->nullable();
+            $table->timestamps();
         });
     }
 

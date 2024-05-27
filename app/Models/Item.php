@@ -10,9 +10,9 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'item_id', 'item_name', 'item_client', 'item_weight', 'item_from',
-        'item_destination', 'item_pickup_time', 'item_dropoff_time', 'item_quote',
-        'item_image', 'item_length', 'item_width', 'item_height', 'item_status',
-        'item_current_bids'
+        'item_name', 'item_client', 'item_weight', 'item_from',
+        'item_destination', 'item_pickup_time', 'item_dropoff_time',
+        'item_quote', 'item_image', 'item_length', 'item_width',
+        'item_height', 'item_status', 'item_current_bids'
     ];
 }

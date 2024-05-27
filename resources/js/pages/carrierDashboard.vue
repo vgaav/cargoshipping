@@ -233,26 +233,19 @@ const bidAmount = ref(null);
 const minimumBid = ref(null);
 
 const fetchItems = () => {
-    fetch('/items')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Items:', data);
-            items.value = data;
-        })
-        .catch(error => {
-            console.error('Error fetching items:', error);
-        });
+  fetch('/api/items')
+    .then(response => response.json())
+    .then(data => {
+      items.value = data;
+    })
+    .catch(error => {
+      console.error('Error fetching items:', error);
+    });
 };
 
 onMounted(() => {
-    fetchItems(); // Call fetchItems function when the component is mounted
+  fetchItems();
 });
-
     const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
   v => v <= selectedItem.value.quote || `Bid amount must be below ${selectedItem.value.quote}`,

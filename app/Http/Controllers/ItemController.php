@@ -10,7 +10,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::all();
-        return response()->json($items, 200);
+        return response()->json($items);
     }
 
     public function show($id)
@@ -19,20 +19,19 @@ class ItemController extends Controller
         if (!$item) {
             return response()->json(['message' => 'Item not found'], 404);
         }
-        return response()->json($item, 200);
+        return response()->json($item);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'item_id' => 'required|integer',
+        $validatedData = $request->validate([
             'item_name' => 'required|string',
             'item_client' => 'required|string',
             'item_weight' => 'required|numeric',
             'item_from' => 'required|string',
             'item_destination' => 'required|string',
-            'item_pickup_time' => 'required|string',
-            'item_dropoff_time' => 'required|string',
+            'item_pickup_time' => 'required|date',
+            'item_dropoff_time' => 'required|date',
             'item_quote' => 'required|numeric',
             'item_image' => 'required|string',
             'item_length' => 'nullable|numeric',
@@ -42,8 +41,8 @@ class ItemController extends Controller
             'item_current_bids' => 'nullable|integer',
         ]);
 
-        $item = Item::create($request->all());
-
+        $item = Item::create($validatedData);
         return response()->json($item, 201);
     }
 }
+
