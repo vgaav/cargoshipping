@@ -19,7 +19,6 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
-
                                 <ItemCard v-if="items.length > 0"
                                     :item-name="items[0].item_name"
                                     :item-image="items[0].item_image"
@@ -209,6 +208,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import axios from 'axios';
 import NavBar from "../components/NavBar.vue";
 import VehicleCard from "../components/VehicleCard.vue";
 import ItemCard from "../components/ItemCard.vue";
@@ -232,24 +232,27 @@ const confirmDialog = ref(false);
 const bidAmount = ref(null);
 const minimumBid = ref(null);
 
-const fetchItems = () => {
-  fetch('/api/items')
-    .then(response => response.json())
-    .then(data => {
-      items.value = data;
-    })
-    .catch(error => {
-      console.error('Error fetching items:', error);
-    });
+const fetchItems = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/items');
+    items.value = response.data;
+  } catch (error) {
+    console.error('Error fetching items:', error);
+  }
+};
+
+const showModalItem = (itemName) => {
+  // Logic for showing modal with item details
+  console.log('Show modal for item:', itemName);
 };
 
 onMounted(() => {
   fetchItems();
 });
-    const bidRules = [
+
+const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
   v => v <= selectedItem.value.quote || `Bid amount must be below ${selectedItem.value.quote}`,
-
 ];
 
 const minimumBidRules = [
@@ -257,119 +260,119 @@ const minimumBidRules = [
   v => v <= selectedItem.value.quote || `Minimum bid must be below ${selectedItem.value.quote}`,
 ];
 
-    onMounted(() => {
-        setTimeout(() => {
-            carrierDashboardPage.value.classList.add("animate-drop-down");
-        }, 100);
-    });
+onMounted(() => {
+  setTimeout(() => {
+    carrierDashboardPage.value.classList.add("animate-drop-down");
+  }, 100);
+});
 
-    const showModal = (itemName, isBidPlaced = false) => {
-    if (itemName === "Computers Cargo" || itemName === "Colgate Cargo") {
-        modalVisible.value = true;
-        bidPlaced.value = isBidPlaced;
-        if (itemName === "Computers Cargo") {
-            selectedItem.value = {
-                client: "DepEd",
-                pickupTime: "6:00AM",
-                status: "Ongoing",
-                destination: "iAcademy, Makati",
-                currentBids: "100",
-                isBidPlaced: isBidPlaced,
-                quote: 8000,
-                //item information
-                itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
-                length: "Not Provided",
-                width: "Not Provided",
-                height: "Not Provided",
-                weight: "450kg (Overall)",
-                // item image
-                itemImage: computersCargoImage
-            };
-        } else if (itemName === "Colgate Cargo") {
-            selectedItem.value = {
-                client: "Colgate-Palmolive",
-                pickupTime: "7:00AM",
-                status: "Ongoing",
-                destination: "Puregold, Marikina",
-                currentBids: "200",
-                isBidPlaced: isBidPlaced,
-                quote: 5000,
-                //item information
-                itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
-                length: "Not Provided",
-                width: "Not Provided",
-                height: "Not Provided",
-                weight: "380kg (Overall)",
-                // item image
-                itemImage: colgateCargoImage
-            };
-        }
-    } else {
-        console.log("Invalid item name");
+const showModal = (itemName, isBidPlaced = false) => {
+  if (itemName === "Computers Cargo" || itemName === "Colgate Cargo") {
+    modalVisible.value = true;
+    bidPlaced.value = isBidPlaced;
+    if (itemName === "Computers Cargo") {
+      selectedItem.value = {
+        client: "DepEd",
+        pickupTime: "6:00AM",
+        status: "Ongoing",
+        destination: "iAcademy, Makati",
+        currentBids: "100",
+        isBidPlaced: isBidPlaced,
+        quote: 8000,
+        //item information
+        itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
+        length: "Not Provided",
+        width: "Not Provided",
+        height: "Not Provided",
+        weight: "450kg (Overall)",
+        // item image
+        itemImage: computersCargoImage
+      };
+    } else if (itemName === "Colgate Cargo") {
+      selectedItem.value = {
+        client: "Colgate-Palmolive",
+        pickupTime: "7:00AM",
+        status: "Ongoing",
+        destination: "Puregold, Marikina",
+        currentBids: "200",
+        isBidPlaced: isBidPlaced,
+        quote: 5000,
+        //item information
+        itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
+        length: "Not Provided",
+        width: "Not Provided",
+        height: "Not Provided",
+        weight: "380kg (Overall)",
+        // item image
+        itemImage: colgateCargoImage
+      };
     }
+  } else {
+    console.log("Invalid item name");
+  }
 };
 
-
-    const cancel = () => {
-        console.log("Cancel button clicked");
-        modalVisible.value = false;
-        bidPlaced.value = false;
-        selectedItem.value = {
-            client: "",
-            pickupTime: "",
-            status: "",
-            destination: "",
-            currentBids: "",
-            isBidPlaced: false,
-        };
-    };
-
-    const showHelpModal = (type) => {
-        helpModalVisible.value = true;
-        if (type === "ongoing") {
-            helpModalText.value = "Ongoing deliveries are shipments that are currently in transit.";
-        } else if (type === "deliveriesLater") {
-            helpModalText.value =
-                "Deliveries for later are shipments that are scheduled to be delivered at a later date.";
-        } else if (type === "vehicleSelect") {
-            helpModalText.value =
-                "This is where you can view your available vehicles. Select which vehicle will handle the delivery.";
-        }
-    };
-
-    const handleSelectVehicle = (vehicle) => {
-    selectedVehicle.value = vehicle;
-    confirmDialog.value = true; // show confirmation dialog
+const cancel = () => {
+  console.log("Cancel button clicked");
+  modalVisible.value = false;
+  bidPlaced.value = false;
+  selectedItem.value = {
+    client: "",
+    pickupTime: "",
+    status: "",
+    destination: "",
+    currentBids: "",
+    isBidPlaced: false,
   };
+};
 
-  const confirmSelection = () => {
-    step.value = 3; // move to step 3
-    confirmDialog.value = false; // hide confirmation dialog
-  };
+const showHelpModal = (type) => {
+  helpModalVisible.value = true;
+  if (type === "ongoing") {
+    helpModalText.value = "Ongoing deliveries are shipments that are currently in transit.";
+  } else if (type === "deliveriesLater") {
+    helpModalText.value =
+      "Deliveries for later are shipments that are scheduled to be delivered at a later date.";
+  } else if (type === "vehicleSelect") {
+    helpModalText.value =
+      "This is where you can view your available vehicles. Select which vehicle will handle the delivery.";
+  }
+};
 
-    const selectVehicle = (vehicle) => {
-        selectedVehicle.value = vehicle;
-    };
+const handleSelectVehicle = (vehicle) => {
+  selectedVehicle.value = vehicle;
+  confirmDialog.value = true; // show confirmation dialog
+};
 
-    const vehicles = ref([{
-            name: "Vehicle 1",
-            type: "Motorcycle",
-            capacity: "100kg",
-            availability: "Available",
-        },
-        {
-            name: "Vehicle 2",
-            type: "Van",
-            capacity: "500kg",
-            availability: "Available",
-        },
-    ]);
+const confirmSelection = () => {
+  step.value = 3; // move to step 3
+  confirmDialog.value = false; // hide confirmation dialog
+};
 
-    const showBidModal = () => {
-        bidModalVisible.value = true;
-    };
+const selectVehicle = (vehicle) => {
+  selectedVehicle.value = vehicle;
+};
 
-    const confirmBid = () => {
+const vehicles = ref([
+  {
+    name: "Vehicle 1",
+    type: "Motorcycle",
+    capacity: "100kg",
+    availability: "Available",
+  },
+  {
+    name: "Vehicle 2",
+    type: "Van",
+    capacity: "500kg",
+    availability: "Available",
+  },
+]);
+
+const showBidModal = () => {
+  bidModalVisible.value = true;
+};
+
+const confirmBid = () => {
   if (
     bidAmount.value < 0 ||
     minimumBid.value < 0 ||
@@ -394,13 +397,14 @@ const minimumBidRules = [
 const cancelBid = () => {
   bidModalVisible.value = false;
 };
-    const getVehicleImage = (vehicleType) => {
-        if (vehicleType === "Motorcycle") {
-            return scooterDelivery;
-        } else if (vehicleType === "Van") {
-            return vanDelivery;
-        }
-        // Add more vehicle types to the switch statement
-    };
+
+const getVehicleImage = (vehicleType) => {
+  if (vehicleType === "Motorcycle") {
+    return scooterDelivery;
+  } else if (vehicleType === "Van") {
+    return vanDelivery;
+  }
+  // Add more vehicle types to the switch statement
+};
 </script>
 <style src="../../css/styles.css" scoped></style>

@@ -17,6 +17,8 @@ Route::get('/test', function () {
 Route::get('/items', [ItemController::class, 'index']);
 Route::get('/items/{id}', [ItemController::class, 'show']);
 Route::post('/items', [ItemController::class, 'store']);
+Route::put('/items/{id}', [ItemController::class, 'update']);
+Route::delete('/items/{id}', [ItemController::class, 'destroy']);
 
 // Protected routes
 Route::middleware('auth:api')->group(function () {
@@ -24,6 +26,5 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
 
-    // You can add other protected routes here
+    // Add other protected routes here if needed
 });
-
