@@ -22,6 +22,10 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+//HERE MAPS API
+//API ID: uN0wu9b36qF1wWr6LkuC
+//API KEY: x0HN5V2BRRL7yh6R35urscUooGAu-mvtHMBulOTZANQ
+
 // Leaflet Map
 import 'leaflet/dist/leaflet.css';
 
