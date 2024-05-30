@@ -5,7 +5,7 @@
       @click="$emit('click', itemName)"
       :elevation="hoverElevation"
     >
-      <v-img :src="itemImage" alt="Item Image" class="item-image"></v-img>
+    <!--   <v-img :src="itemImage" alt="Item Image" class="item-image"></v-img>  (Removed For Testing Muna) -->
       <v-card-text>
         <div class="item-details">
           <div class="item-name">{{ itemName }}</div>
