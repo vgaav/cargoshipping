@@ -19,6 +19,7 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
+                                <!--
                                 <ItemCard
                                 v-for="item in items"
                                 :key="item.id"
@@ -33,6 +34,9 @@
                                 :quote="item.item_quote"
                                 @click="showModal(item.item_name)"
                               />
+                            -->
+
+
                         <!-- Item Card: Computers Cargo -->
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
                             :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
@@ -159,8 +163,8 @@
                       </v-dialog>
 
 
-<!--                    <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
--->
+             <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
+
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
                             <v-card>
@@ -238,6 +242,7 @@ const fetchItems = async () => {
   try {
     const response = await axios.get('http://localhost:8000/api/items');
     items.value = response.data;
+    console.log('Fetched items:', items.value);
   } catch (error) {
     console.error('Error fetching items:', error);
   }
@@ -247,9 +252,6 @@ const showModalItem = (itemName) => {
   console.log('Show modal for item:', itemName);
 };
 
-onMounted(() => {
-  fetchItems();
-});
 
 const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
@@ -262,6 +264,7 @@ const minimumBidRules = [
 ];
 
 onMounted(() => {
+  fetchItems();
   setTimeout(() => {
     document.getElementById('carrierDashboardPage').classList.add('animate-drop-down');
   }, 100);
