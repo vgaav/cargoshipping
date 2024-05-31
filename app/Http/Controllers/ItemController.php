@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Http\Controllers;
-
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +9,26 @@ class ItemController extends Controller
     public function index()
     {
         try {
-            $items = Item::all();
+            $items = Item::all()->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'item_name' => $item->item_name,
+                    'item_client' => $item->item_client,
+                    'item_weight' => $item->item_weight,
+                    'item_from' => $item->item_from,
+                    'item_destination' => $item->item_destination,
+                    'item_pickup_time' => $item->item_pickup_time->toDateTimeString(),
+                    'item_dropoff_time' => $item->item_dropoff_time->toDateTimeString(),
+                    'item_quote' => $item->item_quote,
+                    'item_image' => $item->item_image,
+                    'item_length' => $item->item_length,
+                    'item_width' => $item->item_width,
+                    'item_height' => $item->item_height,
+                    'item_status' => $item->item_status,
+                    'item_current_bids' => $item->item_current_bids,
+                ];
+            });
+
             return response()->json($items);
         } catch (\Exception $e) {
             Log::error('Error fetching items: ' . $e->getMessage());
@@ -26,7 +43,26 @@ class ItemController extends Controller
             if (!$item) {
                 return response()->json(['message' => 'Item not found'], 404);
             }
-            return response()->json($item, 200);
+
+            $itemData = [
+                'id' => $item->id,
+                'item_name' => $item->item_name,
+                'item_client' => $item->item_client,
+                'item_weight' => $item->item_weight,
+                'item_from' => $item->item_from,
+                'item_destination' => $item->item_destination,
+                'item_pickup_time' => $item->item_pickup_time->toDateTimeString(),
+                'item_dropoff_time' => $item->item_dropoff_time->toDateTimeString(),
+                'item_quote' => $item->item_quote,
+                'item_image' => $item->item_image,
+                'item_length' => $item->item_length,
+                'item_width' => $item->item_width,
+                'item_height' => $item->item_height,
+                'item_status' => $item->item_status,
+                'item_current_bids' => $item->item_current_bids,
+            ];
+
+            return response()->json($itemData, 200);
         } catch (\Exception $e) {
             Log::error('Error fetching item: ' . $e->getMessage());
             return response()->json(['message' => 'Failed to fetch item'], 500);
@@ -61,7 +97,6 @@ class ItemController extends Controller
         }
     }
 
-    // Optional: Adding update method
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -95,7 +130,6 @@ class ItemController extends Controller
         }
     }
 
-    // Optional: Adding delete method
     public function destroy($id)
     {
         try {
@@ -112,4 +146,3 @@ class ItemController extends Controller
         }
     }
 }
-

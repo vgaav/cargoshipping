@@ -4,10 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
-// Catch-all route to handle frontend routing
-Route::get('/{pathMatch}', function () {
-    return view('welcome');
-})->where('pathMatch', ".*");
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -31,3 +27,13 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Route::get('/items', [ItemController::class, 'index']);
 // Route::get('/items/{id}', [ItemController::class, 'show']);
 
+Route::get('/check-database', function () {
+    $items = DB::table('items')->get();
+    return view('check-database', ['items' => $items]);
+});
+
+
+// Catch-all route to handle frontend routing
+Route::get('/{pathMatch}', function () {
+    return view('welcome');
+})->where('pathMatch', ".*");

@@ -19,17 +19,23 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
-                                <ItemCard v-if="items.length > 0"
-                                    :item-name="items[0].item_name"
-                                    :item-image="items[0].item_image"
-                                    :client="items[0].item_client"
-                                    :weight="items[0].item_weight"
-                                    :from="items[0].item_from"
-                                    :to="items[0].item_destination"
-                                    :pickup-time="items[0].item_pickup_time"
-                                    :drop-off-time="items[0].item_dropoff_time"
-                                    :quote="items[0].item_quote"
-                                    @click="showModal(items[0].item_name)" />
+                                <!--
+                                <ItemCard
+                                v-for="item in items"
+                                :key="item.id"
+                                :item-name="item.item_name"
+                                :item-image="item.item_image"
+                                :client="item.item_client"
+                                :weight="item.item_weight"
+                                :from="item.item_from"
+                                :to="item.item_destination"
+                                :pickup-time="item.item_pickup_time"
+                                :drop-off-time="item.item_dropoff_time"
+                                :quote="item.item_quote"
+                                @click="showModal(item.item_name)"
+                              />
+                            -->
+
 
                         <!-- Item Card: Computers Cargo -->
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
@@ -157,8 +163,8 @@
                       </v-dialog>
 
 
-<!--                    <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
--->
+             <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
+
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
                             <v-card>
@@ -207,18 +213,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import NavBar from "../components/NavBar.vue";
-import VehicleCard from "../components/VehicleCard.vue";
-import ItemCard from "../components/ItemCard.vue";
-import computersCargoImage from "../../assets/computers-cargo.jpg";
-import colgateCargoImage from "../../assets/colgate-cargo.jpg";
-import scooterDelivery from "../../assets/scooter.png";
-import vanDelivery from "../../assets/van.png";
-import ReviewAndConfirm from "../components/ReviewAndConfirm.vue";
+import NavBar from '../components/NavBar.vue';
+import VehicleCard from '../components/VehicleCard.vue';
+import ItemCard from '../components/ItemCard.vue';
+import computersCargoImage from '../../assets/computers-cargo.jpg';
+import colgateCargoImage from '../../assets/colgate-cargo.jpg';
+import scooterDelivery from '../../assets/scooter.png';
+import vanDelivery from '../../assets/van.png';
+import ReviewAndConfirm from '../components/ReviewAndConfirm.vue';
 
-const items = ref([]); // Array to store fetched items data
+const items = ref([]);
 const step = ref(1);
 const bidModalVisible = ref(false);
 const modalVisible = ref(false);
@@ -227,7 +233,7 @@ const selectedItem = ref({});
 const showItemInfo = ref(false);
 const selectedVehicle = ref(null);
 const helpModalVisible = ref(false);
-const helpModalText = ref("");
+const helpModalText = ref('');
 const confirmDialog = ref(false);
 const bidAmount = ref(null);
 const minimumBid = ref(null);
@@ -236,19 +242,16 @@ const fetchItems = async () => {
   try {
     const response = await axios.get('http://localhost:8000/api/items');
     items.value = response.data;
+    console.log('Fetched items:', items.value);
   } catch (error) {
     console.error('Error fetching items:', error);
   }
 };
 
 const showModalItem = (itemName) => {
-  // Logic for showing modal with item details
   console.log('Show modal for item:', itemName);
 };
 
-onMounted(() => {
-  fetchItems();
-});
 
 const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
@@ -261,92 +264,87 @@ const minimumBidRules = [
 ];
 
 onMounted(() => {
+  fetchItems();
   setTimeout(() => {
-    carrierDashboardPage.value.classList.add("animate-drop-down");
+    document.getElementById('carrierDashboardPage').classList.add('animate-drop-down');
   }, 100);
 });
 
 const showModal = (itemName, isBidPlaced = false) => {
-  if (itemName === "Computers Cargo" || itemName === "Colgate Cargo") {
+  if (itemName === 'Computers Cargo' || itemName === 'Colgate Cargo') {
     modalVisible.value = true;
     bidPlaced.value = isBidPlaced;
-    if (itemName === "Computers Cargo") {
+    if (itemName === 'Computers Cargo') {
       selectedItem.value = {
-        client: "DepEd",
-        pickupTime: "6:00AM",
-        status: "Ongoing",
-        destination: "iAcademy, Makati",
-        currentBids: "100",
+        client: 'DepEd',
+        pickupTime: '6:00AM',
+        status: 'Ongoing',
+        destination: 'iAcademy, Makati',
+        currentBids: '100',
         isBidPlaced: isBidPlaced,
         quote: 8000,
-        //item information
-        itemName: "20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)",
-        length: "Not Provided",
-        width: "Not Provided",
-        height: "Not Provided",
-        weight: "450kg (Overall)",
-        // item image
+        itemName: '20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)',
+        length: 'Not Provided',
+        width: 'Not Provided',
+        height: 'Not Provided',
+        weight: '450kg (Overall)',
         itemImage: computersCargoImage
       };
-    } else if (itemName === "Colgate Cargo") {
+    } else if (itemName === 'Colgate Cargo') {
       selectedItem.value = {
-        client: "Colgate-Palmolive",
-        pickupTime: "7:00AM",
-        status: "Ongoing",
-        destination: "Puregold, Marikina",
-        currentBids: "200",
+        client: 'Colgate-Palmolive',
+        pickupTime: '7:00AM',
+        status: 'Ongoing',
+        destination: 'Puregold, Marikina',
+        currentBids: '200',
         isBidPlaced: isBidPlaced,
         quote: 5000,
-        //item information
-        itemName: "10 Boxes of Colgate Toothpaste (20 pieces per box)",
-        length: "Not Provided",
-        width: "Not Provided",
-        height: "Not Provided",
-        weight: "380kg (Overall)",
-        // item image
+        itemName: '10 Boxes of Colgate Toothpaste (20 pieces per box)',
+        length: 'Not Provided',
+        width: 'Not Provided',
+        height: 'Not Provided',
+        weight: '380kg (Overall)',
         itemImage: colgateCargoImage
       };
     }
   } else {
-    console.log("Invalid item name");
+    console.log('Invalid item name');
   }
 };
 
 const cancel = () => {
-  console.log("Cancel button clicked");
+  console.log('Cancel button clicked');
   modalVisible.value = false;
   bidPlaced.value = false;
   selectedItem.value = {
-    client: "",
-    pickupTime: "",
-    status: "",
-    destination: "",
-    currentBids: "",
+    client: '',
+    pickupTime: '',
+    status: '',
+    destination: '',
+    currentBids: '',
     isBidPlaced: false,
   };
 };
 
 const showHelpModal = (type) => {
   helpModalVisible.value = true;
-  if (type === "ongoing") {
-    helpModalText.value = "Ongoing deliveries are shipments that are currently in transit.";
-  } else if (type === "deliveriesLater") {
-    helpModalText.value =
-      "Deliveries for later are shipments that are scheduled to be delivered at a later date.";
-  } else if (type === "vehicleSelect") {
-    helpModalText.value =
-      "This is where you can view your available vehicles. Select which vehicle will handle the delivery.";
+  if (type === 'ongoing') {
+    helpModalText.value = 'Ongoing deliveries are shipments that are currently in transit.';
+  } else if (type === 'deliveriesLater') {
+    helpModalText.value = 'Deliveries for later are shipments that are scheduled to be delivered at a later date.';
+  } else if (type === 'vehicleSelect') {
+    helpModalText.value = 'This is where you can view your available vehicles. Select which vehicle will handle the delivery.';
   }
 };
 
 const handleSelectVehicle = (vehicle) => {
   selectedVehicle.value = vehicle;
-  confirmDialog.value = true; // show confirmation dialog
+  confirmDialog.value = true;
 };
 
 const confirmSelection = () => {
-  step.value = 3; // move to step 3
-  confirmDialog.value = false; // hide confirmation dialog
+  step.value = 3;
+  confirmDialog.value = false;
 };
 
 const selectVehicle = (vehicle) => {
@@ -355,16 +353,16 @@ const selectVehicle = (vehicle) => {
 
 const vehicles = ref([
   {
-    name: "Vehicle 1",
-    type: "Motorcycle",
-    capacity: "100kg",
-    availability: "Available",
+    name: 'Vehicle 1',
+    type: 'Motorcycle',
+    capacity: '100kg',
+    availability: 'Available',
   },
   {
-    name: "Vehicle 2",
-    type: "Van",
-    capacity: "500kg",
-    availability: "Available",
+    name: 'Vehicle 2',
+    type: 'Van',
+    capacity: '500kg',
+    availability: 'Available',
   },
 ]);
 
@@ -381,7 +379,6 @@ const confirmBid = () => {
     bidAmount.value > selectedItem.value.quote ||
     minimumBid.value > selectedItem.value.quote
   ) {
-    // Display an alert or error message
     alert('Invalid bid or minimum bid amount. Please check the values.');
     return;
   }
@@ -399,12 +396,12 @@ const cancelBid = () => {
 };
 
 const getVehicleImage = (vehicleType) => {
-  if (vehicleType === "Motorcycle") {
+  if (vehicleType === 'Motorcycle') {
     return scooterDelivery;
-  } else if (vehicleType === "Van") {
+  } else if (vehicleType === 'Van') {
     return vanDelivery;
   }
-  // Add more vehicle types to the switch statement
 };
 </script>
+
 <style src="../../css/styles.css" scoped></style>

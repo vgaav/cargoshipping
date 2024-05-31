@@ -7,7 +7,6 @@
         <div class="review-summary">
           <div class="selected-item">
             <h3>Selected Item:</h3>
-            <img :src="selectedItem.image" alt="Selected Item Image" class="selected-item-image" />
             <p><b>Item Name: </b> {{ selectedItem.itemName }}</p>
             <p><b>Client:</b> {{ selectedItem.client }}</p>
             <p><b>Pick-up time:</b> {{ selectedItem.pickupTime }}</p>
