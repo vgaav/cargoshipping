@@ -14,6 +14,8 @@ Route::get('/test', function () {
 });
 
 // Public item routes
+Route::get('/items', [CarrierDashboardController::class, 'getItems']);
+
 Route::get('/items', [ItemController::class, 'index']);
 Route::get('/items/{id}', [ItemController::class, 'show']);
 Route::post('/items', [ItemController::class, 'store']);

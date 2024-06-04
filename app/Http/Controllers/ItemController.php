@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
+    public function getItems()
+    {
+        $items = Item::all(); // Assuming you have an Item model
+        return response()->json($items);
+    }
+    /*
     public function index()
     {
         try {
@@ -145,4 +151,5 @@ class ItemController extends Controller
             return response()->json(['message' => 'Failed to delete item'], 500);
         }
     }
+    */
 }
