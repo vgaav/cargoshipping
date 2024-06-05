@@ -1,16 +1,19 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
-    public function getItems()
+    public function index()
     {
-        $items = Item::all(); // Assuming you have an Item model
+        $items = Item::all(); // Fetch all items
         return response()->json($items);
     }
+}
+
     /*
     public function index()
     {
@@ -152,4 +155,4 @@ class ItemController extends Controller
         }
     }
     */
-}
+

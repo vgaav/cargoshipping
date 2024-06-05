@@ -1,5 +1,5 @@
 <template>
-    <div class="carrierDashboardPage" ref="carrierDashboardPage">
+    <div class="carrier-dashboard-page" ref="carrierDashboardPage">
         <div class="dashboard">
             <div class="header">
                 <div class="website-name">BidGo</div>
@@ -19,25 +19,23 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
-                                <div v-if="items.length === 0">
-                                    <p>No items available</p>
-                                  </div>
-                                  <div v-else>
-                                    <ItemCard
-                                      v-for="item in items"
-                                      :key="item.id"
-                                      :item-name="item.item_name"
-                                      :item-image="item.item_image"
-                                      :client="item.item_client"
-                                      :weight="item.item_weight"
-                                      :from="item.item_from"
-                                      :to="item.item_destination"
-                                      :pickup-time="item.item_pickup_time"
-                                      :drop-off-time="item.item_dropoff_time"
-                                      :quote="item.item_quote"
-                                      @click="showModalItem(item.item_name)"
-                                    />
-                                  </div>
+                                <!--
+                                <ItemCard
+                                v-for="item in items"
+                                :key="item.id"
+                                :item-name="item.item_name"
+                                :item-image="item.item_image"
+                                :client="item.item_client"
+                                :weight="item.item_weight"
+                                :from="item.item_from"
+                                :to="item.item_destination"
+                                :pickup-time="item.item_pickup_time"
+                                :drop-off-time="item.item_dropoff_time"
+                                :quote="item.item_quote"
+                                @click="showModal(item.item_name)"
+                              />
+                            -->
+
 
                         <!-- Item Card: Computers Cargo -->
                         <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
@@ -165,6 +163,8 @@
                       </v-dialog>
 
 
+             <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
+
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
                             <v-card>
@@ -216,6 +216,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import NavBar from '../components/NavBar.vue';
+import VehicleCard from '../components/VehicleCard.vue';
 import ItemCard from '../components/ItemCard.vue';
 import computersCargoImage from '../../assets/computers-cargo.jpg';
 import colgateCargoImage from '../../assets/colgate-cargo.jpg';
@@ -247,10 +248,10 @@ const fetchItems = async () => {
   }
 };
 
-
 const showModalItem = (itemName) => {
   console.log('Show modal for item:', itemName);
 };
+
 
 const bidRules = [
   v => v >= 0 || 'Bid amount must be non-negative',
@@ -263,7 +264,7 @@ const minimumBidRules = [
 ];
 
 onMounted(() => {
-    fetchItems();
+  fetchItems();
   setTimeout(() => {
     document.getElementById('carrierDashboardPage').classList.add('animate-drop-down');
   }, 100);
