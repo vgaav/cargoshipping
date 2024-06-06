@@ -25,6 +25,7 @@ class Item extends Model
         'item_status',
         'item_current_bids',
         'is_bid_placed',
+        'description',  // Add this line
         'created_at',
         'updated_at'
     ];

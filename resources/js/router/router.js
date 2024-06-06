@@ -4,6 +4,7 @@ import LandingPageVue from '../pages/LandingPage.vue'
 import DashboardVue from '../pages/Dashboard.vue'
 import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
 import ItemListing from '../pages/ItemListing.vue'
+import CarrierTesting from '../pages/carrierTesting.vue'
 
 const routes = [
     {
@@ -30,7 +31,12 @@ const routes = [
         path:'/List',
         name:'ItemListing',
         component: ItemListing
-    }
+    },
+    {
+        path: '/carrier-testing',
+        name: 'CarrierTesting',
+        component: CarrierTesting
+      }
 
 ];
 

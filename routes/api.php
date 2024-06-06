@@ -15,8 +15,8 @@ Route::get('/test', function () {
 
 // Public item routes
 Route::get('/items', [ItemController::class, 'index']);
-Route::get('/items/{id}', [ItemController::class, 'show']);
-Route::get('/items', [CarrierDashboardController::class, 'index']);
+//Route::get('/items/{id}', [ItemController::class, 'show']);
+//Route::get('/items', [CarrierDashboardController::class, 'index']);
 
 //Route::post('/items', [ItemController::class, 'store']);
 //Route::put('/items/{id}', [ItemController::class, 'update']);

@@ -54,7 +54,7 @@
 
         .item-card {
             width: 100%;
-            background-color: #f2f2f2;
+            background-color: #FFA726;
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
@@ -100,6 +100,40 @@
 
         .bid-btn:hover {
             background-color: #3e8e41;
+        }
+
+        .transition-enter-active, .transition-leave-active {
+        transition: opacity 0.5s;
+    }
+    .transition-enter, .transition-leave-to {
+        opacity: 0;
+    }
+
+    .vehicle-card {
+        width: 100%;
+        background-color: #FFA726;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .vehicle-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+      /*  .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        */
+        .hidden {
+            display: none;
         }
 
         @media only screen and (max-width: 600px) {
@@ -161,6 +195,8 @@
 </head>
 <body>
     <div id="app">
+        <button id="showItemCards">Show Item Cards</button>
+        <button id="showVehicleCards">Show Vehicle Cards</button>
 
         <div class="carrierDashboardPage">
             <div class="dashboard">
@@ -168,12 +204,13 @@
                     <div class="website-name">BidGo</div>
                     <div class="user-welcome">Welcome, username</div>
                 </div>
-                <div class="items-section">
+
+                <div class="items-section transition-enter-active">
                     @if ($items->isEmpty())
                         <p>No items available</p>
                     @else
                         @foreach ($items as $item)
-                            <div class="item-card">
+                            <div class="item-card card">
                                 <img src="{{ $item->item_image }}" alt="{{ $item->item_name }}" class="item-image">
                                 <div class="item-details">
                                     <div class="item-name">{{ $item->item_name }}</div>
@@ -192,8 +229,23 @@
                         @endforeach
                     @endif
                 </div>
+
+                <div class="vehicle-cards hidden">
+                    @foreach ($vehicles as $vehicle)
+                        <div class="vehicle-card card">
+                            <div class="vehicle-details">
+                                <div class="vehicle-name">{{ $vehicle->vehicle_name }}</div>
+                                <div class="type"><b>Type:</b> {{ $vehicle->vehicle_type }}</div>
+                                <div class="capacity"><b>Capacity:</b> {{ $vehicle->capacity }}</div>
+                                <div class="availability"><b>Availability:</b> {{ $vehicle->availability }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
+
+        <!-- Existing Modals -->
 
         <!-- Modal for Item Details -->
         <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
@@ -263,9 +315,9 @@
         </div>
     </div>
 
+
     <NavBarVue />
 
-    <!-- Vue and Axios script -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -298,12 +350,50 @@
                     if (this.bidAmount > 0 && this.minBidAmount > 0 && this.bidAmount < this.modalItem.item_quote && this.minBidAmount < this.modalItem.item_quote) {
                         alert('Bid submitted: ' + this.bidAmount + ', Minimum Bid: ' + this.minBidAmount);
                         $('#submitBidModal').modal('hide');
+                        this.transitionToVehicleView();
                     } else {
                         alert('Invalid bid amounts. Please ensure they are greater than zero and less than the item quote.');
                     }
+                },
+                transitionToVehicleView() {
+                    const itemCards = document.querySelector('.items-section');
+                    const vehicleCards = document.querySelector('.vehicle-cards');
+
+                    itemCards.classList.remove('transition-enter-active');
+                    itemCards.classList.add('transition-leave-active');
+                    setTimeout(() => {
+                        itemCards.classList.add('hidden');
+                        vehicleCards.classList.remove('hidden');
+                        vehicleCards.classList.add('transition-enter-active');
+                    }, 500); // Duration should match the CSS transition duration
                 }
+            },
+            mounted() {
+                const itemCards = document.querySelector('.items-section');
+                const vehicleCards = document.querySelector('.vehicle-cards');
+
+                document.querySelector('#showItemCards').addEventListener('click', () => {
+                    vehicleCards.classList.remove('transition-enter-active');
+                    vehicleCards.classList.add('transition-leave-active');
+                    setTimeout(() => {
+                        vehicleCards.classList.add('hidden');
+                        itemCards.classList.remove('hidden');
+                        itemCards.classList.add('transition-enter-active');
+                    }, 500); // Duration should match the CSS transition duration
+                });
+
+                document.querySelector('#showVehicleCards').addEventListener('click', () => {
+                    itemCards.classList.remove('transition-enter-active');
+                    itemCards.classList.add('transition-leave-active');
+                    setTimeout(() => {
+                        itemCards.classList.add('hidden');
+                        vehicleCards.classList.remove('hidden');
+                        vehicleCards.classList.add('transition-enter-active');
+                    }, 500); // Duration should match the CSS transition duration
+                });
             }
         });
     </script>
+
 </body>
 </html>
