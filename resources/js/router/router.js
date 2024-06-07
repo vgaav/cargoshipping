@@ -4,7 +4,8 @@ import LandingPageVue from '../pages/LandingPage.vue'
 import DashboardVue from '../pages/Dashboard.vue'
 import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
 import ItemListing from '../pages/ItemListing.vue'
-import CarrierTesting from '../pages/carrierTesting.vue'
+import CarrierTesting from '../pages/CarrierTesting.vue'
+
 
 const routes = [
     {
