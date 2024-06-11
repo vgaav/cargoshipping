@@ -7,6 +7,8 @@ import App from './App.vue';
 // Import other components
 import NavBarVue from './components/NavBar.vue';
 import LeafletMap from './components/LeafletMap.vue';
+import CarrierTesting from './pages/CarrierTesting.vue';
+
 
 // Import Vue Router
 import router from './router/router.js';
@@ -39,6 +41,7 @@ const app = createApp(App);
 // Register components, plugins, and router
 app.component('NavBarVue', NavBarVue);
 app.component('LeafletMap',LeafletMap);
+app.component('CarrierTesting', CarrierTesting); // Register CarrierTesting component
 app.use(router);
 app.use(vuetify);
 

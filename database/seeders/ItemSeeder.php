@@ -32,6 +32,7 @@ class ItemSeeder extends Seeder
             'item_status' => 'Pending',
             'item_current_bids' => 0,
             'is_bid_placed' => false,
+            'description' => 'A high-performance laptop for business and personal use.',  // Add this line
         ]);
 
         Item::create([
@@ -50,6 +51,7 @@ class ItemSeeder extends Seeder
             'item_status' => 'In Transit',
             'item_current_bids' => 3,
             'is_bid_placed' => false,
+            'description' => 'A latest model smartphone with advanced features.',  // Add this line
         ]);
 
         // New seed data
@@ -70,7 +72,8 @@ class ItemSeeder extends Seeder
             'item_current_bids' => 100,
             'is_bid_placed' => false,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
+            'description' => 'A shipment of computers for educational purposes.',  // Add this line
         ]);
 
         Item::create([
@@ -90,7 +93,9 @@ class ItemSeeder extends Seeder
             'item_current_bids' => 200,
             'is_bid_placed' => false,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
+            'description' => 'A shipment of Colgate products.',  // Add this line
         ]);
     }
 }
+

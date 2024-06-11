@@ -15,10 +15,12 @@ Route::get('/test', function () {
 
 // Public item routes
 Route::get('/items', [ItemController::class, 'index']);
-Route::get('/items/{id}', [ItemController::class, 'show']);
-Route::post('/items', [ItemController::class, 'store']);
-Route::put('/items/{id}', [ItemController::class, 'update']);
-Route::delete('/items/{id}', [ItemController::class, 'destroy']);
+//Route::get('/items/{id}', [ItemController::class, 'show']);
+//Route::get('/items', [CarrierDashboardController::class, 'index']);
+
+//Route::post('/items', [ItemController::class, 'store']);
+//Route::put('/items/{id}', [ItemController::class, 'update']);
+//Route::delete('/items/{id}', [ItemController::class, 'destroy']);
 
 // Protected routes
 Route::middleware('auth:api')->group(function () {

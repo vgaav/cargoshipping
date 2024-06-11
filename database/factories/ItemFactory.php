@@ -26,7 +26,8 @@ class ItemFactory extends Factory
             'item_height' => $this->faker->randomFloat(2, 0, 100),
             'item_status' => $this->faker->word,
             'item_current_bids' => $this->faker->numberBetween(0, 100),
+            'is_bid_placed' => $this->faker->boolean,
+            'description' => $this->faker->paragraph,  // Add this line
         ];
     }
 }
-

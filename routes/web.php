@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
+use App\Http\Controllers\CarrierDashboardController;
+
+Route::get('/carrier-dashboard', [CarrierDashboardController::class, 'index']);
+Route::post('/submit-bid', [CarrierDashboardController::class, 'submitBid'])->name('submit.bid');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -24,8 +28,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // Routes below are better suited for api.php and should be removed from web.php
 // Route::post('/items', [ItemController::class, 'store']);
-// Route::get('/items', [ItemController::class, 'index']);
+ Route::get('/items', [ItemController::class, 'index']);
 // Route::get('/items/{id}', [ItemController::class, 'show']);
+
+Route::get('/api/items', [ItemController::class, 'getItems']);
+
 
 Route::get('/check-database', function () {
     $items = DB::table('items')->get();
