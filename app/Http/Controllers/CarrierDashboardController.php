@@ -1,9 +1,11 @@
 <?php
 //app/Http/Controllers/CarrierDashboardController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Item;  // import the Item model
 use App\Models\Vehicle;  // Import the Vehicle model
+use App\Models\Bid;  // Import the Bid model
 
 use Illuminate\Http\Request;
 
@@ -37,6 +39,4 @@ class CarrierDashboardController extends Controller
 
         return response()->json(['message' => 'Bid submitted successfully!'], 200);
     }
-
 }
-

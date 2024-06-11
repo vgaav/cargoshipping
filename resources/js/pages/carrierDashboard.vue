@@ -163,8 +163,6 @@
                       </v-dialog>
 
 
-             <img :src="selectedItem.itemImage" alt="Item Image" style="max-width: 100%;">
-
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
                             <v-card>
