@@ -9,12 +9,17 @@ use App\Http\Controllers\CarrierDashboardController;
 Route::get('/carrier-dashboard', [CarrierDashboardController::class, 'index']);
 Route::post('/submit-bid', [CarrierDashboardController::class, 'submitBid'])->name('submit.bid');
 
-// Authentication Routes
+// Public routes
 Route::middleware('guest')->group(function () {
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 });
+
+// Protected routes
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});
+
 
 // Registration Routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
