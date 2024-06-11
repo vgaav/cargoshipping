@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
+
 
 class ItemController extends Controller
 {
@@ -11,6 +13,13 @@ class ItemController extends Controller
     {
         $items = Item::all();
         return response()->json($items);
+    }
+
+
+    public function getVehicles()
+    {
+        $vehicles = Vehicle::all();
+        return response()->json($vehicles);
     }
 }
 

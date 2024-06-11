@@ -18,7 +18,7 @@
           </div>
           <div class="pickup-time"><b>Pickup Time:</b> {{ pickupTime }}</div>
           <div class="drop-off-time"><b>Drop-off Time:</b> {{ dropOffTime }}</div>
-          <div class="quote"><b>Quote: $</b>{{ quote }}</div>
+          <div class="quote"><b>Quote: P</b>{{ quote }}</div>
         </div>
       </v-card-text>
     </v-card>

@@ -16,7 +16,7 @@
           </div>
           <div class="selected-vehicle">
             <h3>Selected Vehicle:</h3>
-            <p><b>Delivery Vehicle:</b> {{ selectedVehicle.type }}</p>
+            <p><b>Delivery Vehicle:</b> {{ selectedVehicle.vehicle_type }}</p>
             <p><b>Vehicle Capacity:</b> {{ selectedVehicle.capacity }}</p>
           </div>
         </div>

@@ -19,7 +19,6 @@
                         <div class="ongoing-text">Ongoing <img src="../../assets/help-circle.svg" alt="An example icon"
                                 class="help-icon" @click="showHelpModal('ongoing')" /></div>
 
-                                <!--
                                 <ItemCard
                                 v-for="item in items"
                                 :key="item.id"
@@ -32,26 +31,25 @@
                                 :pickup-time="item.item_pickup_time"
                                 :drop-off-time="item.item_dropoff_time"
                                 :quote="item.item_quote"
-                                @click="showModal(item.item_name)"
+                                @click="showModal(item)"
                               />
-                            -->
 
-
+                        <!--HARDCODED DATA -->
                         <!-- Item Card: Computers Cargo -->
-                        <ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
+                        <!--<ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
                             :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
                             :to="'iAcademy, Makati'" :pickup-time="'6:00AM'" :drop-off-time="'3:00PM'"
-                            :quote="8000" @click="showModal" />
+                            :quote="8000" @click="showModal" />-->
                         <!-- "Deliveries for Later" Text Positioned Below Item Card -->
-                        <div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg"
+                        <!--<div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg"
                                 alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')" />
-                        </div>
+                        </div>-->
 
                         <!-- Item Card: Colgate Cargo -->
-                        <ItemCard :item-name="'Colgate Cargo'" :item-image="colgateCargoImage"
+                       <!-- <ItemCard :item-name="'Colgate Cargo'" :item-image="colgateCargoImage"
                             :client="'Colgate-Palmolive'" :weight="'700Kg'" :from="'Mckinley Hill, Taguig'"
                             :to="'Puregold, Marikina'" :pickup-time="'7:00AM'" :drop-off-time="'10:00PM'"
-                            :quote="5000" @click="showModal" />
+                            :quote="5000" @click="showModal" />-->
 
                             <v-dialog v-model="bidModalVisible" max-width="400">
                                 <v-card>
@@ -133,19 +131,19 @@
                                 </div>
                                 <div class="item-info-row">
                                   <label>Length:</label>
-                                  <span>{{ selectedItem.length }}</span>
+                                  <span>{{ selectedItem.length }}cm</span>
                                 </div>
                                 <div class="item-info-row">
                                   <label>Width:</label>
-                                  <span>{{ selectedItem.width }}</span>
+                                  <span>{{ selectedItem.width }} cm</span>
                                 </div>
                                 <div class="item-info-row">
                                   <label>Height:</label>
-                                  <span>{{ selectedItem.height }}</span>
+                                  <span>{{ selectedItem.height }} cm</span>
                                 </div>
                                 <div class="item-info-row">
                                   <label>Weight:</label>
-                                  <span>{{ selectedItem.weight }}</span>
+                                  <span>{{ selectedItem.weight }} kg</span>
                                 </div>
                               </div>
                             </transition>
@@ -191,7 +189,7 @@
                         v-for="(vehicle, index) in vehicles"
                         :key="index"
                         :vehicle="vehicle"
-                        :image="getVehicleImage(vehicle.type)"
+                        :image="getVehicleImage(vehicle.vehicle_type)"
                         :selected-vehicle="selectedVehicle"
                         @select-vehicle="handleSelectVehicle"
                       />
@@ -223,6 +221,7 @@ import vanDelivery from '../../assets/van.png';
 import ReviewAndConfirm from '../components/ReviewAndConfirm.vue';
 
 const items = ref([]);
+const vehicles = ref([]);
 const step = ref(1);
 const bidModalVisible = ref(false);
 const modalVisible = ref(false);
@@ -238,7 +237,7 @@ const minimumBid = ref(null);
 
 const fetchItems = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/api/items');
+    const response = await axios.get('/items');
     items.value = response.data;
     console.log('Fetched items:', items.value);
   } catch (error) {
@@ -246,9 +245,20 @@ const fetchItems = async () => {
   }
 };
 
+const fetchVehicles = async () => {
+    try {
+        const response = await axios.get('/vehicles');
+        vehicles.value = response.data;
+        console.log('Fetched vehicles:', vehicles.value);
+    } catch (error) {
+        console.error('Error fetching vehicles:', error);
+    }
+};
+
 const showModalItem = (itemName) => {
   console.log('Show modal for item:', itemName);
 };
+
 
 
 const bidRules = [
@@ -263,51 +273,30 @@ const minimumBidRules = [
 
 onMounted(() => {
   fetchItems();
+  fetchVehicles();
   setTimeout(() => {
     document.getElementById('carrierDashboardPage').classList.add('animate-drop-down');
   }, 100);
 });
 
-const showModal = (itemName, isBidPlaced = false) => {
-  if (itemName === 'Computers Cargo' || itemName === 'Colgate Cargo') {
-    modalVisible.value = true;
-    bidPlaced.value = isBidPlaced;
-    if (itemName === 'Computers Cargo') {
-      selectedItem.value = {
-        client: 'DepEd',
-        pickupTime: '6:00AM',
-        status: 'Ongoing',
-        destination: 'iAcademy, Makati',
-        currentBids: '100',
-        isBidPlaced: isBidPlaced,
-        quote: 8000,
-        itemName: '20 Boxes - Full Set computers (Keyboard, CPU, Desktop, Mouse)',
-        length: 'Not Provided',
-        width: 'Not Provided',
-        height: 'Not Provided',
-        weight: '450kg (Overall)',
-        itemImage: computersCargoImage
-      };
-    } else if (itemName === 'Colgate Cargo') {
-      selectedItem.value = {
-        client: 'Colgate-Palmolive',
-        pickupTime: '7:00AM',
-        status: 'Ongoing',
-        destination: 'Puregold, Marikina',
-        currentBids: '200',
-        isBidPlaced: isBidPlaced,
-        quote: 5000,
-        itemName: '10 Boxes of Colgate Toothpaste (20 pieces per box)',
-        length: 'Not Provided',
-        width: 'Not Provided',
-        height: 'Not Provided',
-        weight: '380kg (Overall)',
-        itemImage: colgateCargoImage
-      };
-    }
-  } else {
-    console.log('Invalid item name');
-  }
+const showModal = (item) => {
+  modalVisible.value = true;
+  bidPlaced.value = item.isBidPlaced; // Assuming this property exists on the item
+  selectedItem.value = {
+    client: item.item_client,
+    pickupTime: item.item_pickup_time,
+    status: item.item_status, // Assuming this property exists on the item
+    destination: item.item_destination,
+    currentBids: item.item_current_bids, // Assuming this property exists on the item
+    isBidPlaced: item.is_bid_placed,
+    quote: item.item_quote,
+    itemName: item.description,
+    length: item.item_length, // Assuming these properties exist on the item
+    width: item.item_width,
+    height: item.item_height,
+    weight: item.item_weight,
+    itemImage: item.item_image
+  };
 };
 
 const cancel = () => {
@@ -349,20 +338,6 @@ const selectVehicle = (vehicle) => {
   selectedVehicle.value = vehicle;
 };
 
-const vehicles = ref([
-  {
-    name: 'Vehicle 1',
-    type: 'Motorcycle',
-    capacity: '100kg',
-    availability: 'Available',
-  },
-  {
-    name: 'Vehicle 2',
-    type: 'Van',
-    capacity: '500kg',
-    availability: 'Available',
-  },
-]);
 
 const showBidModal = () => {
   bidModalVisible.value = true;

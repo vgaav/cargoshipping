@@ -12,10 +12,10 @@
         <v-col cols="8" class="vehicle-details-col">
           <v-card-text>
             <div class="vehicle-details">
-              <div class="vehicle-name">{{ vehicle.name }}</div>
-              <div class="vehicle-type">{{ vehicle.type }}</div>
-              <div class="vehicle-capacity">{{ vehicle.capacity }}</div>
-              <div class="vehicle-availability">{{ vehicle.availability }}</div>
+              <div class="vehicle-name">Vehicle: {{ vehicle.vehicle_name }}</div>
+              <div class="vehicle-type">Type: {{ vehicle.vehicle_type }}</div>
+              <div class="vehicle-capacity">Capacity: {{ vehicle.capacity }}kg</div>
+              <div :class="availabilityClass">{{ availabilityText }}</div>
             </div>
           </v-card-text>
           <transition name="fade">
@@ -48,6 +48,12 @@
       isSelected() {
         return this.selectedVehicle === this.vehicle;
       },
+      availabilityText() {
+        return this.vehicle.availability === 1 ? 'Available' : 'Unavailable';
+      },
+      availabilityClass() { // Add this computed property
+        return this.vehicle.availability === 1 ? 'available' : 'unavailable';
+      },
     },
     methods: {
       selectVehicle() {
@@ -63,9 +69,9 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Reduced margin */
+    margin-top: 20px; /* Default margin */
     border: 1px solid #ccc; /* Default border color */
-    padding: 10px; /* Added padding */
+    padding: 10px; /* Default padding */
   }
 
   .selected {
@@ -80,10 +86,10 @@
 
   .vehicle-image {
     border-radius: 4px;
-    width: 80px; /* Reduced image width */
+    width: 80px; /* Default image width */
     height: 80px;
     object-fit: contain;
-    margin-right: 10px; /* Reduced margin */
+    margin-right: 10px; /* Default margin */
   }
 
   .vehicle-details-col {
@@ -99,77 +105,62 @@
   }
 
   .vehicle-name {
-    font-size: 16px; /* Reduced font size */
+    font-size: 25px; /* Default font size */
     font-weight: bold;
-    margin-bottom: 2px; /* Reduced margin */
+    margin-bottom: 2px; /* Default margin */
   }
 
   .vehicle-type,
   .vehicle-capacity,
   .vehicle-availability {
-    font-size: 12px; /* Reduced font size */
-    margin-bottom: 2px; /* Reduced margin */
+    font-size: 18px; /* Default font size */
+    margin-bottom: 2px; /* Default margin */
   }
 
   .vehicle-availability {
     font-weight: bold;
   }
 
-  /* Media queries for smaller screens */
-  @media (max-width: 768px) {
-    .vehicle-card {
-      margin-top: 15px; /* Reduced margin for smaller screens */
-      padding: 8px; /* Reduced padding */
-    }
-
-    .vehicle-image {
-      width: 70px; /* Reduced image width for smaller screens */
-      height: 70px;
-    }
-
-    .vehicle-details-col {
-      flex-direction: row; /* Change layout for smaller screens */
-    }
-
-    .vehicle-details {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .vehicle-name,
-    .vehicle-type,
-    .vehicle-capacity,
-    .vehicle-availability {
-      font-size: 12px; /* Adjusted font size for smaller screens */
-    }
+  .available {
+    color: green;
   }
 
-  @media (max-width: 480px) {
-    .vehicle-card {
-      margin-top: 10px; /* Reduced margin for even smaller screens */
-      padding: 6px; /* Reduced padding */
-    }
-
-    .vehicle-image {
-      width: 60px; /* Reduced image width for even smaller screens */
-      height: 60px;
-    }
-
-    .vehicle-details-col {
-      flex-direction: column; /* Change layout for even smaller screens */
-    }
-
-    .vehicle-details {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .vehicle-name,
-    .vehicle-type,
-    .vehicle-capacity,
-    .vehicle-availability {
-      font-size: 11px; /* Reduced font size for even smaller screens */
-    }
+  .unavailable {
+    color: red;
+    background-color: #ccc; /* Gray out the card */
+    pointer-events: none; /* Disable click events */
   }
 
+    @media (max-width: 600px) {
+        .vehicle-card {
+          margin-top: 12px; /* Adjusted margin for screens up to 600px width */
+          padding: 6px; /* Adjusted padding for screens up to 600px width */
+        }
+
+        .vehicle-image {
+          width: 60px; /* Adjusted image width for screens up to 600px width */
+          height: 60px;
+        }
+
+        .vehicle-details-col {
+          flex-direction: column; /* Change layout for screens up to 600px width */
+        }
+
+        .vehicle-details {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .vehicle-name,
+        .vehicle-type,
+        .vehicle-capacity,
+        .vehicle-availability {
+          font-size: 11px; /* Adjusted font size for screens up to 600px width */
+        }
+        .unavailable {
+            color: red;
+            background-color: #ccc; /* Gray out the card */
+            pointer-events: none; /* Disable click events */
+          }
+      }
   </style>

@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\CarrierDashboardController;
+use App\Http\Controllers\ItemController;
+
 
 Route::get('/carrier-dashboard', [CarrierDashboardController::class, 'index']);
 Route::post('/submit-bid', [CarrierDashboardController::class, 'submitBid'])->name('submit.bid');
@@ -26,14 +28,16 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register']);
 
 // Password Reset Routes
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+//Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+//Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+//Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+//Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // Routes below are better suited for api.php and should be removed from web.php
 // Route::post('/items', [ItemController::class, 'store']);
 Route::get('/items', [ItemController::class, 'index']);
+Route::get('/vehicles', [ItemController::class, 'getVehicles']);
+
 // Route::get('/items/{id}', [ItemController::class, 'show']);
 
 //Route::get('/api/items', [ItemController::class, 'getItems']);
