@@ -15,10 +15,10 @@
                 </v-row>
                 <v-row> <!-- TIME ROW -->
                     <v-col cols="6">
-                        <v-select variant="outlined"  label="HRS":items="['1','2','3','4','5','6','7','8','9','10','11','12']"></v-select>
+                        <v-select variant="outlined"  label="HRS" :items="['1','2','3','4','5','6','7','8','9','10','11','12']"></v-select>
                     </v-col>
                     <v-col cols="6">
-                        <v-select variant="outlined"  label="Unit":items="['AM','PM']"></v-select>
+                        <v-select variant="outlined"  label="Unit" :items="['AM','PM']"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>

@@ -22,8 +22,8 @@
                 <v-form @submit.prevent="login">
                   <v-text-field
                     v-model="emailLogin"
-                    label="Username"
-                    variant="outlined"
+                    label="Email"
+                    variant="outlined"  
                     placeholder="juandelacruz@email.com"
                     type="email"
                     :rules="emailRule"
@@ -207,6 +207,7 @@
     </v-container>
   </v-main>
 </template>
+
 <script setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
@@ -224,7 +225,6 @@ const municipalities = [
   "Marikina",
 ];
 
-// Define provinces first
 const provinces = [
   "Abra",
   "Agusan del Norte",
@@ -267,25 +267,35 @@ const toggleConfirmPasswordVisibility = () => {
   showConfirmPassword.value = !showConfirmPassword.value;
 };
 
+const getCsrfToken = () => {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+};
+
 const login = async () => {
   try {
+    const csrfToken = getCsrfToken();
     const response = await axios.post("/login", {
       email: emailLogin.value,
       password: passwordLogin.value,
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
     });
     loginSuccess.value = true;
     loginError.value = false;
-    // Redirect to MainMenuUser or handle success as needed
-    router.push({ name: "MainMenuUser" });
+    router.push({ name: "Dashboard" });
+    console.log("Registration successful", response.data);
   } catch (error) {
     loginSuccess.value = false;
     loginError.value = true;
-    // Handle error, show error message, etc.
+    console.error("Registration failed", error.response.data);
   }
 };
 
 const signUp = async () => {
   try {
+    const csrfToken = getCsrfToken();
     const response = await axios.post("/register", {
       name: nameSignUp.value,
       email: emailSignUp.value,
@@ -296,6 +306,10 @@ const signUp = async () => {
       municipality: selectedMunicipality.value,
       postal_code: postalCode.value,
       user_type: selectedUserType.value,
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
     });
     console.log("Registration successful", response.data);
   } catch (error) {
@@ -348,14 +362,12 @@ watch(step, () => {
   selectedProvince.value = null;
   selectedMunicipality.value = null;
   postalCode.value = "";
-  loginSuccess.value = false;
-  loginError.value = false;
   selectedUserType.value = "";
 });
+
 watch(selectedUserType, (newValue) => {
   console.log("Selected user type:", newValue);
 });
 </script>
-
 
 <style src="/resources/css/styles.css"></style>
