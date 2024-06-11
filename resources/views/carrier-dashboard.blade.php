@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Carrier Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -232,7 +233,7 @@
 
                 <div class="vehicle-cards hidden">
                     @foreach ($vehicles as $vehicle)
-                        <div class="vehicle-card card">
+                        <div class="vehicle-card card" @click="openVehicleModal('{{ json_encode($vehicle) }}')">
                             <div class="vehicle-details">
                                 <div class="vehicle-name">{{ $vehicle->vehicle_name }}</div>
                                 <div class="type"><b>Type:</b> {{ $vehicle->vehicle_type }}</div>
@@ -242,10 +243,6 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
-        </div>
-
-        <!-- Existing Modals -->
 
         <!-- Modal for Item Details -->
         <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
@@ -271,7 +268,7 @@
                             <div><strong>Length:</strong> @{{ modalItem.item_length }}</div>
                             <div><strong>Width:</strong> @{{ modalItem.item_width }}</div>
                             <div><strong>Height:</strong> @{{ modalItem.item_height }}</div>
-                            <div><strong>Weight:</strong> @{{ modalItem.item_weight }}</div>
+                            <div><strong>Weight:</strong> @{{ modalItem.item_weight }}KG</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -315,6 +312,88 @@
         </div>
     </div>
 
+    <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vehicleModalLabel">Confirm Vehicle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to use the following vehicle for delivery?</p>
+                    <p><strong>Vehicle Name:</strong> @{{ modalVehicle.vehicle_name }}</p>
+                    <p><strong>Type:</strong> @{{ modalVehicle.vehicle_type }}</p>
+                    <p><strong>Capacity:</strong> @{{ modalVehicle.capacity }} KG</p>
+                    <p><strong>Availability:</strong> @{{ modalVehicle.availability }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="confirmVehicle">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Review and Confirm -->
+<div class="modal fade" id="reviewConfirmModal" tabindex="-1" aria-labelledby="reviewConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewConfirmModalLabel">Review and Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Selected Item</h5>
+                <p><strong>Item Name:</strong> @{{ modalItem.item_name }}</p>
+                <p><strong>Client:</strong> @{{ modalItem.item_client }}</p>
+                <p><strong>Pickup Time:</strong> @{{ modalItem.item_pickup_time }}</p>
+                <p><strong>Destination:</strong> @{{ modalItem.item_destination }}</p>
+                <p><strong>Weight:</strong> @{{ modalItem.item_weight }}KG</p>
+                <p><strong>Quote:</strong> $@{{ modalItem.item_quote }}</p>
+
+                <hr>
+
+                <h5>Selected Vehicle</h5>
+                <p><strong>Vehicle Name:</strong> @{{ modalVehicle.vehicle_name }}</p>
+                <p><strong>Type:</strong> @{{ modalVehicle.vehicle_type }}</p>
+                <p><strong>Capacity:</strong> @{{ modalVehicle.capacity }} KG</p>
+                <p><strong>Availability:</strong> @{{ modalVehicle.availability }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @click="confirmSelection">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Bid Completion -->
+<div class="modal fade" id="bidCompleteModal" tabindex="-1" aria-labelledby="bidCompleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bidCompleteModalLabel">Bid Completed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your bid has been successfully submitted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
     <NavBarVue />
 
@@ -329,6 +408,7 @@
             el: '#app',
             data: {
                 modalItem: {},
+                modalVehicle: {},
                 showItemInfo: false,
                 bidAmount: '',
                 minBidAmount: ''
@@ -339,12 +419,20 @@
                     this.showItemInfo = false;
                     $('#bidModal').modal('show');
                 },
+                openVehicleModal(vehicleJson) {
+                    this.modalVehicle = JSON.parse(vehicleJson);
+                    $('#vehicleModal').modal('show');
+                },
                 toggleItemInfo() {
                     this.showItemInfo = !this.showItemInfo;
                 },
                 openBidModal() {
                     $('#bidModal').modal('hide');
                     $('#submitBidModal').modal('show');
+                },
+                confirmVehicle() {
+                    $('#vehicleModal').modal('hide');
+                    this.openReviewConfirmModal();
                 },
                 submitBid() {
                     if (this.bidAmount > 0 && this.minBidAmount > 0 && this.bidAmount < this.modalItem.item_quote && this.minBidAmount < this.modalItem.item_quote) {
@@ -366,6 +454,36 @@
                         vehicleCards.classList.remove('hidden');
                         vehicleCards.classList.add('transition-enter-active');
                     }, 500); // Duration should match the CSS transition duration
+                },
+                openReviewConfirmModal() {
+                    $('#reviewConfirmModal').modal('show');
+                },
+                confirmSelection() {
+                    const postData = {
+                        item_id: this.modalItem.id,
+                        vehicle_id: this.modalVehicle.id,
+                        bid_amount: this.bidAmount,
+                        _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    };
+
+                    fetch('{{ route('submit.bid') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': postData._token
+                        },
+                        body: JSON.stringify(postData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        $('#reviewConfirmModal').modal('hide');
+                        // Show bid completion modal
+                        $('#bidCompleteModal').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 }
             },
             mounted() {
@@ -394,6 +512,8 @@
             }
         });
     </script>
+
+
 
 </body>
 </html>

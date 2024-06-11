@@ -25,7 +25,7 @@ export default {
     },
     methods: {
       fetchItems() {
-        axios.get('web/items')
+        axios.get('/items')
           .then(response => {
             console.log("Response: " + response)
             this.items = response.data;

@@ -5,8 +5,8 @@ use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\CarrierDashboardController;
 
-
 Route::get('/carrier-dashboard', [CarrierDashboardController::class, 'index']);
+Route::post('/submit-bid', [CarrierDashboardController::class, 'submitBid'])->name('submit.bid');
 
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

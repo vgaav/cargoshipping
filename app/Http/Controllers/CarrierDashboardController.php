@@ -18,5 +18,25 @@ class CarrierDashboardController extends Controller
         // Pass the items and vehicles to the Blade template
         return view('carrier-dashboard', compact('items', 'vehicles'));
     }
+
+    public function submitBid(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'item_id' => 'required|exists:items,id',
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'bid_amount' => 'required|numeric|min:1',
+        ]);
+
+        // Create a new Bid instance and save it to the database
+        $bid = new Bid();
+        $bid->item_id = $validatedData['item_id'];
+        $bid->vehicle_id = $validatedData['vehicle_id'];
+        $bid->bid_amount = $validatedData['bid_amount'];
+        $bid->save();
+
+        return response()->json(['message' => 'Bid submitted successfully!'], 200);
+    }
+
 }
 
