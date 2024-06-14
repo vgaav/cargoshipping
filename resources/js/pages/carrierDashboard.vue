@@ -34,23 +34,6 @@
                                 @click="showModal(item)"
                               />
 
-                        <!--HARDCODED DATA -->
-                        <!-- Item Card: Computers Cargo -->
-                        <!--<ItemCard :item-name="'Computers Cargo'" :item-image="computersCargoImage"
-                            :client="'DepEd'" :weight="'1200Kg'" :from="'Marikina'"
-                            :to="'iAcademy, Makati'" :pickup-time="'6:00AM'" :drop-off-time="'3:00PM'"
-                            :quote="8000" @click="showModal" />-->
-                        <!-- "Deliveries for Later" Text Positioned Below Item Card -->
-                        <!--<div class="deliveries-later-text">Deliveries for Later <img src="../../assets/help-circle.svg"
-                                alt="An example icon" class="help-icon" @click="showHelpModal('deliveriesLater')" />
-                        </div>-->
-
-                        <!-- Item Card: Colgate Cargo -->
-                       <!-- <ItemCard :item-name="'Colgate Cargo'" :item-image="colgateCargoImage"
-                            :client="'Colgate-Palmolive'" :weight="'700Kg'" :from="'Mckinley Hill, Taguig'"
-                            :to="'Puregold, Marikina'" :pickup-time="'7:00AM'" :drop-off-time="'10:00PM'"
-                            :quote="5000" @click="showModal" />-->
-
                             <v-dialog v-model="bidModalVisible" max-width="400">
                                 <v-card>
                                   <v-card-title>Bid Confirmation</v-card-title>
@@ -214,8 +197,6 @@ import axios from 'axios';
 import NavBar from '../components/NavBar.vue';
 import VehicleCard from '../components/VehicleCard.vue';
 import ItemCard from '../components/ItemCard.vue';
-import computersCargoImage from '../../assets/computers-cargo.jpg';
-import colgateCargoImage from '../../assets/colgate-cargo.jpg';
 import scooterDelivery from '../../assets/scooter.png';
 import vanDelivery from '../../assets/van.png';
 import ReviewAndConfirm from '../components/ReviewAndConfirm.vue';

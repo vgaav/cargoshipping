@@ -1,4 +1,10 @@
 /*Raven Styles*/
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .v-card.custom-rounded-card {
     border-radius: 12px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
@@ -43,10 +49,11 @@
 }
 /*Maui Styles*/
 /* Landing Page Styles */
+/* Landing Page Styles */
 .black-box {
     height: 7px; /* Adjust the height as needed */
-    background-color:#4E47C6;
-    width:100%;
+    background-color: #4E47C6;
+    width: 100%;
 }
 
 .landing-page {
@@ -54,110 +61,111 @@
     margin: 0 auto;
     opacity: 0;
     transform: translateY(-20px);
-  }
+}
 
-  .animate-drop-down {
+.animate-drop-down {
     opacity: 1;
     transition: opacity 0.5s ease, transform 0.5s ease;
     transform: translateY(0);
-  }
+}
 
-  .banner {
+.banner {
     position: relative;
     text-align: center; /* Center align text */
     width: 100%;
-  }
+}
 
-  .banner img {
+.banner img {
     width: 100%;
     height: 400px; /* Auto adjust height */
     object-fit: cover;
     filter: brightness(60%);
-  }
+}
 
-  .banner-overlay {
+.banner-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-  }
+}
 
-  .banner-title {
+.banner-title {
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 20px;
-  }
+}
 
-  .banner-slogan {
+.banner-slogan {
     font-size: 24px;
     margin-bottom: 20px;
-  }
+}
 
-  /* Navigation Buttons Styles */
-  .banner .nav-buttons {
+/* Navigation Buttons Styles */
+.nav-buttons {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    padding-top:50px;
-  }
+    padding-top: 50px;
+}
 
-  .banner  .btn-primary {
+.nav-buttons .btn-primary {
     text-decoration: none;
     color: white;
     background-color: #007bff; /* Change to your desired button color */
     padding: 10px 20px; /* Adjust padding as needed */
     border-radius: 5px; /* Add rounded corners */
     transition: background-color 0.3s ease; /* Add smooth transition effect */
-  }
-
-  .banner .btn-primary:hover {
-    background-color: #0056b3; /* Change to a darker shade when hovered */
-  }
-
-  .nav-buttons > * {
-    margin-left: 10px;
-  }
-
-  /* About Us and What We Do Section Styles */
-  .about-us.what-we-do {
-    margin-bottom: 40px;
-  }
-
-  /* Heading Styles */
-  .about-us h2, .what-we-do h2 {
-    font-size: 28px; /* Increase the font size for emphasis */
-    margin-bottom: 10px; /* Increase the bottom margin for spacing */
-  }
-  .about-us h3, .what-we-do h3 {
-    font-size: 22px; /* Increase the font size for emphasis */
-  }
-
-  .about-us p, .what-we-do p {
-    font-size: 17px; /* Increase the font size for emphasis */
-    margin: 10px; /* Increase the bottom margin for spacing */
-    color:black;
-  }
-
-  /* Three cards at the bottom - landing page */
-  .nav-buttons {
-    margin-bottom: 20px;
-  }
-
-  .custom-rounded-card-about-us{
-    overflow: hidden; /* Clear floats */
-    padding: 5px;
-    width:100%;
-    background-color:#FFA726;
-
 }
 
-.custom-rounded-card-what-we-do{
+.nav-buttons .btn-primary:hover {
+    background-color: #0056b3; /* Change to a darker shade when hovered */
+}
+
+.nav-buttons > * {
+    margin-left: 10px;
+}
+
+/* About Us and What We Do Section Styles */
+.about-us,
+.what-we-do {
+    margin-bottom: 40px;
+}
+
+/* Heading Styles */
+.about-us h2,
+.what-we-do h2 {
+    font-size: 28px; /* Increase the font size for emphasis */
+    margin-bottom: 10px; /* Increase the bottom margin for spacing */
+}
+
+.about-us h3,
+.what-we-do h3 {
+    font-size: 22px; /* Increase the font size for emphasis */
+}
+
+.about-us p,
+.what-we-do p {
+    font-size: 17px; /* Increase the font size for emphasis */
+    margin: 10px; /* Increase the bottom margin for spacing */
+    color: black;
+}
+
+/* Three cards at the bottom - landing page */
+.custom-rounded-card-about-us {
+    overflow: hidden; /* Clear floats */
+    padding: 5px;
+    width: 100%;
+    background-color: #FFA726;
+}
+
+.custom-rounded-card-what-we-do {
     overflow: hidden; /* Clear floats */
     padding: 5px;
     margin-top: 10px;
-    width:100%;
+    width: 100%;
 }
+
 .text-wrapper {
     width: 70%; /* Adjust the width of text wrapper */
     float: left; /* Float text to the left */
@@ -176,24 +184,24 @@
     border-radius: 5px; /* Add border radius if needed */
 }
 
-  .card {
+.card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%; /* Ensure the card takes full height of its container */
-  }
+}
 
-  .card-image {
+.card-image {
     width: 80px;
     height: auto;
     margin: 0 auto;
-  }
+}
 
-  .hide-content {
-    display: display;
-  }
+.hide-content {
+    display: none;
+}
 
-  .what-we-do .text-wrapper {
+.what-we-do .text-wrapper {
     width: 70%; /* Adjust the width of text wrapper */
     float: right; /* Float text to the right */
 }
@@ -207,45 +215,46 @@
     padding-bottom: 10px; /* Add padding to the bottom of the image */
 }
 
-.what-we-do .side-image{
+.what-we-do .side-image {
     width: 100%; /* Ensure the image fills the wrapper */
     height: auto;
     border-radius: 5px; /* Add border radius if needed */
-    padding-top:10px;
+    padding-top: 10px;
 }
-.bottom-card{
-    background-color:#8A2BE2;
+
+.bottom-card {
+    background-color: #8A2BE2;
     padding-bottom: 100px;
 }
 
-.bottom-card h3{
+.bottom-card h3 {
     color: #FFFFFF;
 }
 
-.bottom-card p{
+.bottom-card p {
     color: #FFFFFF;
 }
+
 .bottom-card .card-image {
     padding-top: 10px;
-  }
+}
 
-  .why-use-us-section{
-    padding-top:15px;
-  }
+.why-use-us-section {
+    padding-top: 15px;
+}
 
-  .why-use-us-section h2{
+.why-use-us-section h2 {
     font-size: 28px;
-    text-align:center;
+    text-align: center;
     width: 100%; /* Make text and image wrappers full width on smaller screens */
-    padding-left:70%;
+    padding-left: 70%;
+}
 
-  }
+.why-use-us-section h3 {
+    padding: 20px;
+}
 
-  .why-use-us-section h3{
-    padding:20px;
-  }
-
-  /* Why Use Us Section */
+/* Why Use Us Section */
 .why-use-us-section {
     /* Add styles for the section container */
     display: flex; /* Use flexbox */
@@ -256,25 +265,21 @@
 /* Align text and image wrappers */
 .why-use-us-section .text-wrapper {
     width: 50%; /* Adjust the width of the text wrapper */
-    float:left;
-    padding-right:20px;
-    padding-left:40px;
+    float: left;
+    padding-right: 20px;
+    padding-left: 40px;
     padding-bottom: 20px;
 }
-
-
 
 .why-use-us-section .side-image {
     max-width: 50%; /* Ensure the image fits within the container */
     height: auto;
     border-radius: 5px; /* Add border radius if needed */
-    text-align:center;
+    text-align: center;
     padding-top: 20%;
     padding-left: 20px;
     margin-bottom: 100px;
 }
-
-
 
 /* Icon Image */
 .icon-img {
@@ -292,15 +297,15 @@
     height: 2px; /* Adjust the thickness of the shadow */
     background: rgba(0, 0, 0, 0.2); /* Shadow color and opacity */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add elevation and adjust shadow parameters */
-  }
+}
 
-  /*Navbar*/
-  /* Circular Button Styles */
-   .router-link {
+/*Navbar*/
+/* Circular Button Styles */
+.router-link {
     text-decoration: none; /* Remove underline */
-  }
+}
 
-  .circle-button {
+.circle-button {
     width: 50px; /* Adjust width and height for desired size */
     height: 50px;
     border-radius: 50%; /* Make it circular */
@@ -313,17 +318,16 @@
     align-items: center;
     justify-content: center;
     text-decoration: none; /* Remove underline */
-  }
+}
 
-  /* Plus Sign Styles */
-  .plus-sign {
+/* Plus Sign Styles */
+.plus-sign {
     position: relative;
     z-index: 1;
-  }
+}
 
-
-  /* Bottom Navbar Styles */
-  .bottom-navbar {
+/* Bottom Navbar Styles */
+.bottom-navbar {
     display: flex;
     justify-content: center; /* Center align items horizontally */
     position: fixed; /* Fixed position at the bottom */
@@ -332,11 +336,46 @@
     background-color: #ffffff; /* Navbar background color */
     padding: 10px 0; /* Adjust padding as needed */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add elevation */
-    padding-top:5px;
+    padding-top: 5px;
+}
+
+.show-more-btn {
+    display: none;
+}
+
+.custom-carousel .v-carousel-item {
+    background-color: transparent; /* Set background color to transparent */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
   }
 
-  .show-more-btn {
-    display: none;
+  .custom-carousel .v-carousel-item__outer {
+    padding: 0; /* Remove padding around carousel items */
+  }
+
+  .custom-carousel .v-carousel__controls {
+    display: none; /* Hide carousel controls (next/prev buttons) */
+  }
+
+  .custom-carousel .v-window {
+    overflow: visible !important; /* Ensure content overflow is visible */
+  }
+
+.custom-carousel {
+    margin-bottom: 2rem;
+  }
+
+  .custom-carousel .v-card {
+    max-width: 344px;
+    background-color: #FFA726;
+    margin: auto;
+  }
+
+  .small-image {
+    width: 260px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 0 auto 10px auto; /* Center the image and add some margin at the bottom */
   }
 
   /* Carrier Dashboard CSS */
@@ -625,115 +664,113 @@
 /* Mobile Phones for Landing Page */
 
 @media only screen and (max-width: 600px) {
-
-
-
     .banner-title {
-        font-size: 24px; /* Adjust title font size for smaller screens */
+        font-size: 24px;
       }
 
       .banner-slogan {
-        font-size: 16px; /* Adjust slogan font size for smaller screens */
+        font-size: 16px;
       }
 
-
-    .text-wrapper, .image-wrapper {
-      width: 100%; /* Make text and image wrappers full width on smaller screens */
-      float: none; /* Remove float */
-      text-align: left; /* Align text to the left */
-      padding-top: 0; /* Remove padding */
-    }
-
-    .about-us h2, .what-we-do h2 {
-        font-size: 24px; /* Increase the font size for emphasis */
-        margin-bottom: 10px; /* Increase the bottom margin for spacing */
-      }
-      .about-us h3, .what-we-do h3 {
-        font-size: 18px; /* Increase the font size for emphasis */
+      .text-wrapper,
+      .image-wrapper {
+        width: 100%;
+        float: none;
+        text-align: left;
+        padding-top: 0;
       }
 
-      .about-us p, .what-we-do p {
-        font-size: 16px; /* Increase the font size for emphasis */
-        margin-bottom: 10px; /* Increase the bottom margin for spacing */
+      .about-us h2,
+      .what-we-do h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
       }
 
-    .custom-rounded-card {
-      padding: 20px 10px; /* Adjust padding for smaller screens */
-    }
+      .about-us h3,
+      .what-we-do h3 {
+        font-size: 18px;
+      }
 
-    .side-image {
-      border-radius: 0; /* Remove border radius for image */
-    }
+      .about-us p,
+      .what-we-do p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
 
-    .what-we-do .text-wrapper, .what-we-do .image-wrapper {
-      width: 100%; /* Make text and image wrappers full width on smaller screens */
-      float: none; /* Remove float */
-      text-align: right; /* Align text to the right */
-      padding-top: 0; /* Remove padding */
-    }
+      .custom-rounded-card {
+        padding: 20px 10px;
+      }
 
-    .what-we-do .custom-rounded-card {
-      padding: 20px 10px; /* Adjust padding for smaller screens */
-    }
+      .side-image {
+        border-radius: 0;
+      }
 
-    .what-we-do .side-image {
-      border-radius: 0; /* Remove border radius for image */
-    }
+      .what-we-do .text-wrapper,
+      .what-we-do .image-wrapper {
+        width: 100%;
+        float: none;
+        text-align: right;
+        padding-top: 0;
+      }
 
+      .what-we-do .custom-rounded-card {
+        padding: 20px 10px;
+      }
+
+      .what-we-do .side-image {
+        border-radius: 0;
+      }
 
       .bottom-card .card-image {
-        width: 30px; /* Adjust image size for smaller screens */
+        width: 30px;
         padding-top: 10px;
       }
 
       .bottom-card h3 {
-        font-size: 13px; /* Adjust heading font size for smaller screens */
+        font-size: 13px;
       }
 
       .bottom-card p {
-        font-size: 10px; /* Adjust paragraph font size for smaller screens */
+        font-size: 10px;
       }
 
       .why-use-us-section {
         display: flex;
-        flex-direction: column; /* Stack items vertically on smaller screens */
-    }
+        flex-direction: column;
+      }
 
-    .why-use-us-section .text-wrapper {
+      .why-use-us-section .text-wrapper {
         width: 100%;
-        padding-right: 40px; /* Add some spacing between text and image */
-    }
+        padding-right: 40px;
+      }
 
-    .why-use-us-section .side-image {
-        max-width: 100%; /* Ensure the image takes full width */
+      .why-use-us-section .side-image {
+        max-width: 100%;
         height: auto;
-        border-radius: 5px; /* Add border radius if needed */
-        padding-top: 20px; /* Add some padding */
-    }
+        border-radius: 5px;
+        padding-top: 20px;
+      }
 
-    .why-use-us-section h2{
+      .why-use-us-section h2 {
         font-size: 20px;
-        text-align:center;
-        width: 100%; /* Make text and image wrappers full width on smaller screens */
-        padding-left:5px;
-
+        text-align: center;
+        width: 100%;
+        padding-left: 5px;
       }
 
-      .why-use-us-section h3{
-        font-size:16px;
-        padding:20px;
+      .why-use-us-section h3 {
+        font-size: 16px;
+        padding: 20px;
       }
 
-      .why-use-us-section p{
-        font-size:14px;
+      .why-use-us-section p {
+        font-size: 14px;
       }
 
       .icon-img {
         width: 38px;
         height: 38px;
-        /* Add additional styles for the icon image if needed */
-    }
-
+      }
 
       .hide-content {
         display: none;
@@ -741,24 +778,22 @@
 
       .show-more-btn {
         display: inline-block;
-        padding: 8px 16px; /* Adjust padding for button size */
-        border: 1px solid #007bff; /* Button border */
-        background-color: #007bff; /* Button background color */
-        color: white; /* Button text color */
-        font-size: 14px; /* Button text size */
-        font-weight: bold; /* Button text weight */
-        border-radius: 4px; /* Button border radius */
-        cursor: pointer; /* Show pointer cursor on hover */
-        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
-
+        padding: 8px 16px;
+        border: 1px solid #007bff;
+        background-color: #007bff;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       .show-more-btn:hover {
-        background-color: #0056b3; /* Darker background color on hover */
+        background-color: #0056b3;
       }
 
       /*CSS for Carrier Dashboard*/
-
       .header {
         display: flex;
         flex-direction: column;

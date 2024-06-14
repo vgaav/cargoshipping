@@ -5,6 +5,11 @@
       :class="{ 'selected': isSelected }"
       @click="selectVehicle"
     >
+
+    <!--Filtering, Location, Time, and price
+    Dynamic and Time kasi we are talking about competitive market
+
+    -->
       <v-row>
         <v-col cols="4" class="vehicle-image-col">
           <img :src="image" alt="Vehicle Image" class="vehicle-image" />

@@ -21,6 +21,23 @@ class ItemController extends Controller
         $vehicles = Vehicle::all();
         return response()->json($vehicles);
     }
+
+    public function submitBid(Request $request)
+    {
+        $validatedData = $request->validate([
+            'item_id' => 'required|exists:items,id',
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'bid_amount' => 'required|numeric|min:0',
+        ]);
+
+        $bid = Bid::create([
+            'item_id' => $validatedData['item_id'],
+            'vehicle_id' => $validatedData['vehicle_id'],
+            'bid_amount' => $validatedData['bid_amount'],
+        ]);
+
+        return response()->json(['message' => 'Bid submitted successfully!', 'bid' => $bid], 201);
+    }
 }
 
     /*
