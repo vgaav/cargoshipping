@@ -1,6 +1,5 @@
 /*Raven Styles*/
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -151,7 +150,7 @@
     color: black;
 }
 
-/* Three cards at the bottom - landing page */
+
 .custom-rounded-card-about-us {
     overflow: hidden; /* Clear floats */
     padding: 5px;

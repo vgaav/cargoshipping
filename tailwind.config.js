@@ -1,12 +1,12 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
     content: [
-      "./src/**/*.{html,js,vue}", // Scans all files in src folder for Tailwind classes
-      "./resources/js/pages/**/*.vue" // Include all Vue files in the pages directory and subdirectories
+      './resources/**/*.blade.php',
+      './resources/**/*.js',
+      './resources/**/*.vue',
     ],
     theme: {
       extend: {},
     },
     plugins: [],
-  }
-s
+  };

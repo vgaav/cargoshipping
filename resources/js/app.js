@@ -3,6 +3,8 @@ import axios from 'axios';
 
 // Import your main Vue component
 import App from './App.vue';
+import '../css/app.css';
+
 
 // Import other components
 import NavBarVue from './components/NavBar.vue';
