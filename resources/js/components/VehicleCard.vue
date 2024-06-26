@@ -1,36 +1,34 @@
 <template>
-    <v-card
-      class="vehicle-card"
-      elevation="12"
-      :class="{ 'selected': isSelected }"
-      @click="selectVehicle"
-    >
-
-    <!--Filtering, Location, Time, and price
-    Dynamic and Time kasi we are talking about competitive market
-
-    -->
-      <v-row>
-        <v-col cols="4" class="vehicle-image-col">
-          <img :src="image" alt="Vehicle Image" class="vehicle-image" />
-        </v-col>
-        <v-col cols="8" class="vehicle-details-col">
-          <v-card-text>
-            <div class="vehicle-details">
-              <div class="vehicle-name">Vehicle: {{ vehicle.vehicle_name }}</div>
-              <div class="vehicle-type">Type: {{ vehicle.vehicle_type }}</div>
-              <div class="vehicle-capacity">Capacity: {{ vehicle.capacity }}kg</div>
-              <div :class="availabilityClass">{{ availabilityText }}</div>
-            </div>
-          </v-card-text>
-          <transition name="fade">
-            <div v-if="selectedVehicle === vehicle" class="vehicle-description">
-              <p>{{ vehicle.description }}</p>
-            </div>
-          </transition>
-        </v-col>
-      </v-row>
-    </v-card>
+    <div class="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-200 mt-4">
+      <div
+        class="flex items-center justify-between px-4 py-2 bg-gray-100 border-b border-gray-200"
+        :class="{ 'border-blue-500': isSelected }"
+        @click="selectVehicle"
+      >
+        <div class="flex items-center">
+          <img :src="image" alt="Vehicle Image" class="rounded-full h-16 w-16 object-contain mr-4">
+          <div class="text-lg font-semibold text-gray-800">
+            {{ vehicle.vehicle_name }}
+          </div>
+        </div>
+        <div class="text-sm text-gray-500">
+          {{ availabilityText }}
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="text-gray-600 text-sm mb-2">
+          Type: {{ vehicle.vehicle_type }}
+        </div>
+        <div class="text-gray-600 text-sm mb-2">
+          Capacity: {{ vehicle.capacity }}kg
+        </div>
+        <transition name="fade">
+          <div v-if="isSelected" class="mt-4 text-gray-700">
+            <p>{{ vehicle.description }}</p>
+          </div>
+        </transition>
+      </div>
+    </div>
   </template>
 
   <script>
@@ -56,13 +54,9 @@
       availabilityText() {
         return this.vehicle.availability === 1 ? 'Available' : 'Unavailable';
       },
-      availabilityClass() { // Add this computed property
-        return this.vehicle.availability === 1 ? 'available' : 'unavailable';
-      },
     },
     methods: {
       selectVehicle() {
-        // emit an event to the parent component
         this.$emit('select-vehicle', this.vehicle);
       },
     },
@@ -70,102 +64,10 @@
   </script>
 
   <style scoped>
-  .vehicle-card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Default margin */
-    border: 1px solid #ccc; /* Default border color */
-    padding: 10px; /* Default padding */
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
   }
-
-  .selected {
-    border: 2px solid #007bff; /* Highlighted border color */
+  .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
   }
-
-  .vehicle-image-col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .vehicle-image {
-    border-radius: 4px;
-    width: 80px; /* Default image width */
-    height: 80px;
-    object-fit: contain;
-    margin-right: 10px; /* Default margin */
-  }
-
-  .vehicle-details-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .vehicle-details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .vehicle-name {
-    font-size: 25px; /* Default font size */
-    font-weight: bold;
-    margin-bottom: 2px; /* Default margin */
-  }
-
-  .vehicle-type,
-  .vehicle-capacity,
-  .vehicle-availability {
-    font-size: 18px; /* Default font size */
-    margin-bottom: 2px; /* Default margin */
-  }
-
-  .vehicle-availability {
-    font-weight: bold;
-  }
-
-  .available {
-    color: green;
-  }
-
-  .unavailable {
-    color: red;
-    background-color: #ccc; /* Gray out the card */
-    pointer-events: none; /* Disable click events */
-  }
-
-    @media (max-width: 600px) {
-        .vehicle-card {
-          margin-top: 12px; /* Adjusted margin for screens up to 600px width */
-          padding: 6px; /* Adjusted padding for screens up to 600px width */
-        }
-
-        .vehicle-image {
-          width: 60px; /* Adjusted image width for screens up to 600px width */
-          height: 60px;
-        }
-
-        .vehicle-details-col {
-          flex-direction: column; /* Change layout for screens up to 600px width */
-        }
-
-        .vehicle-details {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .vehicle-name,
-        .vehicle-type,
-        .vehicle-capacity,
-        .vehicle-availability {
-          font-size: 11px; /* Adjusted font size for screens up to 600px width */
-        }
-        .unavailable {
-            color: red;
-            background-color: #ccc; /* Gray out the card */
-            pointer-events: none; /* Disable click events */
-          }
-      }
   </style>

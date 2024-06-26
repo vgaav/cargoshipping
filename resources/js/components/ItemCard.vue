@@ -1,29 +1,25 @@
 <template>
-    <v-card
-      class="item-card"
-      :class="{ hoverable: !isClicked }"
+    <div
+      class="item-card flex flex-col mx-auto my-2 border border-gray-300 rounded-lg bg-orange-400 overflow-hidden transition-transform duration-200 ease-in-out max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+      :class="{ 'hover:transform hover:scale-105': !isClicked }"
       @click="$emit('click', itemName)"
-      :elevation="hoverElevation"
     >
- <v-img :src="itemImage" alt="Item Image" class="item-image"></v-img>
-      <v-card-text>
-        <div class="item-details">
-          <div class="item-name">{{ itemName }}</div>
-          <div class="client"><b>Client:</b> {{ client }}</div>
-          <div class="weight"><b>Weight:</b> {{ weight }}</div>
-          <div class="from-to">
-            <b>From:</b> {{ from }}
-            <span class="arrow-symbol">➔</span>
-            <b>To:</b> {{ to }}
-          </div>
-          <div class="pickup-time"><b>Pickup Time:</b> {{ pickupTime }}</div>
-          <div class="drop-off-time"><b>Drop-off Time:</b> {{ dropOffTime }}</div>
-          <div class="quote"><b>Quote: P</b>{{ quote }}</div>
+    <img src="../../assets/package-alt.png" alt="Image" class="w-50 h-50 object-cover rounded-t-lg mx-auto">
+    <div class="item-details p-2 flex flex-col items-start">
+        <div class="item-name text-lg sm:text-xl font-bold mb-2 underline">{{ itemName }}</div>
+        <div class="client text-base sm:text-lg mt-1"><b>Client:</b> {{ client }}</div>
+        <div class="weight text-base sm:text-lg mt-1"><b>Weight:</b> {{ weight }}</div>
+        <div class="from-to text-base sm:text-lg mt-1">
+          <b>From:</b> {{ from }}
+          <span class="arrow-symbol mx-1">➔</span>
+          <b>To:</b> {{ to }}
         </div>
-      </v-card-text>
-    </v-card>
+        <div class="pickup-time text-base sm:text-lg mt-1"><b>Pickup Time:</b> {{ pickupTime }}</div>
+        <div class="drop-off-time text-base sm:text-lg mt-1"><b>Drop-off Time:</b> {{ dropOffTime }}</div>
+        <div class="quote text-base sm:text-lg mt-1"><b>Quote: P</b>{{ quote }}</div>
+      </div>
+    </div>
   </template>
-
 
   <script>
   export default {
@@ -67,91 +63,7 @@
       isClicked: {
         type: Boolean,
         default: false
-      },
-      hoverElevation: {
-        type: [Number, String],
-        default: 2
       }
     }
   }
   </script>
-
-
-<style scoped>
-.item-card {
-  display: flex;
-  flex-direction: column;
-  margin: 8px auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fab440;
-  overflow: hidden;
-  max-width: 400px; /* Adjust for smaller width on mobile */
-  transition: transform 0.2s ease-in-out;
-}
-
-.item-image {
-  width: 100%;
-  height: 200px; /* Adjust height as needed */
-  object-fit: cover; /* Ensure the image covers the entire area */
-  margin-top:10px;
-}
-
-.item-details {
-  padding: 10px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-}
-
-.item-name {
-  font-size: 1.2rem; /* Responsive font size */
-  font-weight: bold;
-  margin-bottom: 8px;
-  text-decoration: underline;
-}
-
-.client,
-.weight,
-.from-to,
-.pickup-time,
-.drop-off-time,
-.quote {
-  font-size: 1rem; /* Responsive font size */
-  margin-top: 4px;
-}
-
-.arrow-symbol {
-  margin: 0 4px;
-}
-
-.hoverable:hover {
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.item-card:hover {
-  transform: scale(1.05);
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .item-card {
-    max-width: 90%;
-  }
-  .item-details {
-    padding: 8px;
-  }
-  .item-name {
-    font-size: 1rem;
-  }
-  .client,
-  .weight,
-  .from-to,
-  .pickup-time,
-  .drop-off-time,
-  .quote {
-    font-size: 0.875rem; /* Smaller font size for smaller screens */
-  }
-}
-</style>
