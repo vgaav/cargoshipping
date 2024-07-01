@@ -49,11 +49,6 @@
 /*Maui Styles*/
 /* Landing Page Styles */
 /* Landing Page Styles */
-.black-box {
-    height: 7px; /* Adjust the height as needed */
-    background-color: #4E47C6;
-    width: 100%;
-}
 
 .landing-page {
     width: 100%;
@@ -155,7 +150,7 @@
     overflow: hidden; /* Clear floats */
     padding: 5px;
     width: 100%;
-    background-color: #FFA726;
+    background-color: #FF6B35;
 }
 
 .custom-rounded-card-what-we-do {
@@ -366,7 +361,7 @@
 
   .custom-carousel .v-card {
     max-width: 344px;
-    background-color: #FFA726;
+    background-color: #FF6B35;
     margin: auto;
   }
 
@@ -378,12 +373,20 @@
   }
 
   /* Carrier Dashboard CSS */
-
 /* General Styles */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+  }
+
 .carrier-dashboard-page {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #EEF4ED;
+
 }
 
 .user-symbol {
@@ -438,7 +441,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    background-color: #4E47C6;
+    background-color: #FF6B35;
     color: #fff;
 }
 
@@ -499,16 +502,16 @@
     padding: 20px;
 }
 
-.item-card {
+/*.item-card {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: 16px auto;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #FAB440;
+    /*background-color: #FAB44;
     overflow: hidden;
-}
+}*/
 
 .item-image {
     width: 40%;
@@ -584,7 +587,7 @@
 
 /* Dialog and Item Info Styles */
 .custom-dialog .v-card {
-    background-color: #FFA726;
+    /*background-color: #FFA726;*/
     padding: 16px;
     border-radius: 8px;
 }

@@ -37,6 +37,7 @@ Route::post('register', [RegisterController::class, 'register']);
 // Route::post('/items', [ItemController::class, 'store']);
 Route::get('/items', [ItemController::class, 'index']);
 Route::get('/vehicles', [ItemController::class, 'getVehicles']);
+Route::post('/filterByVehicleType', [ItemController::class, 'filterByVehicleType']);
 Route::post('/submit-bid', [ItemController::class, 'submitBid'])->name('submit.bid');
 
 // Route::get('/items/{id}', [ItemController::class, 'show']);

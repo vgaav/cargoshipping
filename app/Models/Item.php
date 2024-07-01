@@ -10,6 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'item_name',
         'item_client',
         'item_weight',
@@ -25,8 +26,10 @@ class Item extends Model
         'item_status',
         'item_current_bids',
         'is_bid_placed',
-        'description',  // Add this line
+        'description',
+        'vehicle_type',  // Add this line
         'created_at',
         'updated_at'
     ];
 }
+

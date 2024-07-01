@@ -1,29 +1,35 @@
 <template>
     <div
-      class="item-card flex flex-col mx-auto my-2 border border-gray-300 rounded-lg bg-orange-400 overflow-hidden transition-transform duration-200 ease-in-out max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+      class="item-card relative flex flex-col border border-gray-300 rounded-lg overflow-hidden transition-transform duration-200 ease-in-out"
       :class="{ 'hover:transform hover:scale-105': !isClicked }"
       @click="$emit('click', itemName)"
     >
-    <img src="../../assets/package-alt.png" alt="Image" class="w-50 h-50 object-cover rounded-t-lg mx-auto">
-    <div class="item-details p-2 flex flex-col items-start">
-        <div class="item-name text-lg sm:text-xl font-bold mb-2 underline">{{ itemName }}</div>
-        <div class="client text-base sm:text-lg mt-1"><b>Client:</b> {{ client }}</div>
-        <div class="weight text-base sm:text-lg mt-1"><b>Weight:</b> {{ weight }}</div>
-        <div class="from-to text-base sm:text-lg mt-1">
-          <b>From:</b> {{ from }}
-          <span class="arrow-symbol mx-1">➔</span>
-          <b>To:</b> {{ to }}
+      <img src="../../assets/package-alt.png" alt="Image" class="w-full h-48 object-cover">
+      <div class="absolute inset-x-0 bottom-0 bg-gray-800 bg-opacity-75 p-4 text-white">
+        <div class="flex justify-between items-start">
+          <div class="flex flex-col">
+            <div class="text-lg font-bold"><b></b> P{{ quote }}</div>
+            <div class="text-sm">{{ itemName }}</div>
+          </div>
+          <div class="flex flex-col items-end">
+            <div class="text-sm"><b></b> {{ pickupTime }}</div>
+            <button @click="openBidModal" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+              Bid
+            </button>
+          </div>
         </div>
-        <div class="pickup-time text-base sm:text-lg mt-1"><b>Pickup Time:</b> {{ pickupTime }}</div>
-        <div class="drop-off-time text-base sm:text-lg mt-1"><b>Drop-off Time:</b> {{ dropOffTime }}</div>
-        <div class="quote text-base sm:text-lg mt-1"><b>Quote: P</b>{{ quote }}</div>
       </div>
     </div>
   </template>
 
+
   <script>
   export default {
     props: {
+      id: {
+        type: Number,
+        required: true
+      },
       itemName: {
         type: String,
         required: true
@@ -60,10 +66,24 @@
         type: Number,
         required: true
       },
+      vehicle_type: {
+        type: String,
+        required: true
+      },
       isClicked: {
         type: Boolean,
         default: false
       }
+    },
+    setup(props, { emit }) {
+      const openBidModal = () => {
+        emit('openBidModal');
+      };
+
+      return {
+        openBidModal
+      };
     }
-  }
-  </script>
+  };
+</script>
+

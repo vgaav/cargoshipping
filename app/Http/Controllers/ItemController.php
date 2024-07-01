@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Vehicle;
+use App\Models\Bid;
 use Illuminate\Http\Request;
-
 
 class ItemController extends Controller
 {
@@ -14,7 +14,6 @@ class ItemController extends Controller
         $items = Item::all();
         return response()->json($items);
     }
-
 
     public function getVehicles()
     {
@@ -38,9 +37,24 @@ class ItemController extends Controller
 
         return response()->json(['message' => 'Bid submitted successfully!', 'bid' => $bid], 201);
     }
+
+    public function filterByVehicleType(Request $request)
+    {
+        $validatedData = $request->validate([
+            'vehicle_type' => 'required|string',
+        ]);
+
+        $vehicleType = $validatedData['vehicle_type'];
+
+        $items = Item::where('vehicle_type', $vehicleType)->get();
+
+        return response()->json($items);
+    }
 }
 
     /*
+
+    ORIGINAL ITEM CONTROLLER
     public function index()
     {
         try {
