@@ -55,6 +55,8 @@
     margin: 0 auto;
     opacity: 0;
     transform: translateY(-20px);
+    background-color: #EEF4ED;
+
 }
 
 .animate-drop-down {

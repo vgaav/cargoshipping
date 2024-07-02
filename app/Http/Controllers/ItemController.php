@@ -33,10 +33,12 @@ class ItemController extends Controller
             'item_id' => $validatedData['item_id'],
             'vehicle_id' => $validatedData['vehicle_id'],
             'bid_amount' => $validatedData['bid_amount'],
+            'user_id' => 1, // Assign user_id as 1
         ]);
 
         return response()->json(['message' => 'Bid submitted successfully!', 'bid' => $bid], 201);
     }
+
 
     public function filterByVehicleType(Request $request)
     {

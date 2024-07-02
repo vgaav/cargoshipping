@@ -12,6 +12,7 @@
                     <v-main>
                         <div class="ongoing-text flex items-center space-x-2 text-sm font-semibold text-left mb-4">
                             <span>Choose What to Browse</span>
+                            <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon w-4 h-4 cursor-pointer" @click="showHelpModal('vehicle')" />
                         </div>
 
                         <div class="button-group flex justify-center p-1 space-x-4">
@@ -68,13 +69,6 @@
                                   type="number"
                                   required
                                 />
-                                <v-text-field
-                                  label="Minimum Bid"
-                                  v-model.number="minimumBid"
-                                  :rules="minimumBidRules"
-                                  type="number"
-                                  required
-                                />
                               </form>
                             </v-card-text>
                             <v-card-actions>
@@ -95,6 +89,7 @@
                           </v-card>
                         </v-dialog>
 
+                        <transition name="fade">
                         <div v-if="modalVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
                             <div class="bg-white p-6 rounded-lg w-full max-w-sm">
                                 <!--<img src="../../assets/package-alt.png" alt="Image" class="w-50 h-50 object-cover rounded-t-lg mx-auto"> -->
@@ -167,11 +162,12 @@
                                 </div>
                             </div>
                         </div>
+                    </transition>
 
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
                           <v-card>
-                            <v-card-title>Help~</v-card-title>
+                            <v-card-title>Help</v-card-title>
                             <v-card-text>{{ helpModalText }}</v-card-text>
                           </v-card>
                         </v-dialog>
@@ -226,6 +222,9 @@ import ItemCard from '../components/ItemCard.vue';
 import scooterDelivery from '../../assets/scooter.png';
 import vanDelivery from '../../assets/van.png';
 import ReviewAndConfirm from '../components/ReviewAndConfirm.vue';
+import moment from 'moment';
+
+
 
 const items = ref([]);
 const vehicles = ref([]);
@@ -341,6 +340,8 @@ const showHelpModal = (type) => {
     helpModalText.value = 'Deliveries for later are shipments that are scheduled to be delivered at a later date.';
   } else if (type === 'vehicleSelect') {
     helpModalText.value = 'This is where you can view your available vehicles. Select which vehicle will handle the delivery.';
+  }else if (type === 'vehicle') {
+    helpModalText.value = 'This is where you can view orders based on their vehicle type.';
   }
 };
 

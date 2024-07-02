@@ -8,13 +8,13 @@
       <div class="absolute inset-x-0 bottom-0 bg-gray-800 bg-opacity-75 p-4 text-white">
         <div class="flex justify-between items-start">
           <div class="flex flex-col">
-            <div class="text-lg font-bold"><b></b> P{{ quote }}</div>
+            <div class="text-lg font-bold"><b></b> ₱{{ quote }}</div>
             <div class="text-sm">{{ itemName }}</div>
           </div>
           <div class="flex flex-col items-end">
-            <div class="text-sm"><b></b> {{ pickupTime }}</div>
+            <div class="text-sm"><b></b> {{ formattedPickupTime }}</div>
             <button @click="openBidModal" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
-              Bid
+              BID
             </button>
           </div>
         </div>
@@ -24,6 +24,8 @@
 
 
   <script>
+  import moment from 'moment';
+
   export default {
     props: {
       id: {
@@ -80,10 +82,12 @@
         emit('openBidModal');
       };
 
+      const formattedPickupTime = moment(props.pickupTime).fromNow();
+
       return {
-        openBidModal
+        openBidModal,
+        formattedPickupTime
       };
     }
   };
-</script>
-
+  </script>
