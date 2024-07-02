@@ -90,79 +90,80 @@
                         </v-dialog>
 
                         <transition name="fade">
-                        <div v-if="modalVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-                            <div class="bg-white p-6 rounded-lg w-full max-w-sm">
-                                <!--<img src="../../assets/package-alt.png" alt="Image" class="w-50 h-50 object-cover rounded-t-lg mx-auto"> -->
+                            <div v-if="modalVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+                              <div class="bg-white p-6 rounded-lg w-full max-w-sm max-h-screen overflow-auto">
                                 <div class="bg-orange-400 rounded-t-lg p-3">
-                                    <div class="text-center text-lg mb-4">Shipping Information</div>
+                                  <div class="text-center text-lg mb-4">Shipping Information</div>
                                 </div>
                                 <div class="space-y-4">
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Order from:</label>
-                                        <span>{{ selectedItem.client }}</span>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Order from:</label>
+                                    <span>{{ selectedItem.client }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Ship Out Date:</label>
+                                    <span>{{ selectedItem.pickupTime }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Status: </label>
+                                    <span>{{ selectedItem.status }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Vehicle: </label>
+                                    <span>{{ selectedItem.vehicle_type }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Destination: </label>
+                                    <span>{{ selectedItem.destination }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Current Bids:</label>
+                                    <span>{{ selectedItem.currentBids }}</span>
+                                  </div>
+                                  <div class="flex justify-between border-b pb-2">
+                                    <label class="font-bold">Quote/Pricing:</label>
+                                    <span>{{ selectedItem.quote }}</span>
+                                  </div>
+                                  <button @click="showItemInfo = !showItemInfo" class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg">
+                                    Show Item Information
+                                  </button>
+                                  <transition name="fade">
+                                    <div v-if="showItemInfo" class="border border-gray-300 rounded-lg p-4 mt-4 bg-white space-y-2">
+                                      <div class="flex justify-between border-b pb-2">
+                                        <label class="font-bold">Description:</label>
+                                        <span>{{ selectedItem.itemName }}</span>
+                                      </div>
+                                      <div class="flex justify-between border-b pb-2">
+                                        <label class="font-bold">Length:</label>
+                                        <span>{{ selectedItem.length }} cm</span>
+                                      </div>
+                                      <div class="flex justify-between border-b pb-2">
+                                        <label class="font-bold">Width:</label>
+                                        <span>{{ selectedItem.width }} cm</span>
+                                      </div>
+                                      <div class="flex justify-between border-b pb-2">
+                                        <label class="font-bold">Height:</label>
+                                        <span>{{ selectedItem.height }} cm</span>
+                                      </div>
+                                      <div class="flex justify-between border-b pb-2">
+                                        <label class="font-bold">Weight:</label>
+                                        <span>{{ selectedItem.weight }} kg</span>
+                                      </div>
                                     </div>
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Ship Out Date:</label>
-                                        <span>{{ selectedItem.pickupTime }}</span>
-                                    </div>
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Status:</label>
-                                        <span>{{ selectedItem.status }}</span>
-                                    </div>
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Destination:</label>
-                                        <span>{{ selectedItem.destination }}</span>
-                                    </div>
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Current Bids:</label>
-                                        <span>{{ selectedItem.currentBids }}</span>
-                                    </div>
-                                    <div class="flex justify-between border-b pb-2">
-                                        <label class="font-bold">Quote/Pricing:</label>
-                                        <span>{{ selectedItem.quote }}</span>
-                                    </div>
-                                    <button @click="showItemInfo = !showItemInfo" class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg">
-                                        Show Item Information
-                                    </button>
-                                    <transition name="fade">
-                                        <div v-if="showItemInfo" class="border border-gray-300 rounded-lg p-4 mt-4 bg-white">
-                                            <div class="space-y-2">
-                                                <div class="flex justify-between border-b pb-2">
-                                                    <label class="font-bold">Description:</label>
-                                                    <span>{{ selectedItem.itemName }}</span>
-                                                </div>
-                                                <div class="flex justify-between border-b pb-2">
-                                                    <label class="font-bold">Length:</label>
-                                                    <span>{{ selectedItem.length }}cm</span>
-                                                </div>
-                                                <div class="flex justify-between border-b pb-2">
-                                                    <label class="font-bold">Width:</label>
-                                                    <span>{{ selectedItem.width }} cm</span>
-                                                </div>
-                                                <div class="flex justify-between border-b pb-2">
-                                                    <label class="font-bold">Height:</label>
-                                                    <span>{{ selectedItem.height }} cm</span>
-                                                </div>
-                                                <div class="flex justify-between border-b pb-2">
-                                                    <label class="font-bold">Weight:</label>
-                                                    <span>{{ selectedItem.weight }} kg</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </transition>
-                                    <div v-if="modalVisible" class="mt-4 flex justify-center space-x-4">
-                                        <template v-if="!bidPlaced">
-                                            <button class="bg-green-500 text-white py-2 px-4 rounded-lg" @click="showBidModal">Bid</button>
-                                            <button class="bg-red-500 text-white py-2 px-4 rounded-lg" @click="cancel">Cancel</button>
-                                        </template>
-                                        <template v-else>
-                                            <div class="text-center text-lg font-bold text-green-500">Bid has been placed</div>
-                                        </template>
-                                    </div>
+                                  </transition>
+                                  <div class="mt-4 flex justify-center space-x-4">
+                                    <template v-if="!bidPlaced">
+                                      <button class="bg-green-500 text-white py-2 px-4 rounded-lg" @click="showBidModal">Bid</button>
+                                      <button class="bg-red-500 text-white py-2 px-4 rounded-lg" @click="cancel">Cancel</button>
+                                    </template>
+                                    <template v-else>
+                                      <div class="text-center text-lg font-bold text-green-500">Bid has been placed</div>
+                                    </template>
+                                  </div>
                                 </div>
+                              </div>
                             </div>
-                        </div>
-                    </transition>
+                          </transition>
 
                         <!-- Help Modal -->
                         <v-dialog v-model="helpModalVisible" max-width="300">
@@ -221,6 +222,8 @@ import VehicleCard from '../components/VehicleCard.vue';
 import ItemCard from '../components/ItemCard.vue';
 import scooterDelivery from '../../assets/scooter.png';
 import vanDelivery from '../../assets/van.png';
+import pickupDelivery from '../../assets/pickup.png';
+import truckDelivery from '../../assets/truck.png';
 import ReviewAndConfirm from '../components/ReviewAndConfirm.vue';
 import moment from 'moment';
 
@@ -365,6 +368,7 @@ const showModal = (item) => {
     status: item.item_status, // Assuming this property exists on the item
     destination: item.item_destination,
     currentBids: item.item_current_bids, // Assuming this property exists on the item
+    vehicle_type: item.vehicle_type,
     isBidPlaced: item.is_bid_placed,
     quote: item.item_quote,
     itemName: item.description,
@@ -395,6 +399,10 @@ const getVehicleImage = (vehicleType) => {
     return scooterDelivery;
   } else if (vehicleType === 'Van') {
     return vanDelivery;
+  }else if (vehicleType === 'Pickup') {
+    return pickupDelivery;
+  }else if (vehicleType === 'Truck') {
+    return truckDelivery;
   }
 };
 </script>
