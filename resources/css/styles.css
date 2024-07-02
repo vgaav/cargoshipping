@@ -479,9 +479,9 @@
 }
 
 .deliveries-text {
-    font-size: 18px;
+    font-size: 10px;
     font-weight: bold;
-    padding-top: 10px;
+    padding-top: 5px;
     margin: 0 auto; /* center horizontally */
 }
 
@@ -497,12 +497,11 @@
     height: 25px;
 }
 
-.deliveries-later-text {
-    margin-top: 24px;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 20px;
-}
+.pb-16 {
+    padding-bottom: 4rem; /* Ensure padding to prevent Navbar overlap */
+  }
+
+
 
 /*.item-card {
     display: flex;

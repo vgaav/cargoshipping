@@ -1,5 +1,5 @@
 <template>
-    <div class="carrier-dashboard-page" ref="carrierDashboardPage">
+    <div class="carrier-dashboard-page pb-16" ref="carrierDashboardPage">
         <div class="dashboard">
             <div class="header">
                 <div class="website-name">BidGo</div>
@@ -21,7 +21,7 @@
                             <button class="vehicle-button flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-center" @click="filterItems('Pickup')">Pickup</button>
                             <button class="vehicle-button flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-center" @click="filterItems('Truck')">Truck</button>
                         </div>
-                        <div class="deliveries-text">Deliveries</div>
+                        <!--<div class="deliveries-text">Deliveries</div> -->
 
                         <!-- "Ongoing" Text Positioned Below "Deliveries" -->
                         <div class="ongoing-text flex items-center space-x-2 text-sm font-semibold text-left mb-4">
@@ -211,13 +211,14 @@
             </v-window>
         </div>
     </div>
-    <NavBar />
+    <NavbarAlternate />
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import NavBar from '../components/NavBar.vue';
+import NavbarAlternate from '../components/NavbarAlternate.vue';
 import VehicleCard from '../components/VehicleCard.vue';
 import ItemCard from '../components/ItemCard.vue';
 import scooterDelivery from '../../assets/scooter.png';

@@ -1,0 +1,57 @@
+<template>
+    <nav class="fixed bottom-0 left-0 w-full bg-orange-500 text-white flex justify-around py-2 shadow-lg">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('home')">
+        <img src="../../assets/home-nav.svg" alt="Home Icon" class="icon" />
+        <span class="label">Home</span>
+      </button>
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('mySale')">
+        <img src="../../assets/currency-nav.svg" alt="My Sale Icon" class="icon" />
+        <span class="label">My Sale</span>
+      </button>
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('add')">
+        <img src="../../assets/plus-nav.svg" alt="Add Icon" class="icon" />
+        <span class="label">Add</span>
+      </button>
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('myBids')">
+        <img src="../../assets/package-nav.svg" alt="My Bids Icon" class="icon" />
+        <span class="label">My Bids</span>
+      </button>
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('profile')">
+        <img src="../../assets/account-nav.svg" alt="Profile Icon" class="icon" />
+        <span class="label">Profile</span>
+      </button>
+    </nav>
+  </template>
+
+  <script>
+  export default {
+    methods: {
+      navigateTo(page) {
+        // Logic to navigate to different pages
+        console.log(`Navigating to ${page}`);
+        // Example: you can use Vue Router or any other method
+        this.$emit('navigate', page);
+      },
+    },
+  };
+  </script>
+
+  <style scoped>
+  button {
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #FF6B35; /* Hover effect */
+  }
+  nav {
+    height: 4rem; /* Adjust the height of the navbar */
+  }
+  .icon {
+    height: 1.5rem; /* Adjust the height of the icons */
+    margin-bottom: 0.25rem; /* Space between icon and label */
+  }
+  .label {
+    font-size: 0.75rem; /* Smaller text size */
+    margin-top: 0.25rem; /* Space between icon and label */
+  }
+  </style>
