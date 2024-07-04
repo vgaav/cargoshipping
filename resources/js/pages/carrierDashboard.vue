@@ -2,13 +2,6 @@
     <div class="carrier-dashboard-page pb-16" ref="carrierDashboardPage">
 
       <div class="dashboard">
-        <!--
-            <div class="header">
-                <div class="website-name">BidGo</div>
-                <div class="user-welcome">Welcome, [username]</div>
-            </div>
-          -->
-
             <v-window v-model="step">
 
                 <!-- Step 1: Items and Bidding View -->

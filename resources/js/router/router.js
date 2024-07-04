@@ -40,7 +40,7 @@ const routes = [
         component: CarrierTesting
       },
       {
-        path: '/my-bids',
+        path: '/my-bid',
         name: 'MyBids',
         component: MyBids,
       },

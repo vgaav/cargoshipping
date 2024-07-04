@@ -2,9 +2,9 @@
     <div>
         <h1>Items List</h1>
         <ul>
-            <li v-for="item in items" :key="item.id">
-                <h2>{{ item.item_name }}</h2>
-                <p>{{ item.description }}</p>
+            <li v-for="bid in bids" :key="bid.id">
+                <h2>{{ bid.item_id }}</h2>
+                <p>{{ bid.bid_amount }}</p>
                 <!-- Add more item details as needed -->
             </li>
         </ul>
@@ -17,7 +17,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            items: []
+            bids: []
         };
     },
     mounted() {
@@ -25,10 +25,10 @@ export default {
     },
     methods: {
       fetchItems() {
-        axios.get('/items')
+        axios.get('/bids')
           .then(response => {
             console.log("Response: " + response)
-            this.items = response.data;
+            this.bids = response.data;
 
           })
           .catch(error => {
@@ -39,6 +39,5 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add your styles here */
-</style>
+
+
