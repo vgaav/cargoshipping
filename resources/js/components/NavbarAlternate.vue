@@ -41,7 +41,7 @@
     transition: background-color 0.3s ease;
   }
   button:hover {
-    background-color: #FF6B35; /* Hover effect */
+    background-color: #ffff; /* Hover effect */
   }
   nav {
     height: 4rem; /* Adjust the height of the navbar */

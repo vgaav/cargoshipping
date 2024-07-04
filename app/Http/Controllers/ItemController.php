@@ -25,13 +25,11 @@ class ItemController extends Controller
     {
         $validatedData = $request->validate([
             'item_id' => 'required|exists:items,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
             'bid_amount' => 'required|numeric|min:0',
         ]);
 
         $bid = Bid::create([
             'item_id' => $validatedData['item_id'],
-            'vehicle_id' => $validatedData['vehicle_id'],
             'bid_amount' => $validatedData['bid_amount'],
             'user_id' => 1, // Assign user_id as 1
         ]);

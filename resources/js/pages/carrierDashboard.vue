@@ -1,10 +1,14 @@
 <template>
     <div class="carrier-dashboard-page pb-16" ref="carrierDashboardPage">
-        <div class="dashboard">
+
+      <div class="dashboard">
+        <!--
             <div class="header">
                 <div class="website-name">BidGo</div>
                 <div class="user-welcome">Welcome, [username]</div>
             </div>
+          -->
+
             <v-window v-model="step">
 
                 <!-- Step 1: Items and Bidding View -->
@@ -30,14 +34,10 @@
                         </div>
 
     <!-- Item Cards Section -->
-    <transition-group
+  <transition-group
     name="fade"
     tag="div"
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-    enter-active-class="transition-opacity duration-1000"
-    leave-active-class="transition-opacity duration-1000"
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
   >
     <ItemCard
       v-for="item in items"
@@ -102,11 +102,7 @@
                                   </div>
                                   <div class="flex justify-between border-b pb-2">
                                     <label class="font-bold">Ship Out Date:</label>
-                                    <span>{{ selectedItem.pickupTime }}</span>
-                                  </div>
-                                  <div class="flex justify-between border-b pb-2">
-                                    <label class="font-bold">Status: </label>
-                                    <span>{{ selectedItem.status }}</span>
+                                    <span>{{ selectedItem.formattedPickupTime }}</span>
                                   </div>
                                   <div class="flex justify-between border-b pb-2">
                                     <label class="font-bold">Vehicle: </label>
@@ -176,35 +172,8 @@
                     </v-main>
                 </v-window-item>
                 <v-window-item :value="2">
-                    <!-- Vehicle selection content goes here -->
-                    <div class="banner">
-                      <img src="../../assets/VehicleSelectionBanner.jpg" alt="Banner Image" />
-                      <div class="banner-overlay">
-                        <h1 class="banner-title">Select Vehicle</h1>
-                        <div class="nav-buttons">
-                          <span class="btn btn-primary" @click="step--">Back to Items</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <h2>Vehicle Selection <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon" @click="showHelpModal('vehicleSelect')" /></h2>
-                      <!-- Add your vehicle selection UI components here -->
-                      <div class="vehicle-cards">
-                        <VehicleCard
-                        v-for="(vehicle, index) in vehicles"
-                        :key="index"
-                        :vehicle="vehicle"
-                        :image="getVehicleImage(vehicle.vehicle_type)"
-                        :selected-vehicle="selectedVehicle"
-                        @select-vehicle="handleSelectVehicle"
-                      />
-                      </div>
-                    </div>
-                  </v-window-item>
-                  <v-window-item :value="3">
                     <ReviewAndConfirm
                     :selected-item="selectedItem"
-                    :selected-vehicle="selectedVehicle"
                     :bid-amount="bidAmount"
                   />
                   </v-window-item>
@@ -361,25 +330,27 @@ const confirmSelection = () => {
 
 const showModal = (item) => {
   modalVisible.value = true;
-  bidPlaced.value = item.isBidPlaced; // Assuming this property exists on the item
+  bidPlaced.value = item.isBidPlaced;
   selectedItem.value = {
     id: item.id,
     client: item.item_client,
     pickupTime: item.item_pickup_time,
-    status: item.item_status, // Assuming this property exists on the item
+    formattedPickupTime: moment(item.item_pickup_time).format('MMMM D, YYYY'),
+    status: item.item_status,
     destination: item.item_destination,
-    currentBids: item.item_current_bids, // Assuming this property exists on the item
+    currentBids: item.item_current_bids,
     vehicle_type: item.vehicle_type,
     isBidPlaced: item.is_bid_placed,
     quote: item.item_quote,
     itemName: item.description,
-    length: item.item_length, // Assuming these properties exist on the item
+    length: item.item_length,
     width: item.item_width,
     height: item.item_height,
     weight: item.item_weight,
     itemImage: item.item_image
   };
 };
+
 
 const cancel = () => {
   console.log('Cancel button clicked');

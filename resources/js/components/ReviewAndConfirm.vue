@@ -9,15 +9,19 @@
           <p><b>Pick-up time: </b>{{ selectedItem.pickupTime }}</p>
           <p><b>Destination: </b>{{ selectedItem.destination }}</p>
           <p><b>Current Bids: </b>{{ selectedItem.currentBids }}</p>
+          <p><strong>Vehicle:</strong> {{ selectedItem.vehicle_type }}</p>
           <p><b>Delivery Quote/Price: </b>{{ selectedItem.quote }}</p>
           <p><strong>Bid Amount:</strong> {{ bidAmount }}</p>
         </div>
+        <!--
         <div class="w-full">
           <h3 class="text-xl font-medium mb-4">Selected Vehicle:</h3>
           <p><b>Delivery Vehicle: </b>{{ selectedVehicle.vehicle_type }}</p>
           <p><b>Vehicle Capacity: </b>{{ selectedVehicle.capacity }}</p>
         </div>
+         -->
       </div>
+
       <div class="flex justify-center mt-6">
         <button
           class="bg-green-500 text-white font-semibold py-2 px-4 rounded transition duration-400 hover:bg-gray-500 hover:text-black hover:border-green-500 hover:border-2"
@@ -38,10 +42,6 @@
         type: Object,
         required: true,
       },
-      selectedVehicle: {
-        type: Object,
-        required: true,
-      },
       bidAmount: {
       type: Number,
       required: true
@@ -51,7 +51,6 @@
       confirm() {
         const bidData = {
           item_id: this.selectedItem.id,
-          vehicle_id: this.selectedVehicle.id,
           bid_amount: this.bidAmount, // or another field if you have a specific bid amount
         };
 

@@ -11,7 +11,6 @@ class Bid extends Model
 
     protected $fillable = [
         'item_id',
-        'vehicle_id',
         'bid_amount',
         'user_id', // Ensure user_id is fillable
     ];
@@ -19,10 +18,5 @@ class Bid extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
-    }
-
-    public function vehicle()
-    {
-        return $this->belongsTo(Vehicle::class);
     }
 }

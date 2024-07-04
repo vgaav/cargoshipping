@@ -5,6 +5,7 @@ import DashboardVue from '../pages/Dashboard.vue'
 import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
 import ItemListing from '../pages/ItemListing.vue'
 import CarrierTesting from '../pages/CarrierTesting.vue'
+import MyBids from '../pages/MyBids.vue'
 
 
 const routes = [
@@ -37,7 +38,12 @@ const routes = [
         path: '/carrier-testing',
         name: 'CarrierTesting',
         component: CarrierTesting
-      }
+      },
+      {
+        path: '/my-bids',
+        name: 'MyBids',
+        component: MyBids,
+      },
 
 ];
 

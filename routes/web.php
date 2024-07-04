@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\CarrierDashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\BidController;
 
 
 Route::get('/carrier-dashboard', [CarrierDashboardController::class, 'index']);
@@ -49,6 +50,10 @@ Route::get('/check-database', function () {
     $items = DB::table('items')->get();
     return view('check-database', ['items' => $items]);
 });
+
+//Getting Bids
+Route::get('/bids', [BidController::class, 'index']);
+Route::get('/my-bids', [BidController::class, 'myBids']);
 
 
 // Catch-all route to handle frontend routing
