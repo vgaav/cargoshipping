@@ -3,13 +3,15 @@
       <div class="container mx-auto px-3 py-5">
         <h1 class="text-2xl font-bold mb-5">My Bids</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div
+            <div
             v-for="bid in formattedBids"
             :key="bid.id"
             class="item-card relative flex flex-col border border-gray-300 rounded-lg overflow-hidden transition-transform duration-200 ease-in-out hover:transform hover:scale-105"
           >
-          <div class="text-lg font-bold">{{ bid.formattedPickupTime }}</div>
-            <img src="../../assets/package-alt.png" alt="Image" class="w-full h-48 object-cover">
+            <div class="p-4">
+              <div class="text-lg font-bold">{{ bid.formattedPickupTime }}</div>
+              <img src="../../assets/package-alt.png" alt="Image" class="w-full h-48 object-cover mt-2">
+            </div>
             <div class="absolute inset-x-0 bottom-0 bg-gray-800 bg-opacity-75 p-4 text-white">
               <div class="flex justify-between items-start">
                 <div class="flex flex-col">
@@ -17,12 +19,12 @@
                   <div class="text-sm">{{ bid.item.item_name }}</div>
                 </div>
                 <div class="flex flex-col items-end">
-                  <div class="text-sm">₱{{ bid.bid_amount }}</div>
-                  <button @click="openBidModal" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
-                    BID
-                  </button>
+                  <div class="text-xl font-bold mt-2">₱{{ bid.bid_amount }}</div>
                 </div>
               </div>
+              <button @click="openBidModal" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
+                BID
+              </button>
             </div>
           </div>
         </div>
@@ -57,7 +59,6 @@
     const months = duration.months();
     const days = duration.days();
     const hours = duration.hours();
-    const minutes = duration.minutes();
 
     const parts = [];
     if (months) parts.push(`${months} month${months > 1 ? 's' : ''}`);
@@ -88,6 +89,8 @@
   }
   .item-card {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .item-card img {
     width: 100%;
