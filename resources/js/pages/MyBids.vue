@@ -2,8 +2,12 @@
     <div class="MyBids-Page pb-16" ref="MyBidsPage">
       <div class="container mx-auto px-3 py-5">
         <h1 class="text-2xl font-bold mb-5">My Bids</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div
+        <transition-group
+          name="fade"
+          tag="div"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          <div
             v-for="bid in formattedBids"
             :key="bid.id"
             class="item-card relative flex flex-col border border-gray-300 rounded-lg overflow-hidden transition-transform duration-200 ease-in-out hover:transform hover:scale-105"
@@ -12,22 +16,24 @@
               <div class="text-lg font-bold">{{ bid.formattedPickupTime }}</div>
               <img src="../../assets/package-alt.png" alt="Image" class="w-full h-48 object-cover mt-2">
             </div>
-            <div class="absolute inset-x-0 bottom-0 bg-gray-800 bg-opacity-75 p-4 text-white">
+            <div class="absolute inset-x-0 bottom-0 bg-gray-800 bg-opacity-75 p-4 text-white flex flex-col space-y-2">
               <div class="flex justify-between items-start">
                 <div class="flex flex-col">
                   <div class="text-lg font-bold">₱{{ bid.item.item_quote }}</div>
                   <div class="text-sm">{{ bid.item.item_name }}</div>
                 </div>
                 <div class="flex flex-col items-end">
-                  <div class="text-xl font-bold mt-2">₱{{ bid.bid_amount }}</div>
+                  <div class="flex items-center space-x-2">
+                    <div class="text-xl font-bold">₱{{ bid.bid_amount }}</div>
+                  </div>
                 </div>
               </div>
-              <button @click="openBidModal" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
+              <button @click="openBidModal" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
                 BID
               </button>
             </div>
           </div>
-        </div>
+        </transition-group>
       </div>
       <navbar_alternate />
     </div>
@@ -65,7 +71,7 @@
     if (days) parts.push(`${days} day${days > 1 ? 's' : ''}`);
     if (hours) parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
 
-    return parts.length ? parts.join(', ') + ' from now' : 'less than a minute from now';
+    return parts.join(', ');
   };
 
   const formattedBids = computed(() => {
@@ -91,16 +97,26 @@
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   .item-card img {
     width: 100%;
     height: 192px; /* Ensuring the image height is 48x4 */
     object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
   }
   .item-card .bg-opacity-75 {
     background-color: rgba(0, 0, 0, 0.75);
   }
   .item-card .hover\\:transform:hover {
     transform: scale(1.05);
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
   </style>

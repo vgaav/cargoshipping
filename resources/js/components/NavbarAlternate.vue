@@ -1,22 +1,22 @@
 <template>
     <nav class="fixed bottom-0 left-0 w-full bg-orange-500 text-white flex justify-around py-2 shadow-lg">
-      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('home')">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('/CarrierDashboard')">
         <img src="../../assets/home-nav.svg" alt="Home Icon" class="icon" />
         <span class="label">Home</span>
       </button>
-      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('mySale')">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('/mySale')">
         <img src="../../assets/currency-nav.svg" alt="My Sale Icon" class="icon" />
         <span class="label">My Sale</span>
       </button>
-      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('add')">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('/add')">
         <img src="../../assets/plus-nav.svg" alt="Add Icon" class="icon" />
         <span class="label">Add</span>
       </button>
-      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('myBids')">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('/my-bid')">
         <img src="../../assets/package-nav.svg" alt="My Bids Icon" class="icon" />
         <span class="label">My Bids</span>
       </button>
-      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('profile')">
+      <button class="flex-1 text-center py-2 flex flex-col items-center" @click="navigateTo('/profile')">
         <img src="../../assets/account-nav.svg" alt="Profile Icon" class="icon" />
         <span class="label">Profile</span>
       </button>
@@ -27,10 +27,7 @@
   export default {
     methods: {
       navigateTo(page) {
-        // Logic to navigate to different pages
-        console.log(`Navigating to ${page}`);
-        // Example: you can use Vue Router or any other method
-        this.$emit('navigate', page);
+        this.$router.push(page);
       },
     },
   };
