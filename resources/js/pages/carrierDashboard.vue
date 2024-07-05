@@ -1,9 +1,23 @@
 <template>
-    <div class="carrier-dashboard-page pb-16" ref="carrierDashboardPage">
+    <div class="carrier-dashboard-page pb-20" ref="carrierDashboardPage">
+
+        <!--
+         To-Do:
+         -Add a My Sales Page
+         -Add a Product Page
+         -Add a Profile Page
+        -->
+
+            <!-- Notification and Search Icons -->
+            <div class="top-right-icons">
+                <!-- White circle behind search icon -->
+                <img src="../../assets/bell.svg" alt="Notification Icon" class="icon w-6 h-6" />
+                <img src="../../assets/magnify.svg" alt="Search Icon" class="icon w-6 h-6" />
+
+              </div>
 
       <div class="dashboard">
             <v-window v-model="step">
-
                 <!-- Step 1: Items and Bidding View -->
                 <v-window-item :value="1">
                     <v-main>

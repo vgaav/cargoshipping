@@ -1,10 +1,4 @@
-
 <template>
-    <div class="ongoing-text flex items-center space-x-2 text-sm font-semibold text-left mb-4">
-        <span>All Product</span>
-        <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon w-4 h-4 cursor-pointer" @click="showHelpModal('ongoing')" />
-    </div>
-
     <div class="max-w-xl mx-auto mt-6 p-6 bg-white shadow-lg rounded-lg">
       <h2 class="text-2xl font-semibold mb-6 text-center">Review and Confirm Transaction</h2>
       <div class="flex flex-col items-center mb-6">

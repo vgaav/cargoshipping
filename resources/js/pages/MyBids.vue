@@ -1,4 +1,11 @@
 <template>
+
+    <!--
+    To-Do:
+    -Viewable lowest bids sa card(Dapat nakikita yung lowest bid)
+    -
+
+    -->
     <div class="MyBids-Page pb-16" ref="MyBidsPage">
       <div class="container mx-auto px-3 py-5">
         <h1 class="text-2xl font-bold mb-5">My Bids</h1>
@@ -24,11 +31,14 @@
                 </div>
                 <div class="flex flex-col items-end">
                   <div class="flex items-center space-x-2">
-                    <div class="text-xl font-bold">₱{{ bid.bid_amount }}</div>
+                    <div class="flex flex-col items-end">
+                      <span class="text-xs text-gray-300">My Bid</span>
+                      <div class="text-xl font-bold">₱{{ bid.bid_amount }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <button @click="openBidModal" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
+              <button @click="openBidModal(bid)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
                 BID
               </button>
             </div>
@@ -36,6 +46,34 @@
         </transition-group>
       </div>
       <navbar_alternate />
+
+    <!-- Update Bid Modal -->
+    <!-- Update Bid Modal -->
+    <v-dialog v-model="updateBidModalVisible" max-width="400">
+        <v-card class="p-4 rounded-lg shadow-lg">
+          <v-card-title class="text-xl font-semibold mb-2">Update Bid</v-card-title>
+          <v-card-text>
+            <form class="space-y-4">
+              <v-text-field
+                label="Bid Amount"
+                v-model.number="updateBidAmount"
+                :rules="bidRules"
+                type="number"
+                required
+                class="w-full"
+              />
+            </form>
+          </v-card-text>
+          <v-card-actions class="flex justify-end space-x-2 mt-4">
+            <v-btn class="!bg-green-500 !text-white py-2 px-4 rounded-lg shadow-md hover:!bg-green-700" @click="confirmUpdateBid">
+              Update Bid
+            </v-btn>
+            <v-btn class="!bg-red-500 !text-white py-2 px-4 rounded-lg shadow-md hover:!bg-red-700" @click="cancelUpdateBid">
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </template>
 
@@ -46,6 +84,10 @@
   import moment from 'moment';
 
   const bids = ref([]);
+  const updateBidModalVisible = ref(false);
+  const updateBidAmount = ref(0);
+  const selectedBidId = ref(null);
+
 
   const fetchBids = async () => {
     try {
@@ -80,6 +122,26 @@
       formattedPickupTime: formatRelativeTime(bid.item.item_pickup_time)
     }));
   });
+
+  const openBidModal = (bid) => {
+  selectedBidId.value = bid.id;
+  updateBidAmount.value = bid.bid_amount;
+  updateBidModalVisible.value = true;
+};
+
+  const confirmUpdateBid = async () => {
+  try {
+    await axios.put(`/bids/${selectedBidId.value}`, { bid_amount: updateBidAmount.value });
+    fetchBids(); // Refresh the bids
+    updateBidModalVisible.value = false;
+  } catch (error) {
+    console.error('Error updating bid:', error);
+  }
+};
+
+const cancelUpdateBid = () => {
+  updateBidModalVisible.value = false;
+};
 
   onMounted(() => {
     fetchBids();
@@ -118,5 +180,8 @@
   }
   .fade-enter, .fade-leave-to {
     opacity: 0;
+  }
+  .text-xs {
+    font-size: 0.75rem;
   }
   </style>

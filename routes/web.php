@@ -55,6 +55,11 @@ Route::get('/check-database', function () {
 Route::get('/bids', [BidController::class, 'index']);
 Route::get('/my-bids', [BidController::class, 'myBids']);
 
+// Route for updating a bid (PUT request)
+Route::put('/bids/{id}', [BidController::class, 'update'])->name('bids.update');
+// Route for deleting a bid (DELETE request)
+Route::delete('/bids/{id}', [BidController::class, 'destroy'])->name('bids.destroy');
+
 
 // Catch-all route to handle frontend routing
 Route::get('/{pathMatch}', function () {

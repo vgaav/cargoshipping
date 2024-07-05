@@ -122,6 +122,19 @@
     margin-left: 10px;
 }
 
+.top-right-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .icon {
+    cursor: pointer;
+  }
+
+
 /* About Us and What We Do Section Styles */
 .about-us,
 .what-we-do {
