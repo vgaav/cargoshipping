@@ -6,6 +6,9 @@
          -Add a My Sales Page
          -Add a Product Page
          -Add a Profile Page
+         -Fix Styling
+         -Fix Bug(Pag lumilipat ng vehicle filter, nag fliflicker ng onti)
+         -Viewable lowest bids sa card(Dapat nakikita yung lowest bid)
         -->
 
             <!-- Notification and Search Icons -->
@@ -39,6 +42,8 @@
                             <span>All Product</span>
                             <img src="../../assets/help-circle.svg" alt="An example icon" class="help-icon w-4 h-4 cursor-pointer" @click="showHelpModal('ongoing')" />
                         </div>
+
+
 
     <!-- Item Cards Section -->
   <transition-group
