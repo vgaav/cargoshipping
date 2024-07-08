@@ -6,6 +6,7 @@ import CarrierDashboardVue from '../pages/CarrierDashboard.vue'
 import ItemListing from '../pages/ItemListing.vue'
 import CarrierTesting from '../pages/CarrierTesting.vue'
 import MyBids from '../pages/MyBids.vue'
+import AddItem from '../pages/AddItem.vue'
 
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
         path: '/my-bid',
         name: 'MyBids',
         component: MyBids,
+      },
+      {
+        path: '/add-item',
+        name: 'AddItem',
+        component: AddItem,
       },
 
 ];

@@ -282,7 +282,7 @@ const cancelDeleteBid = () => {
   }
   .container {
     max-width: 100%;
-    background-color: #EEF4ED;
+        background-color: #EEF4ED;
 
   }
   .item-card {
