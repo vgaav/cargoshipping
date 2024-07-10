@@ -6,6 +6,7 @@ import App from './App.vue';
 import '../css/app.css';
 
 
+
 // Import other components
 import NavBarVue from './components/NavBar.vue';
 import LeafletMap from './components/LeafletMap.vue';

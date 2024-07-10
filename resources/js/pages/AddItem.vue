@@ -1,15 +1,17 @@
 <template>
-    <div class="bg-eeF4ED min-h-screen">
-      <div class="container mx-auto px-3 py-5">
+    <div class="bg-eeF4ED min-h-screen relative">
+        <div class="absolute top-0 right-0 cursor-pointer">
+            <img src="../../assets/exit.svg" alt="An example icon" class="ml-2 w-10 h-10 cursor-pointer" @click="navigateToDashboard" />
+          </div>
+      <div class="flex-1 container mx-auto px-3 py-5">
         <v-window v-model="currentWindow" class="min-h-screen">
           <v-window-item :value="1">
             <div class="container mx-auto px-4 py-8 pb-16">
               <h2 class="text-2xl font-bold mb-4 flex items-center">
                 Vehicle Selection
-                <img src="../../assets/help-circle.svg" alt="Help Icon" class="ml-2 w-5 h-5 cursor-pointer" @click="showHelpModal('vehicleSelect')" />
               </h2>
               <div class="flex flex-wrap gap-4 justify-center">
-                <transition-group name="fade" tag="div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <transition-group name="fade" tag="div" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                   <VehicleCard
                     v-for="(vehicle, index) in vehicles"
                     :key="index"
@@ -17,54 +19,118 @@
                     :image="getVehicleImage(vehicle.vehicle_type)"
                     :selected-vehicle="selectedVehicle"
                     @select-vehicle="handleSelectVehicle"
-                    class="w-full sm:w-1/2 lg:w-1/4"
+                    class="w-full"
                   />
                 </transition-group>
               </div>
             </div>
-            <button @click="currentWindow = 2" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg">
-              Next: Add Item Information
-            </button>
           </v-window-item>
 
           <v-window-item :value="2">
             <div class="container mx-auto px-4 py-8 pb-16">
-              <h2 class="text-2xl font-bold mb-4">Add Item Information</h2>
+              <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+              <form @submit.prevent="submitForm" class="space-y-4">
+                <div>
+                  <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
+                  <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="itemPickupTime" class="block text-sm font-medium text-gray-700">Pickup Time</label>
+                    <input v-model="itemPickupTime" type="datetime-local" id="itemPickupTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                  <div>
+                    <label for="itemDropoffTime" class="block text-sm font-medium text-gray-700">Dropoff Time</label>
+                    <input v-model="itemDropoffTime" type="datetime-local" id="itemDropoffTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
+                </div>
+              </form>
+            </div>
+          </v-window-item>
+          <v-window-item :value="2">
+            <div class="container mx-auto px-4 py-8 pb-16">
+              <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+              <form @submit.prevent="submitForm" class="space-y-4">
+                <div>
+                  <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
+                  <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="itemPickupTime" class="block text-sm font-medium text-gray-700">Pickup Time</label>
+                    <input v-model="itemPickupTime" type="datetime-local" id="itemPickupTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                  <div>
+                    <label for="itemDropoffTime" class="block text-sm font-medium text-gray-700">Dropoff Time</label>
+                    <input v-model="itemDropoffTime" type="datetime-local" id="itemDropoffTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
+                </div>
+              </form>
+            </div>
+          </v-window-item>
+          <v-window-item :value="3">
+            <div class="container mx-auto px-4 py-8 pb-16">
+              <h2 class="text-2xl font-bold mb-4">Item Information</h2>
               <form @submit.prevent="submitForm" class="space-y-4">
                 <div>
                   <label for="itemName" class="block text-sm font-medium text-gray-700">Item Name</label>
                   <input v-model="itemName" type="text" id="itemName" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
                 </div>
                 <div>
-                  <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
-                  <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white  rounded-md border-gray-300 shadow-sm" required>
+                  <label for="itemWeight" class="block text-sm font-medium text-gray-700">Weight</label>
+                  <input v-model="itemQuote" type="number" id="itemWeight" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
                 </div>
+                <div>
+                    <label for="itemHeight" class="block text-sm font-medium text-gray-700">Height</label>
+                    <input v-model="itemQuote" type="number" id="itemHeight" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                  <div>
+                    <label for="itemWidth" class="block text-sm font-medium text-gray-700">Width</label>
+                    <input v-model="itemQuote" type="number" id="itemWidth" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
+                  <div>
+                    <label for="itemLength" class="block text-sm font-medium text-gray-700">Length</label>
+                    <input v-model="itemQuote" type="number" id="itemLength" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                  </div>
                 <div>
                   <label for="itemDescription" class="block text-sm font-medium text-gray-700">Description</label>
                   <textarea v-model="itemDescription" id="itemDescription" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required></textarea>
                 </div>
-                <!-- Add more fields as needed -->
-                <button type="submit" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg">Submit</button>
-                <button type="button" class="mt-4 bg-gray-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
+                <div class="flex space-x-4">
+                  <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
+                </div>
               </form>
             </div>
           </v-window-item>
         </v-window>
       </div>
-     <!-- <navbar-alternate />-->
+      <div class="fixed bottom-0 left-0 w-full bg-orange-500 text-white py-2 flex justify-center">
+        <button @click="goToNextWindow" class="w-full max-w-sm py-2">
+          Next
+        </button>
+      </div>
     </div>
   </template>
 
   <script setup>
   import { ref, onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
   import axios from 'axios';
   import VehicleCard from '../components/VehicleCard.vue';
-  import NavbarAlternate from '../components/NavbarAlternate.vue';
   import scooterDelivery from '../../assets/scooter.png';
   import vanDelivery from '../../assets/van.png';
   import pickupDelivery from '../../assets/pickup.png';
   import truckDelivery from '../../assets/truck.png';
+  import 'leaflet/dist/leaflet.css';
 
+
+  const router = useRouter();
   const vehicles = ref([]);
   const selectedVehicle = ref(null);
   const helpModalVisible = ref(false);
@@ -74,6 +140,8 @@
 
   const itemName = ref('');
   const itemQuote = ref('');
+  const itemPickupTime = ref('');
+  const itemDropoffTime = ref('');
   const itemDescription = ref('');
 
   const fetchVehicles = async () => {
@@ -123,8 +191,22 @@
     console.log('Form Submitted:', {
       itemName: itemName.value,
       itemQuote: itemQuote.value,
+      itemPickupTime: itemPickupTime.value,
+      itemDropoffTime: itemDropoffTime.value,
       itemDescription: itemDescription.value,
     });
+  };
+
+  const goToNextWindow = () => {
+    if (currentWindow.value === 1) {
+      currentWindow.value = 2;
+    } else if (currentWindow.value === 2) {
+        currentWindow.value = 3;
+    }
+  };
+
+  const navigateToDashboard = () => {
+    router.push('/CarrierDashboard');
   };
   </script>
 
@@ -135,4 +217,5 @@
   .help-icon {
     cursor: pointer;
   }
+
   </style>
