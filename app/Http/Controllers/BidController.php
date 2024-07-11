@@ -24,35 +24,31 @@ class BidController extends Controller
         return response()->json($bids);
     }
 
-    public function update(Request $request, $id)
-    {
-    // Validate the request data
-    $request->validate([
-        'bid_amount' => 'required|numeric|min:0',
-    ]);
+  // BidController.php
+  public function update(Request $request, $id)
+  {
+      $bid = Bid::find($id);
+      if (!$bid) {
+          return response()->json(['message' => 'Bid not found'], 404);
+      }
 
-    // Find the bid by ID
-    $bid = Bid::findOrFail($id);
+      $bid->bid_amount = $request->input('bid_amount');
+      $bid->save();
 
-    // Update the bid_amount field
-    $bid->bid_amount = $request->input('bid_amount');
-
-    // Save the updated bid
-    $bid->save();
-
-    return response()->json(['message' => 'Bid updated successfully', 'bid' => $bid]);
-    }
-
-
-    public function destroy($id)
-   {
-    // Find the bid by ID
-    $bid = Bid::findOrFail($id);
-
-    // Delete the bid
-    $bid->delete();
-
-    return response()->json(['message' => 'Bid deleted successfully']);
+      return response()->json(['message' => 'Bid updated successfully']);
   }
+
+  public function destroy($id)
+  {
+      $bid = Bid::find($id);
+      if (!$bid) {
+          return response()->json(['message' => 'Bid not found'], 404);
+      }
+
+      $bid->delete();
+
+      return response()->json(['message' => 'Bid deleted successfully']);
+  }
+
 }
 

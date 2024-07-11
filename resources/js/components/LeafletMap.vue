@@ -8,6 +8,7 @@
   <script>
   import { ref, onMounted } from 'vue';
   import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
 
   export default {
     name: 'LeafletMap',
@@ -15,18 +16,16 @@
       const mapContainer = ref(null);
 
       onMounted(() => {
+        const map = L.map(mapContainer.value).setView([14.6468, 121.1047], 14);
 
-        //Sets the X & Y Axis of the map
-        const map = L.map(mapContainer.value).setView([14.6468,121.1047], 14);
-
-        //Displays the tile
+        // Add OpenStreetMap tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Sample Pointer here
-        L.marker([14.6468,121.1047]).addTo(map)
-          .bindPopup('Marikina City.')
+        // Sample marker
+        L.marker([14.6468, 121.1047]).addTo(map)
+          .bindPopup('Marker Example')
           .openPopup();
       });
 
