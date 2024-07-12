@@ -52,15 +52,14 @@ class BidController extends Controller
       return response()->json(['message' => 'Bid deleted successfully']);
   }
 
-      public function lowestBids()
-    {
-        $lowestBids = Bid::select('item_id', DB::raw('MIN(bid_amount) as lowest_bid'))
-            ->groupBy('item_id')
-            ->with('item')
-            ->get();
+  public function lowestBids()
+  {
+      $lowestBids = Bid::select('item_id', DB::raw('MIN(bid_amount) as lowest_bid'))
+          ->groupBy('item_id')
+          ->get();
 
-        return response()->json($lowestBids);
-    }
+      return response()->json($lowestBids);
+  }
 
 }
 
