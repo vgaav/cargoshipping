@@ -25,55 +25,39 @@
               </div>
             </div>
           </v-window-item>
+          <v-window-item :value="2">
+            <div class="container mx-auto px-4 py-8 pb-16">
+                <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+                <form @submit.prevent="submitForm" class="space-y-4">
+                    <div>
+                        <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
+                        <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="itemPickupTime" class="block text-sm font-medium text-gray-700">Pickup Time</label>
+                            <input v-model="itemPickupTime" type="datetime-local" id="itemPickupTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                        </div>
+                        <div>
+                            <label for="itemDropoffTime" class="block text-sm font-medium text-gray-700">Dropoff Time</label>
+                            <input v-model="itemDropoffTime" type="datetime-local" id="itemDropoffTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="itemPickupLocation" class="block text-sm font-medium text-gray-700">Pickup Location</label>
+                        <input v-model="itemPickupLocation" type="text" id="itemPickupLocation" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                    </div>
+                    <div>
+                        <label for="itemDestination" class="block text-sm font-medium text-gray-700">Destination</label>
+                        <input v-model="itemDestination" type="text" id="itemDestination" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
+                    </div>
+                </form>
+            </div>
+        </v-window-item>
 
-          <v-window-item :value="2">
-            <div class="container mx-auto px-4 py-8 pb-16">
-              <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
-              <form @submit.prevent="submitForm" class="space-y-4">
-                <div>
-                  <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
-                  <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label for="itemPickupTime" class="block text-sm font-medium text-gray-700">Pickup Time</label>
-                    <input v-model="itemPickupTime" type="datetime-local" id="itemPickupTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                  </div>
-                  <div>
-                    <label for="itemDropoffTime" class="block text-sm font-medium text-gray-700">Dropoff Time</label>
-                    <input v-model="itemDropoffTime" type="datetime-local" id="itemDropoffTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                  </div>
-                </div>
-                <div class="flex space-x-4">
-                  <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
-                </div>
-              </form>
-            </div>
-          </v-window-item>
-          <v-window-item :value="2">
-            <div class="container mx-auto px-4 py-8 pb-16">
-              <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
-              <form @submit.prevent="submitForm" class="space-y-4">
-                <div>
-                  <label for="itemQuote" class="block text-sm font-medium text-gray-700">Quote/Pricing</label>
-                  <input v-model="itemQuote" type="number" id="itemQuote" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label for="itemPickupTime" class="block text-sm font-medium text-gray-700">Pickup Time</label>
-                    <input v-model="itemPickupTime" type="datetime-local" id="itemPickupTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                  </div>
-                  <div>
-                    <label for="itemDropoffTime" class="block text-sm font-medium text-gray-700">Dropoff Time</label>
-                    <input v-model="itemDropoffTime" type="datetime-local" id="itemDropoffTime" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm" required>
-                  </div>
-                </div>
-                <div class="flex space-x-4">
-                  <button type="button" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg" @click="goBackToVehicleSelection">Back</button>
-                </div>
-              </form>
-            </div>
-          </v-window-item>
           <v-window-item :value="3">
             <div class="container mx-auto px-4 py-8 pb-16">
               <h2 class="text-2xl font-bold mb-4">Item Information</h2>
@@ -108,6 +92,28 @@
               </form>
             </div>
           </v-window-item>
+          <v-window-item :value="4">
+            <div class="container mx-auto px-4 py-8 pb-16">
+                <h2 class="text-2xl font-bold mb-4">Insert Images</h2>
+                <form @submit.prevent="submitImages" class="space-y-4">
+                    <div>
+                        <label for="image1" class="block text-sm font-medium text-gray-700">Image 1</label>
+                        <input @change="handleFileChange($event, 0)" type="file" id="image1" accept="image/*" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div>
+                        <label for="image2" class="block text-sm font-medium text-gray-700">Image 2</label>
+                        <input @change="handleFileChange($event, 1)" type="file" id="image2" accept="image/*" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div>
+                        <label for="image3" class="block text-sm font-medium text-gray-700">Image 3</label>
+                        <input @change="handleFileChange($event, 2)" type="file" id="image3" accept="image/*" class="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="flex space-x-4">
+                        <button type="submit" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg">Submit Images</button>
+                    </div>
+                </form>
+            </div>
+        </v-window-item>
         </v-window>
       </div>
       <div class="fixed bottom-0 left-0 w-full bg-orange-500 text-white py-2 flex justify-center">
@@ -202,6 +208,9 @@
       currentWindow.value = 2;
     } else if (currentWindow.value === 2) {
         currentWindow.value = 3;
+    }
+    else if (currentWindow.value === 3) {
+        currentWindow.value = 4;
     }
   };
 
