@@ -57,8 +57,13 @@ Route::get('/my-bids', [BidController::class, 'myBids']);
 
 // Route for updating a bid (PUT request)
 Route::put('/bids/{id}', [BidController::class, 'update'])->name('bids.update');
+
 // Route for deleting a bid (DELETE request)
 Route::delete('/bids/{id}', [BidController::class, 'destroy'])->name('bids.destroy');
+
+//Get Lowest Bid
+Route::get('/lowest-bids', [BidController::class, 'lowestBids']);
+
 
 
 // Catch-all route to handle frontend routing

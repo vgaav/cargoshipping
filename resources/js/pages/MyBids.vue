@@ -11,6 +11,7 @@
             v-for="bid in formattedBids"
             :key="bid.id"
             class="item-card relative flex flex-col border border-gray-300 rounded-lg overflow-hidden transition-transform duration-200 ease-in-out hover:transform hover:scale-105"
+            @click="showModal(bid)"
           >
             <div class="p-4">
               <div class="text-lg font-bold">{{ bid.formattedPickupTime }}</div>
@@ -31,7 +32,7 @@
                   </div>
                 </div>
               </div>
-              <button @click="openBidModal(bid)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
+              <button @click.stop="openBidModal(bid)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full rounded-full">
                 BID
               </button>
               <button @click="openDeleteModal(bid.id)" class="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 w-full rounded-full">
@@ -87,8 +88,81 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <!-- Item Shipping/Item Information Modal -->
+      <transition name="fade">
+        <div v-if="modalVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+          <div class="bg-white p-6 rounded-lg w-full max-w-sm max-h-screen overflow-auto">
+            <div class="bg-orange-400 rounded-t-lg p-3">
+              <div class="text-center text-lg mb-4">Shipping Information</div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Order from:</label>
+                <span>{{ selectedItem.client }}</span>
+              </div>
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Ship Out Date:</label>
+                <span>{{ selectedItem.formattedPickupTime }}</span>
+              </div>
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Vehicle: </label>
+                <span>{{ selectedItem.vehicle_type }}</span>
+              </div>
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Destination: </label>
+                <span>{{ selectedItem.destination }}</span>
+              </div>
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Current Bids:</label>
+                <span>{{ selectedItem.currentBids }}</span>
+              </div>
+              <div class="flex justify-between border-b pb-2">
+                <label class="font-bold">Quote/Pricing:</label>
+                <span>{{ selectedItem.quote }}</span>
+              </div>
+              <button @click="showItemInfo = !showItemInfo" class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg">
+                Show Item Information
+              </button>
+              <transition name="fade">
+                <div v-if="showItemInfo" class="border border-gray-300 rounded-lg p-4 mt-4 bg-white space-y-2">
+                  <div class="flex justify-between border-b pb-2">
+                    <label class="font-bold">Description:</label>
+                    <span>{{ selectedItem.itemName }}</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-2">
+                    <label class="font-bold">Length:</label>
+                    <span>{{ selectedItem.length }} cm</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-2">
+                    <label class="font-bold">Width:</label>
+                    <span>{{ selectedItem.width }} cm</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-2">
+                    <label class="font-bold">Height:</label>
+                    <span>{{ selectedItem.height }} cm</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-2">
+                    <label class="font-bold">Weight:</label>
+                    <span>{{ selectedItem.weight }} kg</span>
+                  </div>
+                </div>
+              </transition>
+              <div class="mt-4 flex justify-center space-x-4">
+                <template v-if="!bidPlaced">
+                  <button class="bg-orange-400 text-white py-2 px-4 rounded-lg" @click="cancel">Back</button>
+                </template>
+                <template v-else>
+                  <div class="text-center text-lg font-bold text-green-500">Bid has been placed</div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
   </template>
+
 
 
   <script setup>
@@ -97,12 +171,18 @@
   import navbar_alternate from '../components/NavbarAlternate.vue';
   import moment from 'moment';
 
+
   const bids = ref([]);
   const updateBidModalVisible = ref(false);
   const updateBidAmount = ref(0);
   const selectedBidId = ref(null);
   const deleteModalVisible = ref(false);
   const bidToDelete = ref(null);
+
+  const modalVisible = ref(false);
+  const showItemInfo = ref(false);
+  const bidPlaced = ref(false);
+  const selectedItem = ref({});
 
   const fetchBids = async () => {
     try {
@@ -114,109 +194,100 @@
     }
   };
 
-  const formatRelativeTime = (pickupTime) => {
-    const now = moment();
-    const then = moment(pickupTime);
-    const duration = moment.duration(then.diff(now));
+const formattedBids = computed(() => {
+  return bids.value.map(bid => ({
+    ...bid,
+    formattedPickupTime: moment(bid.item.pickup_time).format('MMMM Do YYYY, h:mm:ss a')
+  }));
+});
 
-    const months = duration.months();
-    const days = duration.days();
-    const hours = duration.hours();
+const openBidModal = (bid) => {
+  updateBidModalVisible.value = true;
+  updateBidAmount.value = bid.bid_amount;
+  selectedBidId.value = bid.id;
+};
 
-    const parts = [];
-    if (months) parts.push(`${months} month${months > 1 ? 's' : ''}`);
-    if (days) parts.push(`${days} day${days > 1 ? 's' : ''}`);
-    if (hours) parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
-
-    return parts.join(', ');
-  };
-
-  const formattedBids = computed(() => {
-    return bids.value.map(bid => ({
-      ...bid,
-      formattedPickupTime: formatRelativeTime(bid.item.item_pickup_time)
-    }));
-  });
-
-  const openBidModal = (bid) => {
-    selectedBidId.value = bid.id;
-    updateBidAmount.value = bid.bid_amount;
-    updateBidModalVisible.value = true;
-  };
-
-  const confirmUpdateBid = async () => {
-    try {
-      await axios.put(`/bids/${selectedBidId.value}`, { bid_amount: updateBidAmount.value });
-      fetchBids(); // Refresh the bids
-      updateBidModalVisible.value = false;
-    } catch (error) {
-      console.error('Error updating bid:', error);
-    }
-  };
-
-  const cancelUpdateBid = () => {
+const confirmUpdateBid = async () => {
+  try {
+    await axios.put(`/bids/${selectedBidId.value}`, { bid_amount: updateBidAmount.value });
     updateBidModalVisible.value = false;
-  };
-
-  const openDeleteModal = (bidId) => {
-    bidToDelete.value = bidId;
-    deleteModalVisible.value = true;
-  };
-
-  const cancelDeleteBid = () => {
-    deleteModalVisible.value = false;
-  };
-
-  const confirmDeleteBid = async () => {
-    try {
-      await axios.delete(`/bids/${bidToDelete.value}`);
-      fetchBids(); // Refresh the bids
-      deleteModalVisible.value = false;
-    } catch (error) {
-      console.error('Error deleting bid:', error);
-    }
-  };
-
-  onMounted(() => {
     fetchBids();
-  });
-  </script>
+  } catch (error) {
+    console.error('Error updating bid:', error);
+  }
+};
 
+const cancelUpdateBid = () => {
+  updateBidModalVisible.value = false;
+};
+
+const openDeleteModal = (bidId) => {
+  deleteModalVisible.value = true;
+  bidToDelete.value = bidId;
+};
+
+const confirmDeleteBid = async () => {
+  try {
+    await axios.delete(`/bids/${bidToDelete.value}`);
+    deleteModalVisible.value = false;
+    fetchBids();
+  } catch (error) {
+    console.error('Error deleting bid:', error);
+  }
+};
+
+const cancelDeleteBid = () => {
+  deleteModalVisible.value = false;
+};
+
+const showModal = (bid) => {
+  selectedItem.value = {
+    client: bid.item.item_client,
+    formattedPickupTime: moment(bid.item.pickup_time).format('MMMM Do YYYY, h:mm:ss a'),
+    vehicle_type: bid.item.vehicle_type,
+    destination: bid.item.item_destination,
+    currentBids: bid.item.item_current_bids,
+    quote: bid.item.item_quote,
+    itemName: bid.item.description,
+    length: bid.item.item_length,
+    width: bid.item.item_width,
+    height: bid.item.item_height,
+    weight: bid.item.item_weight
+  };
+  modalVisible.value = true;
+  showItemInfo.value = false;
+};
+
+const cancel = () => {
+  modalVisible.value = false;
+};
+
+const showBidModal = () => {
+  bidPlaced.value = true;
+};
+
+onMounted(() => {
+  fetchBids();
+});
+</script>
 
 <style scoped>
 .MyBids-Page {
   background-color: #EEF4ED;
 }
-.container {
-  max-width: 100%;
-}
+
 .item-card {
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
-.item-card img {
-  width: 100%;
-  height: 192px; /* Ensuring the image height is 48x4 */
-  object-fit: cover;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
-.item-card .bg-opacity-75 {
-  background-color: rgba(0, 0, 0, 0.75);
-}
-.item-card .hover\\:transform:hover {
+
+.item-card:hover {
   transform: scale(1.05);
 }
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
-}
-.text-xs {
-  font-size: 0.75rem;
 }
 </style>
