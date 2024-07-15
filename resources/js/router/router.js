@@ -7,9 +7,21 @@ import ItemListing from '../pages/ItemListing.vue'
 import CarrierTesting from '../pages/CarrierTesting.vue'
 import MyBids from '../pages/MyBids.vue'
 import AddItem from '../pages/AddItem.vue'
+import ClientTutorial from '../components/ClientTutorial.vue'
+import CarrierTutorial from '../components/CarrierTutorial.vue'
 
 
 const routes = [
+    {
+        path: '/client-tutorial',
+        name: 'ClientTutorial',
+        component: ClientTutorial,
+      },
+      {
+        path: '/carrier-tutorial',
+        name: 'CarrierTutorial',
+        component: CarrierTutorial,
+      },
     {
         path: '/',
         name:'LandingPage',
