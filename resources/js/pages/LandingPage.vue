@@ -114,16 +114,6 @@
     // Add more items as needed
   ]);
 
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get('/items');
-      items.value = response.data;
-      console.log('Fetched items:', items.value);
-    } catch (error) {
-      console.error('Error fetching items:', error);
-    }
-  };
-
   // Function to toggle content visibility for Card 1
   const toggleContentCard1 = () => {
     showMoreCard1.value = !showMoreCard1.value;
